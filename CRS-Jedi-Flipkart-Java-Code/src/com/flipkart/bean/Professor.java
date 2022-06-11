@@ -49,4 +49,4 @@ public class Professor extends Admin{
     public void setList(List<Course> coursesTeaching) {
         this.coursesTeaching = coursesTeaching;
     }
-}
+

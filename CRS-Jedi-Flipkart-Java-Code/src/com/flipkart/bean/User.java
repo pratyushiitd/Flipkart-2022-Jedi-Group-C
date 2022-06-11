@@ -55,5 +55,5 @@ public class User {
     public String getEmail_id(){
         return this.email_id;
     }
-    
+
 }

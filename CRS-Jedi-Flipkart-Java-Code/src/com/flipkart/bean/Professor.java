@@ -2,7 +2,7 @@ package com.flipkart.bean;
 
 import java.util.List;
 
-public class Professor extends Admin{
+public class Professor extends User{
 
     public int professorId;
     public String department;
@@ -49,4 +49,5 @@ public class Professor extends Admin{
     public void setList(List<Course> coursesTeaching) {
         this.coursesTeaching = coursesTeaching;
     }
+}
 

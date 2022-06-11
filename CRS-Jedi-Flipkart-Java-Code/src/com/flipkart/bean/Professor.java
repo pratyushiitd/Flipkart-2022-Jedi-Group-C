@@ -1,12 +1,14 @@
 package com.flipkart.bean;
 
+import java.util.List;
+
 public class Professor extends Admin{
 
     public int professorId;
     public String department;
     public String designation;
     public String office;
-    public list<courses> coursesTeaching;
+    public List<Course> coursesTeaching;
 
     public int getProfessorId() {
         return professorId;
@@ -16,7 +18,7 @@ public class Professor extends Admin{
         this.professorId = professorId;
     }
 
-    public list<courses> getList() {
+    public List<Course> getList() {
         return coursesTeaching;
     }
 
@@ -44,7 +46,7 @@ public class Professor extends Admin{
         this.department = department;
     }
 
-    public void setList(list<course> coursesTeaching) {
+    public void setList(List<Course> coursesTeaching) {
         this.coursesTeaching = coursesTeaching;
     }
 }

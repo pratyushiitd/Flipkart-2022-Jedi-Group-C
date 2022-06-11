@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-public class Course {
+public class Course extends CourseCatalogue{
     public int courseID;
     public String courseName;
     public int professorID;

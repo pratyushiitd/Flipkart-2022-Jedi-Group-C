@@ -5,6 +5,17 @@ public class Billing {
     public int amount;
     public boolean status;
     public String payment_id;
+    public String transaction_id;
+
+    public Billing(int rollNo, int amount, boolean status, String payment_id) {
+        this.rollNo = rollNo;
+        this.amount = amount;
+        this.status = status;
+        this.payment_id = payment_id;
+    }
+
+    public Billing() {
+    }
 
     public String getPayment_id() {
         return payment_id;
@@ -18,6 +29,13 @@ public class Billing {
         return status;
     }
 
+    public String getTransaction_id() {
+        return transaction_id;
+    }
+
+    public String setTransaction_id(String transaction_id) {
+        return this.transaction_id = transaction_id;
+    }
     public void setStatus(boolean status) {
         this.status = status;
     }

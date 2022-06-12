@@ -1,4 +1,7 @@
 package com.flipkart.service;
 
-public class UserImpl {
+
+public class UserImpl implements UserInterface{
+
+    
 }

@@ -17,8 +17,4 @@ public interface StudentInterface {
 
     public void viewProfile(int studentid);
 
-    public void submitGrades(int courseID, int studentID, int grade);
-
-    public List<Student> getStudentsList(int courseID);
-
 }

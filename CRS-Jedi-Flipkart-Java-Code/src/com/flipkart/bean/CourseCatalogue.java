@@ -2,54 +2,31 @@ package com.flipkart.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.HashMap;
 public class CourseCatalogue{
 
-    private List<Course> courses;
-    private int semester;
-    public CourseCatalogue(List<Course> courses, int semester){
-        this.courses = courses;
-        this.semester = semester;
-    }
-    public CourseCatalogue(int semester){
-        this.semester = semester;
-        this.courses = new ArrayList<Course>();
-    }
-    public CourseCatalogue(){
-        this.courses = new ArrayList<Course>();
-    }
+    
+    public HashMap<Integer,List<Integer>> semCourses;
 
-    public List<Course> getCourses() {
-        return courses;
+    public CourseCatalogue() {
+        this.semCourses = new HashMap<Integer,List<Integer>>();
     }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public List<Integer> getCourses(int semester) {
+        return semCourses.get(semester);
     }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public void setSemester(int semester) {
-        this.semester = semester;
-    }
-
-    public void addCourse(Course course){
-        this.courses.add(course);
-    }
-
-    public void removeCourse(Course course){
-        this.courses.remove(course);
-    }
-
-    public int getCourseCount(){
-        return this.courses.size();
-    }
-
-    public void printCourses(){
-        for(Course course: this.courses){
-            System.out.println(course.getCourseName());
+    public void addCourse(int semester, int courseID) {
+        if(semCourses.containsKey(semester)){
+            semCourses.get(semester).add(courseID);
+        }
+        else{
+            List<Integer> courses = new ArrayList<Integer>();
+            courses.add(courseID);
+            semCourses.put(semester,courses);
         }
     }
+
+    public int getCourseCount(int semester) {
+        return semCourses.get(semester).size();
+    }
+
 }

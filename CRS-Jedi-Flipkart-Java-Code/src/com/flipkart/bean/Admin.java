@@ -1,8 +1,11 @@
 package com.flipkart.bean;
 
 public class Admin extends User{
-    public int adminID;
+    private int adminID;
 
+    public Admin(int adminId){
+        this.adminID = adminId;
+    }
     public int getAdminID() {
         return adminID;
     }

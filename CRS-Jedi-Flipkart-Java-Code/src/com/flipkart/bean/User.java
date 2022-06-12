@@ -1,12 +1,12 @@
 package com.flipkart.bean;
 
 public class User {
-    public String name;
-    public String role;
-    public int userID;
+    private String name;
+    private String role;
+    private int userID;
     private String password;
-    public int mobile;
-    public String email_id;
+    private int mobile;
+    private String email_id;
 
     public void setName(String name){
         this.name=name;

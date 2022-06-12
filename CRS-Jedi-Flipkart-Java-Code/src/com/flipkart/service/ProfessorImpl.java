@@ -28,7 +28,18 @@ public class ProfessorImpl implements ProfessorInterface{
         }
 
         @Override
-        public void viewCourse(int professorID) {
+        public void selectCoursestoTeach(int professorID, int courseID) {
 
         }
+
+        @Override
+        public void dropCoursestoTeach(int professorID, int courseID) {
+
+        }
+
+        @Override
+        public void viewCourses(int professorID) {
+
+        }
+
 }

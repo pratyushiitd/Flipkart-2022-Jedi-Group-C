@@ -1,4 +1,6 @@
 package com.flipkart.service;
 
-public class AdminImpl {
+public class AdminImpl implements AdminInterface {
+    
+
 }

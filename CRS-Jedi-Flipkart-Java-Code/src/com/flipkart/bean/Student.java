@@ -5,6 +5,8 @@ import java.util.List;
 public class Student extends User{
 
 
+    public List<Course> coursesEnrolled;
+
 
     private int rollNo;
     private int semester;
@@ -15,15 +17,43 @@ public class Student extends User{
 
     private boolean isRegistered;
 
-    public List<Course> getL() {
-        return l;
+    public Student(
+        String name, 
+        String role, 
+        int userID, 
+        String password, 
+        long mobile, 
+        String email_id,
+        int rollNo,
+        int semester,
+        char section,
+        String department,
+        float cg,
+        char gender){
+
+        super(name, role, userID, password, mobile, email_id);
+        this.rollNo = rollNo;
+        this.semester = semester;
+        this.section = section;
+        this.department = department;
+        this.cg = cg;
+        this.gender = gender;
     }
 
-    public void setL(List<Course> l) {
-        this.l = l;
+    public Student(){
+
+    }
+    
+    public List<Course> getCoursesEnrolled() {
+        return coursesEnrolled;
     }
 
-    List<Course>l;
+    public void setCoursesEnrolled(List<Course> coursesEnrolled) {
+        this.coursesEnrolled = coursesEnrolled;
+    }
+
+
+
     public String getDepartment() {
         return department;
     }
@@ -53,7 +83,7 @@ public class Student extends User{
     }
 
     public void setRegistered(boolean registered) {
-        isRegistered = registered;
+        this.isRegistered = registered;
     }
 
 

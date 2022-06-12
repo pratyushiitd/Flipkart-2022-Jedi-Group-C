@@ -1,13 +1,29 @@
 package com.flipkart.bean;
 
-public class User {
+public abstract class User {
     private String name;
     private String role;
     private int userID;
     private String password;
-    private int mobile;
+    private long mobile;
     private String email_id;
 
+
+    public User(int userID){
+        this.userID = userID;
+    }
+    //constructor for user
+    public User(String name, String role, int userID, String password, long mobile, String email_id) {
+        this.name = name;
+        this.role = role;
+        this.userID = userID;
+        this.password = password;
+        this.mobile = mobile;
+        this.email_id = email_id;
+    }
+    public User(){
+
+    }
     public void setName(String name){
         this.name=name;
     }
@@ -28,7 +44,7 @@ public class User {
         this.userID=userID;
     }
 
-    public int setUserID(){
+    public int getUserID(){
         return this.userID;
     }
 
@@ -40,11 +56,11 @@ public class User {
         return this.password;
     }
 
-    public void setMobile(int mobile){
+    public void setMobile(long mobile){
         this.mobile=mobile;
     }
 
-    public int getMobile(){
+    public long getMobile(){
         return this.mobile;
     }
 

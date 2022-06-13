@@ -2,13 +2,15 @@ package com.flipkart.service;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 ;
 public class StudentImpl implements StudentInterface{
 
         List<Student> students = new ArrayList<Student>();
 
-        
+        public GradeCard gc = new GradeCard();
         public void addCourse(int studentId, int courseid) {
             
         }
@@ -133,5 +135,13 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
-
+        // view grade card
+        public void viewGradeCard(int studentid) {
+                for(Student student : students) {
+                        if(student.getUserID() == studentid) {
+                                gc.printGrades();
+                                break;
+                        }
+                }
+        }
 }

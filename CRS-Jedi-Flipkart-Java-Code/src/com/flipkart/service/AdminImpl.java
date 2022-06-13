@@ -44,7 +44,7 @@ public class AdminImpl implements AdminInterface {
     public String addCourse() {
         List<Student> registeredStudents1=new ArrayList<>();
         RegisteredStudent registeredStudent=new RegisteredStudent();
-        registeredStudents1=registeredStudent.getRegisteredStudents();
+        registeredStudents1=registeredStudent.getRegisteredStudents(1);
         Course course=new Course("C1","course 1","P1",registeredStudents1,10);
         List<String> courseList=new ArrayList<>();
         //check if sem already present just update the list of courses(list of string) in hashmap else make a new list

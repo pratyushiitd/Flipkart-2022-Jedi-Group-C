@@ -1,5 +1,8 @@
 package com.flipkart.service;
-
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.flipkart.bean.User;
 
 public class UserImpl implements UserInterface{
 

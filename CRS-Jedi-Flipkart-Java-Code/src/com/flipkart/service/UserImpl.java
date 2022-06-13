@@ -1,5 +1,8 @@
 package com.flipkart.service;
-
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.flipkart.bean.User;
 
 public class UserImpl implements UserInterface{
 
@@ -53,7 +56,7 @@ public class UserImpl implements UserInterface{
     public boolean setname(String userId,String name) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setName(name);
                     return true;
                 }

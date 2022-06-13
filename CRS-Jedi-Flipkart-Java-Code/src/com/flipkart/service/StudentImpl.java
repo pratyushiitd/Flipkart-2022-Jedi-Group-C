@@ -19,11 +19,19 @@ public class StudentImpl implements StudentInterface{
                 Student student = new Student(
                         "John",
                         "student",
+<<<<<<< HEAD
                         "12345",
                         "password",
                         1234567890,
                         "abc@flipkart.com",
                         "1",
+=======
+                        "us1",
+                        "password",
+                        1234567890,
+                        "abc@flipkart.com",
+                        "s1",
+>>>>>>> 3c24676ecd8c37d0604e6df4d43d386ab90fb637
                         1,
                         'A',
                         "CSE",
@@ -104,7 +112,11 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
+<<<<<<< HEAD
        public void addCourseEnrolled(String studentid, int courseid) {
+=======
+       public void addCourseEnrolled(String studentid, String courseid) {
+>>>>>>> 3c24676ecd8c37d0604e6df4d43d386ab90fb637
                 for(Student student : students) {
                         if(student.getUserID().equals(studentid)) {
                                 student.getCoursesEnrolled().add(courseid);
@@ -113,7 +125,11 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
+<<<<<<< HEAD
         public void dropCourseEnrolled(String studentid, int courseid) {
+=======
+        public void dropCourseEnrolled(String studentid, String courseid) {
+>>>>>>> 3c24676ecd8c37d0604e6df4d43d386ab90fb637
                 for(Student student : students) {
                         if(student.getUserID().equals(studentid)) {
                                 student.getCoursesEnrolled().remove(courseid);
@@ -124,9 +140,15 @@ public class StudentImpl implements StudentInterface{
 
         // view student grade
         public void viewStudentGrade(String studentID){
+<<<<<<< HEAD
         // iterate over hash map
                 for(String key : studentGrade.keySet()) {
                         if(key.equals(studentID)) {
+=======
+                // iterate over hash map
+                for(String key : studentGrade.keySet()) {
+                        if(key == studentID) {
+>>>>>>> 3c24676ecd8c37d0604e6df4d43d386ab90fb637
                                 studentGrade.get(key).printGrades();
                                 break;
                         }

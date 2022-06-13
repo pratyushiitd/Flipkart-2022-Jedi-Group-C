@@ -8,6 +8,6 @@ public interface UserInterface {
     public boolean setname(String name);
     public boolean setrole(String role);
     public boolean setmobile(long mobile);
-    public boolean setemail(string email_id);
-    public boolean setpassword(string password);
+    public boolean setemail(String email_id);
+    public boolean setpassword(String password);
 }

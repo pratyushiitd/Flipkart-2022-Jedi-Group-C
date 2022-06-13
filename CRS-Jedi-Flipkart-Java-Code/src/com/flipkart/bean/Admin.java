@@ -2,17 +2,17 @@ package com.flipkart.bean;
 
 public class Admin extends User{
 
-    private int adminID;
+    private String adminID;
 
-    public Admin(String name, String role, int userID, String password, long mobile, String email_id, int adminID) {
+    public Admin(String name, String role, String userID, String password, long mobile, String email_id, String adminID) {
         super(name, role, userID, password, mobile, email_id);
         this.adminID = adminID;
     }
-    public int getAdminID() {
+    public String getAdminID() {
         return adminID;
     }
 
-    public void setAdminID(int adminID) {
+    public void setAdminID(String adminID) {
         this.adminID = adminID;
     }
 }

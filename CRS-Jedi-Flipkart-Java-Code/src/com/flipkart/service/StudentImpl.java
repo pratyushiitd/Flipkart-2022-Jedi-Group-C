@@ -33,7 +33,7 @@ public class StudentImpl implements StudentInterface{
                 students.add(student);
         }
         // delelete student from the list
-        public void deleteStudent(int studentid) {
+        public void deleteStudent(String studentid) {
                 for(Student student : students) {
                         if(student.getUserID() == studentid) {
                                 students.remove(student);
@@ -42,7 +42,7 @@ public class StudentImpl implements StudentInterface{
                 }
         }
         // update student details
-        public void updateStudent(int studentid, String name, String password, long mobile, String email_id, char section) {
+        public void updateStudent(String studentid, String name, String password, long mobile, String email_id, char section) {
                 for(Student student : students) {
                         if(student.getUserID() == studentid) {
                                 student.setName(name);
@@ -57,7 +57,7 @@ public class StudentImpl implements StudentInterface{
         // view student details
 
 
-        public void viewStudent(int studentid) {
+        public void viewStudent(String studentid) {
                 for(Student student : students) {
                         if(student.getUserID() == studentid) {
                                 System.out.println(student.getName());
@@ -95,7 +95,7 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
-        public void viewCoursesEnrolled(int studentid) {
+        public void viewCoursesEnrolled(String studentid) {
                 for(Student student : students) {
                         if(student.getUserID() == studentid) {
                                 System.out.println(student.getCoursesEnrolled());
@@ -104,7 +104,7 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
-       public void addCourseEnrolled(int studentid, int courseid) {
+       public void addCourseEnrolled(String studentid, String courseid) {
                 for(Student student : students) {
                         if(student.getUserID() == studentid) {
                                 student.getCoursesEnrolled().add(courseid);
@@ -113,7 +113,7 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
-        public void dropCourseEnrolled(int studentid, int courseid) {
+        public void dropCourseEnrolled(String studentid, String courseid) {
                 for(Student student : students) {
                         if(student.getUserID() == studentid) {
                                 student.getCoursesEnrolled().remove(courseid);
@@ -123,9 +123,9 @@ public class StudentImpl implements StudentInterface{
         }
 
         // view student grade
-        public void viewStudentGrade(int studentID){
+        public void viewStudentGrade(String studentID){
                 // iterate over hash map
-                for(Integer key : studentGrade.keySet()) {
+                for(String key : studentGrade.keySet()) {
                         if(key == studentID) {
                                 studentGrade.get(key).printGrades();
                                 break;

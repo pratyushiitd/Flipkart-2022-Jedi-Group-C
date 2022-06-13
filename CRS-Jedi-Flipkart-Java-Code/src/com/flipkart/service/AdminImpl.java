@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AdminImpl implements AdminInterface {
     List<Admin> admin=new ArrayList<Admin>();
-    HashMap<Integer,String> courseList=new HashMap<>();
+    HashMap<Integer,List<String>> courseListSem=new HashMap<>();
     @Override
     public void createAdmin() {
         Admin admin1=new Admin("admin1","admin","UA1","password1",
@@ -24,16 +24,19 @@ public class AdminImpl implements AdminInterface {
 
     @Override
     public Professor professorDetails(String professorID) {
+
         return null;
     }
 
     @Override
     public Student studentDetails(String studentID) {
+        Student student=
         return null;
     }
 
     @Override
     public boolean approveCourses(String studentID) {
+
         return false;
     }
 
@@ -43,14 +46,19 @@ public class AdminImpl implements AdminInterface {
         RegisteredStudent registeredStudent=new RegisteredStudent();
         registeredStudents1=registeredStudent.getRegisteredStudents();
         Course course=new Course("C1","course 1","P1",registeredStudents1,10);
-        courseList.put(1,"C1");
+        List<String> courseList=new ArrayList<>();
+        //check if sem already present just update the list of courses(list of string) in hashmap else make a new list
+        courseList.add("C1");
+        courseListSem.put(1,courseList);
         //courseList.add()
         return "C1";
     }
 
     @Override
     public boolean removeCourses(String courseID, int semester) {
-        return false;
+        System.out.println("Course removed:"+courseID);
+        (courseListSem.get(semester)).remove(courseID);
+        return true;
     }
 
 

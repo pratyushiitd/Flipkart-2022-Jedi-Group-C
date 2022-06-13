@@ -132,4 +132,15 @@ public class StudentImpl implements StudentInterface{
                         }
                 }
         }
+
+        // pay fees
+
+        public void payFees(int studentID, int courseID, float fees) {
+                for(Integer key : studentGrade.keySet()) {
+                        if(key == studentID) {
+                                // studentGrade.get(key).payFees(courseID, fees);
+                                break;
+                        }
+                }
+        }
 }

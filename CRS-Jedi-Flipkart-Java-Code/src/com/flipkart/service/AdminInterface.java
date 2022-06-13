@@ -6,7 +6,7 @@ import com.flipkart.bean.Student;
 import java.util.List;
 
 public interface AdminInterface {
-        public boolean addProfessor(String professorID,String courseID);
+        public boolean addProfessor(String professorID, List<String> courseList);
         public Professor professorDetails(List<Professor> professorsList, String professorID);
         public Student studentDetails(List<Student> studentList,String studentID);
         public boolean approveCourses(String studentID,List<Student> studentsList);

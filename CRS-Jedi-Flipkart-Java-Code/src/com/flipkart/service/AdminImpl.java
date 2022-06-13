@@ -10,6 +10,7 @@ import java.util.List;
 public class AdminImpl implements AdminInterface {
     List<Admin> admin=new ArrayList<Admin>();
     HashMap<Integer,List<String>> courseListSem=new HashMap<>();
+    HashMap<String,List<String>> professorList=new HashMap<>();
     @Override
     public void createAdmin() {
         Admin admin1=new Admin("admin1","admin","UA1","password1",
@@ -18,8 +19,8 @@ public class AdminImpl implements AdminInterface {
 
     }
     @Override
-    public boolean addProfessor(String professorID, String courseID) {
-
+    public boolean addProfessor(String professorID, List<String> courseList) {
+        professorList.put(professorID,courseList);
         return false;
     }
 
@@ -81,7 +82,7 @@ public class AdminImpl implements AdminInterface {
         //check if sem already present just update the list of courses(list of string) in hashmap else make a new list
         courseList.add("C1");
         courseListSem.put(1,courseList);
-        //courseList.add()
+        System.out.println("Course added:C1");
         return "C1";
     }
 

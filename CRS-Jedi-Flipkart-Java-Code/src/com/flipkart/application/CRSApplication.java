@@ -9,11 +9,18 @@ import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 
+import java.util.Scanner;
+
 
 public class CRSApplication {
-    //call all menus
-    UserInterface userRef=new UserImpl();
-    AdminInterface adminRef=new AdminImpl();
-    ProfessorInterface profRef=new ProfessorImpl();
-    StudentInterface studentRef=new StudentImpl();
+    public static void main(String args[])
+    {
+        Scanner ob=new Scanner(System.in);
+        System.out.println("Welcome to Course Registration System");
+        UserInterface userRef=new UserImpl();
+        AdminInterface adminRef=new AdminImpl();
+        ProfessorInterface profRef=new ProfessorImpl();
+        StudentInterface studentRef=new StudentImpl();
+
+    }
 }

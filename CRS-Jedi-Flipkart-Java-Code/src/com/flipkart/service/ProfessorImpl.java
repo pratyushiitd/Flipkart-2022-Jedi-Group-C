@@ -1,19 +1,10 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.Student;
+
+import java.util.List;
+
 public class ProfessorImpl implements ProfessorInterface{
-        
-        public void addCourse(int professorId,int courseid){
-            
-        }
-        
-        public void dropCourse(int professorid, int courseid){
-            
-        }
-        
-        public void viewCourses(int professorid){
-            
-        }
-        
         public void viewResults(int professorid){
             
         }
@@ -25,5 +16,30 @@ public class ProfessorImpl implements ProfessorInterface{
         public void viewProfile(int professorid){
             
         }
-        
+
+        @Override
+        public List<Student> getStudentsList(int courseID) {
+                return null;
+        }
+
+        @Override
+        public void submitGrades(int courseID, int studentID, int grade) {
+
+        }
+
+        @Override
+        public void selectCoursestoTeach(int professorID, int courseID) {
+
+        }
+
+        @Override
+        public void dropCoursestoTeach(int professorID, int courseID) {
+
+        }
+
+        @Override
+        public void viewCourses(int professorID) {
+
+        }
+
 }

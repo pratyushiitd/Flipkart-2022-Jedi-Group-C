@@ -17,6 +17,14 @@ public class Course{
         this.vacancy = vacancy;
     }
 
+    public List<Student> getStudentsEnrolled(int courseID) {
+        return studentsEnrolled;
+    }
+
+    public void setStudentsEnrolled(List<Student> studentsEnrolled) {
+        this.studentsEnrolled = studentsEnrolled;
+    }
+
     public Course() {
     }
 

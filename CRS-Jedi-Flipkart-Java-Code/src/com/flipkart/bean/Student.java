@@ -5,7 +5,7 @@ import java.util.List;
 public class Student extends User{
 
 
-    public List<Course> coursesEnrolled;
+    public List<Integer> coursesEnrolled;
 
 
     private int rollNo;
@@ -44,11 +44,11 @@ public class Student extends User{
 
     }
     
-    public List<Course> getCoursesEnrolled() {
+    public List<Integer> getCoursesEnrolled() {
         return coursesEnrolled;
     }
 
-    public void setCoursesEnrolled(List<Course> coursesEnrolled) {
+    public void setCoursesEnrolled(List<Integer> coursesEnrolled) {
         this.coursesEnrolled = coursesEnrolled;
     }
 

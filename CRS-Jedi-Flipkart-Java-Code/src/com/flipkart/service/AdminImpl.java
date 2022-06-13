@@ -12,9 +12,8 @@ public class AdminImpl implements AdminInterface {
     HashMap<Integer,List<String>> courseListSem=new HashMap<>();//list corresponding to list of courses
     HashMap<Professor,List<String>> professorList=new HashMap<>();//list corresponding to professorID
     @Override
-    public void createAdmin() {
-        Admin admin1=new Admin("admin1","admin","UA1","password1",
-                1234567890,"admin@gmail.com","A1");
+    public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID,String adminID) {
+        Admin admin1=new Admin(name,role,userId,password,mobile,emailID,adminID);
         admin.add(admin1);
 
     }
@@ -74,17 +73,23 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public String addCourse() {
-        List<Student> registeredStudents1=new ArrayList<>();
+    public String addCourse(Course course,int semester ) {
+        List<Student> registeredStudents=new ArrayList<>();
         RegisteredStudent registeredStudent=new RegisteredStudent();
-        registeredStudents1=registeredStudent.getRegisteredStudentList(1);
-        Course course=new Course("C1","course 1","P1",registeredStudents1,10);
+        registeredStudents=registeredStudent.getRegisteredStudentList(semester);
         List<String> courseList=new ArrayList<>();
-        //check if sem already present just update the list of courses(list of string) in hashmap else make a new list
-        courseList.add("C1");
-        courseListSem.put(1,courseList);
-        System.out.println("Course added:C1");
-        return "C1";
+        if(courseListSem.containsKey(semester)==true)
+        {
+            courseList=courseListSem.get(semester);
+            courseList.add(course.courseID);
+            courseListSem.put(semester,courseList);
+        }
+        else {
+            courseList.add(course.courseID);
+            courseListSem.put(semester,courseList);
+        }
+        System.out.println("Course added:"+course.courseName+" with course ID:"+course.courseID);
+        return course.courseID;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 
@@ -11,7 +12,9 @@ public interface AdminInterface {
                 public Professor professorDetails(List<Professor> professorsList, String professorID);
         public Student studentDetails(List<Student> studentList,String studentID);
         public boolean approveCourses(String studentID,List<Student> studentsList);
-        public String addCourse();
+        public String addCourse(Course course, int semester );
         public boolean removeCourses(String courseID,int semester);
-        public void createAdmin();
-}
+        public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
+                ,String adminID) ;
+
+        }

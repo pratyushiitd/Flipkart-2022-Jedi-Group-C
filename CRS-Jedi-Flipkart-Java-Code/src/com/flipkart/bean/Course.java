@@ -3,18 +3,30 @@ package com.flipkart.bean;
 import java.util.List;
 public class Course{
 
-    public int courseID;
+    public String courseID;
     public String courseName;
-    public int professorID;
+    public String professorID;
     public List<Student> studentsEnrolled;
-    public int vacancy; 
+    public int vacancy;
 
-    public Course(int courseID, String courseName, int professorID, List<Student> studenstEnrolled, int vacancy) {
+    public Course(String courseID, String courseName, String professorID, List<Student> studentsEnrolled, int vacancy) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.professorID = professorID;
-        this.studentsEnrolled = studenstEnrolled;
+        this.studentsEnrolled = studentsEnrolled;
         this.vacancy = vacancy;
+    }
+
+    public int getVacancy() {
+        return vacancy;
+    }
+
+    public void setVacancy(int vacancy) {
+        this.vacancy = vacancy;
+    }
+
+    public List<Student> getStudentsEnrolled() {
+        return studentsEnrolled;
     }
 
     public List<Student> getStudentsEnrolled(int courseID) {
@@ -25,14 +37,12 @@ public class Course{
         this.studentsEnrolled = studentsEnrolled;
     }
 
-    public Course() {
-    }
 
-    public int getCourseID() {
+    public String getCourseID() {
         return courseID;
     }
 
-    public void setCourseID(int courseID) {
+    public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
 
@@ -43,11 +53,11 @@ public class Course{
         return vacancy;
     }
 
-    public int getProfessorID() {
+    public String getProfessorID() {
         return professorID;
     }
 
-    public void setProfessorID(int professorID) {
+    public void setProfessorID(String professorID) {
         this.professorID = professorID;
     }
 

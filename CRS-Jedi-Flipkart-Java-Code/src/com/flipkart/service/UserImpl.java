@@ -72,7 +72,7 @@ public class UserImpl implements UserInterface{
     public boolean setrole(String userId,String role) {
         try{
             for(User user: users){
-                if(user.getUserID().equals( userID)){
+                if(user.getUserID().equals( userId)){
                     user.setRole(role);
                     return true;
                 }
@@ -88,7 +88,7 @@ public class UserImpl implements UserInterface{
     public boolean setmobile(String userId, long mobile) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setMobile(mobile);
                     return true;
                 }
@@ -105,7 +105,7 @@ public class UserImpl implements UserInterface{
     public boolean setemail(String userId, String email_id) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setEmail_id(email_id);
                     return true;
                 }
@@ -121,7 +121,7 @@ public class UserImpl implements UserInterface{
     public boolean setpassword(String userId, String password) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setPassword(password);
                     return true;
                 }

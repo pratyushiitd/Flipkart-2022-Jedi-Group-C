@@ -36,7 +36,7 @@ public class ProfessorImpl implements ProfessorInterface{
         }
         
         public void viewSchedule(String professorid){
-            
+
         }
         
         public void viewProfile(String professorid){

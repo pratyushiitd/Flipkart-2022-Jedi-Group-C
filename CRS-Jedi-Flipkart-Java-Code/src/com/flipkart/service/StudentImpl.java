@@ -2,7 +2,7 @@ package com.flipkart.service;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 ;
@@ -10,22 +10,9 @@ public class StudentImpl implements StudentInterface{
 
         List<Student> students = new ArrayList<Student>();
 
-        public GradeCard gc = new GradeCard();
-        public void addCourse(int studentId, int courseid) {
-            
-        }
+        //hashmap student grade
+        public HashMap<Integer, GradeCard> studentGrade = new HashMap<Integer, GradeCard>();
 
-        public void dropCourse(int studentid, int courseid) {
-            
-        }
-
-        public void viewResults(int studentid) {
-            
-        }   
-
-        public void viewSchedule(int studentid) {
-            
-        }
 
         // add student to the list
         public void addStudent() {
@@ -135,11 +122,12 @@ public class StudentImpl implements StudentInterface{
                 }
         }
 
-        // view grade card
-        public void viewGradeCard(int studentid) {
-                for(Student student : students) {
-                        if(student.getUserID() == studentid) {
-                                gc.printGrades();
+        // view student grade
+        public void viewStudentGrade(int studentID){
+                // iterate over hash map
+                for(Integer key : studentGrade.keySet()) {
+                        if(key == studentID) {
+                                studentGrade.get(key).printGrades();
                                 break;
                         }
                 }

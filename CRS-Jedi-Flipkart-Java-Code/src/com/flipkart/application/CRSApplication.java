@@ -1,16 +1,5 @@
 package com.flipkart.application;
 
-
-import com.flipkart.bean.Student;
-import com.flipkart.bean.CourseCatalogue;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Admin;
-import com.flipkart.bean.RegisteredStudent;
-import com.flipkart.bean.Billing;
-import com.flipkart.bean.User;
-import com.flipkart.bean.GradeCard;
-
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;

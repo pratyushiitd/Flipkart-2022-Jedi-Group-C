@@ -8,7 +8,7 @@ public class Student extends User{
     public List<Integer> coursesEnrolled;
 
 
-    private int rollNo;
+    private String rollNo;
     private int semester;
     private char section;
     private String department;
@@ -20,11 +20,11 @@ public class Student extends User{
     public Student(
         String name, 
         String role, 
-        int userID, 
+        String userID,
         String password, 
         long mobile, 
         String email_id,
-        int rollNo,
+        String rollNo,
         int semester,
         char section,
         String department,
@@ -87,11 +87,11 @@ public class Student extends User{
     }
 
 
-    public int getRollNo() {
+    public String getRollNo() {
         return rollNo;
     }
 
-    public void setRollNo(int rollNo) {
+    public void setRollNo(String rollNo) {
         this.rollNo = rollNo;
     }
 

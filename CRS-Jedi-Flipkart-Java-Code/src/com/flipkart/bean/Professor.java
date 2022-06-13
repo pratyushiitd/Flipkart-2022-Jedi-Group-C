@@ -6,7 +6,7 @@ public class Professor extends User{
 
 
 
-    public int professorId;
+    public String professorId;
     public String department;
     public String designation;
     public String office;
@@ -15,11 +15,11 @@ public class Professor extends User{
     public Professor(
         String name, 
         String role,
-        int userID,
+        String userID,
         String password,
         long mobile,
         String email_id,
-        int professorId,
+        String professorId,
         String department,
         String designation,
         String office,
@@ -38,11 +38,11 @@ public class Professor extends User{
     }
 
     
-    public int getProfessorId() {
+    public String getProfessorId() {
         return professorId;
     }
 
-    public void setProfessorId(int professorId) {
+    public void setProfessorId(String professorId) {
         this.professorId = professorId;
     }
 

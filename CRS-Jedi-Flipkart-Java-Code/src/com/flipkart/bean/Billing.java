@@ -1,13 +1,13 @@
 package com.flipkart.bean;
 
 public class Billing {
-    public int rollNo;
+    public String rollNo;
     public int amount;
     public boolean status;
     public String payment_id;
     public String transaction_id;
 
-    public Billing(int rollNo, int amount, boolean status, String payment_id) {
+    public Billing(String rollNo, int amount, boolean status, String payment_id) {
         this.rollNo = rollNo;
         this.amount = amount;
         this.status = status;
@@ -48,11 +48,11 @@ public class Billing {
         this.amount = amount;
     }
 
-    public int getRollNo() {
+    public String getRollNo() {
         return rollNo;
     }
 
-    public void setRollNo(int rollNo) {
+    public void setRollNo(String rollNo) {
         this.rollNo = rollNo;
     }
 }

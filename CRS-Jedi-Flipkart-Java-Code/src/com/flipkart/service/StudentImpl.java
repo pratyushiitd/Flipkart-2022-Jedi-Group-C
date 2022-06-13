@@ -143,14 +143,4 @@ public class StudentImpl implements StudentInterface{
                         }
                 }
         }
-        @Override
-        public List<Student> getStudents() {
-                // TODO Auto-generated method stub
-                return null;
-        }
-        @Override
-        public void setStudents(List<Student> students) {
-                // TODO Auto-generated method stub
-                
-        }
 }

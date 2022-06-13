@@ -56,7 +56,7 @@ public class UserImpl implements UserInterface{
     public boolean setname(String userId,String name) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setName(name);
                     return true;
                 }

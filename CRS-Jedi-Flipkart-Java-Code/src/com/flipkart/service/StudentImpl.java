@@ -19,11 +19,11 @@ public class StudentImpl implements StudentInterface{
                 Student student = new Student(
                         "John",
                         "student",
-                        1,
+                        "us1",
                         "password",
                         1234567890,
                         "abc@flipkart.com",
-                        1,
+                        "s1",
                         1,
                         'A',
                         "CSE",

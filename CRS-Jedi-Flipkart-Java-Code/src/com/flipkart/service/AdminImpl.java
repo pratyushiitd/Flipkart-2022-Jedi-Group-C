@@ -4,6 +4,7 @@ import com.flipkart.bean.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class AdminImpl implements AdminInterface {
@@ -23,20 +24,50 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public Professor professorDetails(String professorID) {
-
+    public Professor professorDetails(List<Professor> professorsList,String professorID) {
+        try{
+            for(Professor professor:professorsList){
+                if(professor.getProfessorId().equals(professorID)){
+                    return professor;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
         return null;
     }
 
     @Override
-    public Student studentDetails(String studentID) {
-        Student student=
+    public Student studentDetails(List<Student> studentsList,String studentID) {
+        try{
+            for(Student student:studentsList){
+                if(student.getRollNo().equals(studentID)){
+                    return student;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
         return null;
     }
 
     @Override
-    public boolean approveCourses(String studentID) {
-
+    public boolean approveCourses(String studentID,List<Student> studentsList) {
+        try{
+            for(Student student:studentsList){
+                if(student.getRollNo().equals(studentID)&&student.isRegistered()==true){
+                    return true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
         return false;
     }
 
@@ -44,7 +75,7 @@ public class AdminImpl implements AdminInterface {
     public String addCourse() {
         List<Student> registeredStudents1=new ArrayList<>();
         RegisteredStudent registeredStudent=new RegisteredStudent();
-        registeredStudents1=registeredStudent.getRegisteredStudents(1);
+        registeredStudents1=registeredStudent.getRegisteredStudentList(1);
         Course course=new Course("C1","course 1","P1",registeredStudents1,10);
         List<String> courseList=new ArrayList<>();
         //check if sem already present just update the list of courses(list of string) in hashmap else make a new list

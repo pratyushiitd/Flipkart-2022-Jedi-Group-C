@@ -9,8 +9,8 @@ import java.util.List;
 
 public class AdminImpl implements AdminInterface {
     List<Admin> admin=new ArrayList<Admin>();
-    HashMap<Integer,List<String>> courseListSem=new HashMap<>();
-    HashMap<String,List<String>> professorList=new HashMap<>();
+    HashMap<Integer,List<String>> courseListSem=new HashMap<>();//list corresponding to list of courses
+    HashMap<Professor,List<String>> professorList=new HashMap<>();//list corresponding to professorID
     @Override
     public void createAdmin() {
         Admin admin1=new Admin("admin1","admin","UA1","password1",
@@ -19,9 +19,10 @@ public class AdminImpl implements AdminInterface {
 
     }
     @Override
-    public boolean addProfessor(String professorID, List<String> courseList) {
-        professorList.put(professorID,courseList);
-        return false;
+    public boolean addProfessor(String name,String userID,String password,long mobile,String email_id,String professorID,String department,String designation,String office, List<String> courseList) {
+        Professor professor=new Professor(name,"professor",userID,password,mobile,email_id,professorID,department,designation,office,courseList);
+        professorList.put(professor,courseList);
+        return true;
     }
 
     @Override

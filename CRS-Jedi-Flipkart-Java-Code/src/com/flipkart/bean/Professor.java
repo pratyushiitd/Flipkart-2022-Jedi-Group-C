@@ -10,7 +10,7 @@ public class Professor extends User{
     public String department;
     public String designation;
     public String office;
-    public List<Course> coursesTeaching;
+    public List<String> coursesTeaching;
 
     public Professor(
         String name, 
@@ -23,7 +23,7 @@ public class Professor extends User{
         String department,
         String designation,
         String office,
-        List<Course> coursesTeaching){
+        List<String> coursesTeaching){
 
         super(name, role, userID, password, mobile, email_id);
         this.professorId = professorId;
@@ -46,7 +46,7 @@ public class Professor extends User{
         this.professorId = professorId;
     }
 
-    public List<Course> getList() {
+    public List<String> getList() {
         return coursesTeaching;
     }
 
@@ -74,7 +74,7 @@ public class Professor extends User{
         this.department = department;
     }
 
-    public void setList(List<Course> coursesTeaching) {
+    public void setList(List<String> coursesTeaching) {
         this.coursesTeaching = coursesTeaching;
     }
 }

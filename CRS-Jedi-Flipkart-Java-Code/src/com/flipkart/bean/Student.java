@@ -1,6 +1,9 @@
 package com.flipkart.bean;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Student extends User{
 
@@ -13,6 +16,7 @@ public class Student extends User{
     private char section;
     private String department;
     private float cg;
+    private HashMap<String,Float> cg_course=new HashMap<>();
     private char gender;
 
     private boolean isRegistered;
@@ -62,12 +66,39 @@ public class Student extends User{
         this.department = department;
     }
 
-    public float getCg(String courseID) {
-        return cg;
+    public float getCourseCg(String courseID) {
+        try{
+            return cg_course.get(courseID);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
     }
+    public float getCg(){
+        try{
+            float sum_cg=0;
+            float counter=0;
+            for (Map.Entry mapElement : cg_course.entrySet()) {
+                Float key = (Float)mapElement.getKey();
+                sum_cg+=key;
+                ++counter;
 
+            }
+            return sum_cg/counter;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+    }
     public void setCg(float cg,String courseID) {
-        this.cg = cg;
+        try{
+            cg_course.put(courseID,cg);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public char getGender() {

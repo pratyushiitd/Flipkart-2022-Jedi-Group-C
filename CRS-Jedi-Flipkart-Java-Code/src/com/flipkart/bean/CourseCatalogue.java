@@ -29,4 +29,7 @@ public class CourseCatalogue{
         return semCourses.get(semester).size();
     }
 
+    public void removeCourse(int sem, int courseID) {
+
+    }
 }

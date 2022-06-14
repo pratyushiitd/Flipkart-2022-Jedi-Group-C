@@ -23,7 +23,10 @@ public class AdminImpl implements AdminInterface {
         professorList.put(professor,courseList);
         return true;
     }
-
+    @Override
+        public int getNumProf(){
+            return professorList.size();
+        }
     @Override
     public Professor professorDetails(List<Professor> professorsList,String professorID) {
         try{

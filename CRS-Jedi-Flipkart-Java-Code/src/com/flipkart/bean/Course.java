@@ -72,4 +72,13 @@ public class Course{
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
+
+    // course details
+    public void printCourseDetails() {
+        System.out.println("Course ID: " + courseID);
+        System.out.println("Course Name: " + courseName);
+        System.out.println("Professor ID: " + professorID);
+        System.out.println("No of Students: " + studentsEnrolled.size());
+        System.out.println("Vacancy: " + vacancy);
+    }
 }

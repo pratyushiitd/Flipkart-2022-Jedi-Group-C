@@ -31,7 +31,7 @@ public class CRSApplication {
     static AdminInterface adminRef=new AdminImpl();
     static ProfessorInterface profRef = new ProfessorImpl();
     static StudentInterface studentRef = new StudentImpl();
-    public static int adminMenu()
+    public static void adminMenu()
     {
         System.out.println("\nPlease select an option from the following menu:");
         //println
@@ -52,9 +52,6 @@ public class CRSApplication {
         System.out.println("8. Remove Course");
         //println
         System.out.println("9. Logout");
-        Scanner scanner = new Scanner(System.in);
-        int type = scanner.nextInt();
-        return type;
     }
     public static boolean addProfessorAdmin()
     {
@@ -258,7 +255,8 @@ public static void removeCourseAdmin()
         int count_fail = 0;
         if (userRef.login(userId, password)) {
             System.out.println("\nLogin successful!");
-            int type=adminMenu();
+            adminMenu();
+            int type=scanner.nextInt();
             switch (type) {
                 case 1://add professor
                     addProfessorAdmin();
@@ -315,76 +313,88 @@ public static void removeCourseAdmin()
         }
     }
     public static void professorMenu()
-    {}
+    {
+        System.out.println("\nPlease select an option from the following menu:");
+        //println
+        System.out.println("1. View professor details");
+        System.out.println("2. View Students list ");
+        System.out.println("3. Submit grades ");
+        System.out.println("4. Logout");
+    }
+    public static void viewStudentsList(String userId)
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("You have the following courses under you,Select " +
+                "any one to view students list");
+        profRef.viewCourses(userId);
+        System.out.println("Enter the courseId to view students list:");
+        String courseID = scanner.next();
+        try {
+            List<Student> studentsListCourse;
 
+            for (Course course : coursesList) {
+                if (course.getCourseID().equals(courseID)) {
+                    studentsListCourse = course.getStudentsEnrolled(courseID);
+                    for (int i = 0; i < studentsListCourse.size(); i++) {
+                        System.out.println("Student name: " + studentsListCourse.get(i).getName());
+                        System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Incorrect course id chosen");
+        }
+
+    }
+    public static void submitGradesProfessor()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the courseId to submit grades of students:");
+        String courseIDP = scanner.next();
+        try {
+            List<Student> studentsListCourse;
+
+            for (Course course : coursesList) {
+                if (course.getCourseID().equals(courseIDP)) {
+                    studentsListCourse = course.getStudentsEnrolled(courseIDP);
+                    for (int i = 0; i < studentsListCourse.size(); i++) {
+                        System.out.println("Student name: " + studentsListCourse.get(i).getName());
+                        System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
+                        System.out.println("Enter grade for this student: ");
+                        float grade = scanner.nextFloat();
+                        studentsListCourse.get(i).setCg(grade, courseIDP);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Incorrect course id chosen");
+        }
+    }
     public static void professor()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter your userID:");
         String userId = scanner.next();
-        //println
         System.out.println("\nEnter your password:");
         String password = scanner.next();
         int count_fail = 0;
         if (userRef.login(userId, password)) {
             //println
             System.out.println("\nLogin successful!");
-            //println
-            System.out.println("\nPlease select an option from the following menu:");
-            //println
-            System.out.println("1. View professor details");
-            System.out.println("2. View Students list ");
-            System.out.println("3. Submit grades ");
-            System.out.println("4. Logout");
+            professorMenu();
             int type = scanner.nextInt();
             switch (type) {
                 case 1:
+                    //professor Details
                     profRef.viewProfile(userId,professorsList);
                     break;
                 case 2:
-                    System.out.println("You have the following courses under you,Select " +
-                            "any one to view students list");
-                    profRef.viewCourses(userId);
-                    System.out.println("Enter the courseId to view students list:");
-                    String courseID = scanner.next();
-                    try {
-                        List<Student> studentsListCourse;
-
-                        for (Course course : coursesList) {
-                            if (course.getCourseID().equals(courseID)) {
-                                studentsListCourse = course.getStudentsEnrolled(courseID);
-                                for (int i = 0; i < studentsListCourse.size(); i++) {
-                                    System.out.println("Student name: " + studentsListCourse.get(i).getName());
-                                    System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Incorrect course id chosen");
-                    }
-
+                    //students list
+                    viewStudentsList(userId);
                     break;
                 case 3:
-                    System.out.println("Enter the courseId to submit grades of students:");
-                    String courseIDP = scanner.next();
-                    try {
-                        List<Student> studentsListCourse;
-
-                        for (Course course : coursesList) {
-                            if (course.getCourseID().equals(courseIDP)) {
-                                studentsListCourse = course.getStudentsEnrolled(courseIDP);
-                                for (int i = 0; i < studentsListCourse.size(); i++) {
-                                    System.out.println("Student name: " + studentsListCourse.get(i).getName());
-                                    System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
-                                    System.out.println("Enter grade for this student: ");
-                                    float grade = scanner.nextFloat();
-                                    studentsListCourse.get(i).setCg(grade, courseIDP);
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Incorrect course id chosen");
-                    }
+                    //submit grades
+                   submitGradesProfessor();
                     break;
                 case 4:
                     System.out.println("Successfully logged out.");
@@ -393,7 +403,7 @@ public static void removeCourseAdmin()
                     System.out.println("Invalid choice");
                     break;
             }
-                }
+        }
 
     }
     // main function

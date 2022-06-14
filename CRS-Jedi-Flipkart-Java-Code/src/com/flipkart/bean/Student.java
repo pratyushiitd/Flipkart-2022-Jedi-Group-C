@@ -111,4 +111,6 @@ public class Student extends User{
         this.section = section;
     }
 
+    public void viewStudent() {
+    }
 }

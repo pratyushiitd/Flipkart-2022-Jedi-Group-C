@@ -43,6 +43,7 @@ public class CRSApplication {
         List<Course> coursesList = new ArrayList<Course>();
         // println
         System.out.println("Welcome to the Course Registration System!");
+        String professorID = null;
         // while loop   
         while (true) {
             // println
@@ -137,7 +138,7 @@ public class CRSApplication {
                                 //int to string
 
 
-                                String professorID = Integer.toString(adminRef.getNumProf() + 1);
+                                professorID = Integer.toString(adminRef.getNumProf() + 1);
                                 // adminRef.addProfessor(name, userId_prof, password_prof, department, mobile, email_id, rollNo, semester, section, courses_int);
                                 // new professor
                                 Professor professor = new Professor();

@@ -29,7 +29,13 @@ public class CourseCatalogue{
         return semCourses.get(semester).size();
     }
 
-    public void removeCourse(int sem, int courseID) {
-
+    public void removeCourse(int semester, int courseID) {
+        if(semCourses.containsKey(semester)){
+            semCourses.get(semester).remove(courseID);
+        }
+        else{
+            List<Integer> courses = new ArrayList<Integer>();
+            courses.add(courseID);
+        }
     }
 }

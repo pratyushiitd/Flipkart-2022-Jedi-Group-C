@@ -10,7 +10,9 @@ public class ProfessorImpl implements ProfessorInterface{
 
 
         HashMap<String, List<String>> prof_course_map= new HashMap<>();
+        //prof_id----> courseID_to_teach
         HashMap<String, List<List<String>>> course_stu_grade_map=new HashMap<>();
+        //course_id---> List<<studentID,Grade>,.....>
 
         public void viewResults(String courseid){
                 System.out.println("Course ID = " + courseid + "\n");

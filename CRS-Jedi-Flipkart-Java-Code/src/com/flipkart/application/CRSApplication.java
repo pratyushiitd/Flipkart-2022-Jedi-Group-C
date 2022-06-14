@@ -319,6 +319,90 @@ public static void removeCourseAdmin()
             }
         }
     }
+    public static void professorMenu()
+    {}
+
+    public static void professor()
+    {
+        ProfessorInterface profRef = new ProfessorImpl();
+        Scanner scanner = new Scanner(System.in);
+        UserInterface userRef = new UserImpl();
+        System.out.println("\nEnter your userID:");
+        String userId = scanner.next();
+        //println
+        System.out.println("\nEnter your password:");
+        String password = scanner.next();
+        int count_fail = 0;
+        if (userRef.login(userId, password)) {
+            //println
+            System.out.println("\nLogin successful!");
+            //println
+            System.out.println("\nPlease select an option from the following menu:");
+            //println
+            System.out.println("1. View professor details");
+            System.out.println("2. View Students list ");
+            System.out.println("3. Submit grades ");
+            System.out.println("4. Logout");
+            int type = scanner.nextInt();
+            switch (type) {
+                case 1:
+                    profRef.viewProfile(userId,professorsList);
+                    break;
+                case 2:
+                    System.out.println("You have the following courses under you,Select " +
+                            "any one to view students list");
+                    profRef.viewCourses(userId);
+                    System.out.println("Enter the courseId to view students list:");
+                    String courseID = scanner.next();
+                    try {
+                        List<Student> studentsListCourse;
+
+                        for (Course course : coursesList) {
+                            if (course.getCourseID().equals(courseID)) {
+                                studentsListCourse = course.getStudentsEnrolled(courseID);
+                                for (int i = 0; i < studentsListCourse.size(); i++) {
+                                    System.out.println("Student name: " + studentsListCourse.get(i).getName());
+                                    System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Incorrect course id chosen");
+                    }
+
+                    break;
+                case 3:
+                    System.out.println("Enter the courseId to submit grades of students:");
+                    String courseIDP = scanner.next();
+                    try {
+                        List<Student> studentsListCourse;
+
+                        for (Course course : coursesList) {
+                            if (course.getCourseID().equals(courseIDP)) {
+                                studentsListCourse = course.getStudentsEnrolled(courseIDP);
+                                for (int i = 0; i < studentsListCourse.size(); i++) {
+                                    System.out.println("Student name: " + studentsListCourse.get(i).getName());
+                                    System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
+                                    System.out.println("Enter grade for this student: ");
+                                    float grade = scanner.nextFloat();
+                                    studentsListCourse.get(i).setCg(grade, courseIDP);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Incorrect course id chosen");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Successfully logged out.");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
+                }
+
+    }
     // main function
     public static void main(String[] args) {
 
@@ -346,8 +430,8 @@ public static void removeCourseAdmin()
                         break;
                 // case 2
                 case 2:
-                    // call professor menu
-                    // profRef.professorMenu();
+                    // professor
+                    professor();
                     break;
                 // case 3
                 case 3:

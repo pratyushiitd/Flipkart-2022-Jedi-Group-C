@@ -9,6 +9,11 @@ public class RegisteredStudent extends User {
     List<Student> registeredStudents;
 
     // get students registered 
+    public RegisteredStudent() {
+        this.courseEnrolled = new HashMap<Student, List<Course>>();
+        this.gradeCards = new HashMap<Student, GradeCard>();
+        this.registeredStudents = new ArrayList<Student>();
+    }
     public List<Student> getRegisteredStudents() {
         return registeredStudents;
     }

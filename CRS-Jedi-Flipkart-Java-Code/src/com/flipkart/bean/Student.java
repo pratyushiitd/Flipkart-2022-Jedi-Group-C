@@ -143,5 +143,9 @@ public class Student extends User{
     }
 
     public void viewStudent() {
+        System.out.println("Id"+rollNo);
+        System.out.println("role"+this.getRole());
+        System.out.println("dep"+this.getDepartment());
+        System.out.println("section"+getSection());
     }
 }

@@ -74,6 +74,9 @@ public class Professor extends User{
     }
 
     public void showProfessorDetails() {
+        System.out.println("Id:"+getProfessorId());
+        System.out.println("role"+getRole());
+        System.out.println("dept"+getDepartment());
     }
 }
 

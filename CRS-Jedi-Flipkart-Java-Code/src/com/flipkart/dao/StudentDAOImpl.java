@@ -20,7 +20,7 @@ public class StudentDAOImpl {
 
         try{
 
-            // Step 3 Regiater Driver here and create connection
+            // Step 3 Register Driver here and create connection
 
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -101,8 +101,5 @@ public class StudentDAOImpl {
         }//end try
         System.out.println("Goodbye!");
     }//end main
-
-}
-
 
 }

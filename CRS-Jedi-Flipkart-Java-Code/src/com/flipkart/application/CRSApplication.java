@@ -95,9 +95,6 @@ public class CRSApplication {
             courses_int[i] = Integer.parseInt(courses_array[i]);
         }
         // call the addProfessor function
-        //int to string
-
-
         professorID = Integer.toString(adminRef.getNumProf() + 1);
         // adminRef.addProfessor(name, userId_prof, password_prof, department, mobile, email_id, rollNo, semester, section, courses_int);
         // new professor
@@ -117,7 +114,6 @@ public class CRSApplication {
     }
     public static void addStudentAdmin()
     {
-        String professorID;
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the name of the student:");
         String name_student = scanner.next();
@@ -143,7 +139,7 @@ public class CRSApplication {
         System.out.println("\nEnter the section of the student:");
         char section_student = scanner.next().charAt(0);
         //println
-        // take space seperated list of courses
+        // take space separated list of courses
         System.out.println("\nEnter the courses of the student:");
         String courses_student = scanner.next();
         // split the courses
@@ -166,7 +162,6 @@ public class CRSApplication {
     }
     public static void addCourseAdmin()
     {
-        String professorID;
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the name of the course:");
         String name_course = scanner.next();
@@ -179,8 +174,6 @@ public class CRSApplication {
         //println
         System.out.println("\nEnter the semester of the course:");
         int semester_course = scanner.nextInt();
-        //println
-        // add course
         courseCatalogue.addCourse(semester_course, courseID);
     }
     public static void getProfessorDetails()
@@ -257,42 +250,46 @@ public static void removeCourseAdmin()
             System.out.println("\nLogin successful!");
             adminMenu();
             int type=scanner.nextInt();
-            switch (type) {
-                case 1://add professor
-                    addProfessorAdmin();
-                    break;
-                case 2://add student
-                   addStudentAdmin();
-                    break;
-                case 3:
-                    //add course
-                    addCourseAdmin();
-                    break;
-                case 4:
-                    //get professor details
-                    getProfessorDetails();
-                    break;
-                case 5:
-                    //get student details
-                    getStudentDetails();
-                    break;
-                case 6:
-                    //get course details
-                    getCourseDetails();
-                    break;
-                case 7:
-                    // Approve course for student
-                   approveCourseAdmin();
-                    break;
-                case 8:
-                    // remove course
-                   removeCourseAdmin();
-                   break;
-                case 9:
-                    System.out.println("Logged out successfully");
-                    break;
-                default:
-                    System.out.println("Invalid choice");
+            boolean again=true;
+            while(again==true) {
+                switch (type) {
+                    case 1://add professor
+                        addProfessorAdmin();
+                        break;
+                    case 2://add student
+                        addStudentAdmin();
+                        break;
+                    case 3:
+                        //add course
+                        addCourseAdmin();
+                        break;
+                    case 4:
+                        //get professor details
+                        getProfessorDetails();
+                        break;
+                    case 5:
+                        //get student details
+                        getStudentDetails();
+                        break;
+                    case 6:
+                        //get course details
+                        getCourseDetails();
+                        break;
+                    case 7:
+                        // Approve course for student
+                        approveCourseAdmin();
+                        break;
+                    case 8:
+                        // remove course
+                        removeCourseAdmin();
+                        break;
+                    case 9:
+                        again=false;
+                        System.out.println("Logged out successfully");
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+                }
             }
         }
         else{
@@ -377,34 +374,53 @@ public static void removeCourseAdmin()
         String userId = scanner.next();
         System.out.println("\nEnter your password:");
         String password = scanner.next();
+        boolean again=true;
         int count_fail = 0;
         if (userRef.login(userId, password)) {
             //println
             System.out.println("\nLogin successful!");
-            professorMenu();
-            int type = scanner.nextInt();
-            switch (type) {
-                case 1:
-                    //professor Details
-                    profRef.viewProfile(userId,professorsList);
-                    break;
-                case 2:
-                    //students list
-                    viewStudentsList(userId);
-                    break;
-                case 3:
-                    //submit grades
-                   submitGradesProfessor();
-                    break;
-                case 4:
-                    System.out.println("Successfully logged out.");
-                    break;
-                default:
-                    System.out.println("Invalid choice");
-                    break;
+            while(again==true) {
+                professorMenu();
+                int type = scanner.nextInt();
+                switch (type) {
+                    case 1:
+                        //professor Details
+                        profRef.viewProfile(userId, professorsList);
+                        break;
+                    case 2:
+                        //students list
+                        viewStudentsList(userId);
+                        break;
+                    case 3:
+                        //submit grades
+                        submitGradesProfessor();
+                        break;
+                    case 4:
+                        again = false;
+                        System.out.println("Successfully logged out.");
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+                        break;
+                }
+            }
+
+        }
+        else{
+            count_fail++;
+            System.out.println("\nLogin failed!");
+            if (count_fail == 5) {
+                //println
+                System.out.println("\nYou have failed to login 5 times. Please try again later.");
+                //break
+                // wait for 10 sec
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
     }
     // main function
     public static void main(String[] args) {

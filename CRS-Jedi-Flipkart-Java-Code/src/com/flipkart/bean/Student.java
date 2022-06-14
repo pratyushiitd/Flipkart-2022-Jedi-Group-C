@@ -4,11 +4,6 @@ import java.util.List;
 
 public class Student extends User{
 
-
-    public List<Integer> coursesEnrolled;
-
-
-    private String rollNo;
     private int semester;
     private char section;
     private String department;
@@ -22,17 +17,14 @@ public class Student extends User{
         String role, 
         String userID,
         String password, 
-        long mobile, 
         String email_id,
-        String rollNo,
         int semester,
         char section,
         String department,
         float cg,
         char gender){
 
-        super(name, role, userID, password, mobile, email_id);
-        this.rollNo = rollNo;
+        super(name, role, userID, password, email_id);
         this.semester = semester;
         this.section = section;
         this.department = department;
@@ -44,16 +36,6 @@ public class Student extends User{
 
     }
     
-    public List<Integer> getCoursesEnrolled() {
-        return coursesEnrolled;
-    }
-
-    public void setCoursesEnrolled(List<Integer> coursesEnrolled) {
-        this.coursesEnrolled = coursesEnrolled;
-    }
-
-
-
     public String getDepartment() {
         return department;
     }
@@ -62,11 +44,11 @@ public class Student extends User{
         this.department = department;
     }
 
-    public float getCg(String courseID) {
+    public float getCg() {
         return cg;
     }
 
-    public void setCg(float cg,String courseID) {
+    public void setCg(float cg) {
         this.cg = cg;
     }
 
@@ -87,14 +69,6 @@ public class Student extends User{
     }
 
 
-    public String getRollNo() {
-        return rollNo;
-    }
-
-    public void setRollNo(String rollNo) {
-        this.rollNo = rollNo;
-    }
-
     public int getSemester() {
         return semester;
     }
@@ -112,5 +86,6 @@ public class Student extends User{
     }
 
     public void viewStudent() {
+
     }
 }

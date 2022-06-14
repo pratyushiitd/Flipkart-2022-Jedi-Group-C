@@ -11,6 +11,9 @@ public class AdminImpl implements AdminInterface {
     List<Admin> admin=new ArrayList<Admin>();
     HashMap<Integer,List<String>> courseListSem=new HashMap<>();//list corresponding to list of courses
     HashMap<Professor,List<String>> professorList=new HashMap<>();//list corresponding to professorID
+
+    HashMap<String, Student> studentList=new HashMap<>();//list corresponding to student roll no
+
     @Override
     public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID,String adminID) {
         Admin admin1=new Admin(name,role,userId,password,mobile,emailID,adminID);
@@ -19,7 +22,8 @@ public class AdminImpl implements AdminInterface {
     }
     @Override
     public boolean addProfessor(String name,String userID,String password,long mobile,String email_id,String professorID,String department,String designation,String office, List<String> courseList) {
-        Professor professor=new Professor(name,"professor",userID,password,mobile,email_id,professorID,department,designation,office,courseList);
+
+        Professor professor=new Professor(name,"professor",professorID,password,mobile,email_id,department,designation,office,courseList);
         professorList.put(professor,courseList);
         return true;
     }
@@ -101,6 +105,20 @@ public class AdminImpl implements AdminInterface {
         (courseListSem.get(semester)).remove(courseID);
         return true;
     }
+    //incomplete
+    public boolean addStudent(String name_student, String userId_student, String password_student, long mobile_student, String email_id_student, String rollNo_student, int semester_student, char section_student){
 
+        try{
+            Student student=new Student(name_student,"student",userId_student,password_student,mobile_student,email_id_student,rollNo_student,semester_student,section_student,"CSE",0,'M');
+            studentList.put(rollNo_student,student);
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //incomplete
+        return false;
+    }
 
 }

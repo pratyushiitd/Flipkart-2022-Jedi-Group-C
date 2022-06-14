@@ -22,10 +22,6 @@ public class ProfessorImpl implements ProfessorInterface{
                         System.out.println(st_gr.get(0)+"\t\t"+st_gr.get(1));
         }
 
-//        public void viewSchedule(String professorid){
-//
-//        }
-
         public void viewProfile(String professorid,List<Professor> prof_list){
                 for(Professor p : prof_list) {
                         if(p.getUserID().equals(professorid)) {

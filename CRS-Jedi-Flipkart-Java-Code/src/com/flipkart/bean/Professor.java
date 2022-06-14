@@ -4,9 +4,6 @@ import java.util.List;
 
 public class Professor extends User{
 
-
-
-    public String professorId;
     public String department;
     public String designation;
     public String office;
@@ -19,14 +16,12 @@ public class Professor extends User{
         String password,
         long mobile,
         String email_id,
-        String professorId,
         String department,
         String designation,
         String office,
         List<String> coursesTeaching){
 
         super(name, role, userID, password, mobile, email_id);
-        this.professorId = professorId;
         this.department = department;
         this.designation = designation;
         this.office = office;
@@ -39,11 +34,11 @@ public class Professor extends User{
 
     
     public String getProfessorId() {
-        return professorId;
+        return getUserID();
     }
 
     public void setProfessorId(String professorId) {
-        this.professorId = professorId;
+        setUserID(professorId);
     }
 
     public List<String> getList() {

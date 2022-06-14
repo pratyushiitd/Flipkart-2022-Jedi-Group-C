@@ -250,6 +250,31 @@ public class CRSApplication {
                 case 2:
                     // call professor menu
                     // profRef.professorMenu();
+                    //println
+                    System.out.println("\nEnter your userID:");
+                    String userIdP = scanner.next();
+                    //println
+                    System.out.println("\nEnter your password:");
+                    String passwordP = scanner.next();
+                    int count_failP = 0;
+                    if (userRef.login(userId, password)) {
+                        //println
+                        System.out.println("\nLogin successful!");
+                        //println
+                        System.out.println("\nPlease select an option from the following menu:");
+                        //println
+                        System.out.println("1. View Students list :");
+                        System.out.println("2. Submit grades :");
+                        System.out.println("3. Logout");
+                        int type=scanner.nextInt();
+                        switch(type)
+                        {
+                            case 1:  System.out.println("You have the following courses under you,Select " +
+                                    "any one to view students list");
+
+                            break;
+
+                        }
                     break;
                 // case 3
                 case 3:

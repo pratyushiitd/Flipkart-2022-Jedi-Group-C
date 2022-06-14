@@ -26,19 +26,20 @@ public class AdminImpl implements AdminInterface {
         this.professorsList = new ArrayList<Professor>();
     }
     @Override
-    public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
+    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
 
         try{
             Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
             registeredStudent.addStudent(student);
             student.setRegistered(true);
+            return student;
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
         //incomplete
-        return false;
+        return null;
     }
     @Override
     public Professor addProfessor(String name,String userID,String password,String email_id,
@@ -60,7 +61,7 @@ public class AdminImpl implements AdminInterface {
         return professor;
     }
 
-    public void addStudentAdmin()
+    public Student addStudentAdmin()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the name of the student:");
@@ -101,7 +102,7 @@ public class AdminImpl implements AdminInterface {
         // call the addStudent function
         // int studentID = adminRef.getNumStudent()+1;
         // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
-        boolean status = addStudent(name_student, userId_student, password_student, email_id_student, semester_student, section_student, department, gender);
+        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, section_student, department, gender);
     
     }
     @Override
@@ -208,7 +209,7 @@ public class AdminImpl implements AdminInterface {
         }
     }
     @Override
-    public boolean addProfessorAdmin()
+    public Professor addProfessorAdmin()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the name of the professor:");
@@ -251,7 +252,7 @@ public class AdminImpl implements AdminInterface {
                 newProf.addCourse(toAdd);
             }
         }
-        return true;
+        return newProf;
 
     }
     @Override

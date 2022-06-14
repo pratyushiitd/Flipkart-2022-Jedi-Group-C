@@ -8,6 +8,9 @@ import com.flipkart.service.ProfessorImpl;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
+
 // list
 // import scanner
 import java.util.Scanner;
@@ -27,10 +30,14 @@ public class CRSApplication {
             if (choice == 8)break;
             switch(choice){
                 case 1:
-                    adminRef.addProfessorAdmin();
+                    Professor prof = adminRef.addProfessorAdmin();
+                    // register prof
+                    userRef.register(prof.getName(), "professor", prof.getUserID(), prof.getPassword(), prof.getEmail_id());
                     break;
                 case 2:
-                    adminRef.addStudentAdmin();
+                    Student stud = adminRef.addStudentAdmin();
+                    // register stud
+                    userRef.register(stud.getName(), "student", stud.getUserID(), stud.getPassword(), stud.getEmail_id());
                     break;
                 case 3:
                     adminRef.addCourseAdmin();

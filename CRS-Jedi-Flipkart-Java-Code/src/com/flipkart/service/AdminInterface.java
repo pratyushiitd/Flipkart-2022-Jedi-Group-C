@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 public interface AdminInterface {
         public Professor addProfessor(String name,String userID,String password,String email_id,
                                     String professorID, String department);
@@ -16,10 +17,10 @@ public interface AdminInterface {
         // public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
         //         ,String adminID) ;
 
-        public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender);
+        public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender);
         public void displayAdminMenu();
-        public boolean addProfessorAdmin();
-        public void addStudentAdmin();
+        public Professor addProfessorAdmin();
+        public Student addStudentAdmin();
         public void addCourseAdmin();
         public void submitGrades(String studentId, String courseId, int grade,int semester);
 }

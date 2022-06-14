@@ -16,8 +16,9 @@ public interface AdminInterface {
         // public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
         //         ,String adminID) ;
 
-        public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, String rollNo_student, int semester_student, char section_student, String department, char gender);
+        public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender);
         public void displayAdminMenu();
         public boolean addProfessorAdmin();
+        public void addStudentAdmin();
         public void submitGrades(String studentId, String courseId, int grade,int semester);
 }

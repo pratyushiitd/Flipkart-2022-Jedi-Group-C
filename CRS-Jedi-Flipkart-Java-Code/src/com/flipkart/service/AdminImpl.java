@@ -26,6 +26,21 @@ public class AdminImpl implements AdminInterface {
         this.professorsList = new ArrayList<Professor>();
     }
     @Override
+    public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
+
+        try{
+            Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
+            registeredStudent.addStudent(student);
+            student.setRegistered(true);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //incomplete
+        return false;
+    }
+    @Override
     public Professor addProfessor(String name,String userID,String password,String email_id,
     String professorID, String department){
         // check if professorID already exists
@@ -43,6 +58,51 @@ public class AdminImpl implements AdminInterface {
         Professor professor = new Professor(name,"professor",professorID,password,email_id,department);
         professorsList.add(professor);
         return professor;
+    }
+
+    public void addStudentAdmin()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the name of the student:");
+        String name_student = scanner.next();
+        //println
+        System.out.println("\nEnter the userID of the student:");
+        String userId_student = scanner.next();
+        //println
+        System.out.println("\nEnter the password of the student:");
+        String password_student = scanner.next();
+        //println
+        System.out.println("\nEnter the email ID of the student:");
+        String email_id_student = scanner.next();
+        //println
+        System.out.println("\nEnter the semester of the student:");
+        int semester_student = scanner.nextInt();
+        //println
+        System.out.println("\nEnter the section of the student:");
+        char section_student = scanner.next().charAt(0);
+
+        //take department
+        System.out.println("\nEnter the department of the student:");
+        String department = scanner.next();
+        //
+        System.out.println("\nEnter gender:");
+        char gender = scanner.next().charAt(0);
+        //println
+        // take space separated list of courses
+        // System.out.println("\nEnter the courses of the student:");
+        // String courses_student = scanner.next();
+        // // split the courses
+        // String[] courses_array_student = courses_student.split(" ");
+        // // convert the courses to integer
+        // int[] courses_int_student = new int[courses_array_student.length];
+        // for (int i = 0; i < courses_array_student.length; i++) {
+        //     courses_int_student[i] = Integer.parseInt(courses_array_student[i]);
+        // }
+        // call the addStudent function
+        // int studentID = adminRef.getNumStudent()+1;
+        // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
+        boolean status = addStudent(name_student, userId_student, password_student, email_id_student, semester_student, section_student, department, gender);
+    
     }
     @Override
     public boolean viewprofessorDetails(String professorID) {
@@ -107,21 +167,6 @@ public class AdminImpl implements AdminInterface {
     //     return true;
     // }
     //incomplete
-    @Override
-    public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, String rollNo_student, int semester_student, char section_student, String department, char gender){
-
-        try{
-            Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
-            registeredStudent.addStudent(student);
-            student.setRegistered(true);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        //incomplete
-        return false;
-    }
     @Override
     public void viewcoursedetail(int semester, String courseID) {
         Course course = courseCatalogue.getCourse(semester, courseID);

@@ -20,5 +20,6 @@ public interface AdminInterface {
         public void displayAdminMenu();
         public boolean addProfessorAdmin();
         public void addStudentAdmin();
+        public void addCourseAdmin();
         public void submitGrades(String studentId, String courseId, int grade,int semester);
 }

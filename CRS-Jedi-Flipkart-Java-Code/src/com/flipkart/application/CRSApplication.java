@@ -9,12 +9,6 @@ import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 // list
-import java.util.List;
-import java.util.ArrayList;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.CourseCatalogue;
 // import scanner
 import java.util.Scanner;
 
@@ -27,10 +21,96 @@ public class CRSApplication {
 
 
     public static void admin(){
+        while(true){
+            adminRef.displayAdminMenu();
+            int choice=new Scanner(System.in).nextInt();
+            if (choice == 8)break;
+            switch(choice){
+                case 1:
+                    adminRef.addProfessorAdmin();
+                    break;
+                case 2:
+                    adminRef.addStudentAdmin();
+                    break;
+                case 3:
+                    adminRef.addCourseAdmin();
+                    break;
+                case 4:
+                    // view professor details
+                    // take professor id as input
+                    System.out.println("Enter professor id");
+                    String professorId = new Scanner(System.in).nextLine();
+                    adminRef.viewprofessorDetails(professorId);
+                    break;
+                case 5:
+                    // view student details
+                    // take student id as input
+                    System.out.println("Enter student id");
+                    String studentId = new Scanner(System.in).nextLine();
+                    adminRef.viewstudentDetails(studentId);
+                    break;
+                case 6:
 
+                    // view course details
+                    // take semester and course id as input
+                    System.out.println("Enter semester");
+                    int semester = new Scanner(System.in).nextInt();
+                    System.out.println("Enter course id");
+                    String courseId = new Scanner(System.in).nextLine();
+                    adminRef.viewcoursedetail(semester,courseId);
+                    break;
+                case 7:
+
+                    // approve course for student
+                    // take student id and course id as input
+                    System.out.println("Enter student id");
+                    String studentId1 = new Scanner(System.in).nextLine();
+                    System.out.println("Enter course id");
+                    String courseId1 = new Scanner(System.in).nextLine();
+                    System.out.println("Enter semester");
+                    int semester1 = new Scanner(System.in).nextInt();
+                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+                    break;
+            }
+        }
     }
     public static void professor(){
+        while(true){
+            profRef.professorMenu();
+            int choice=new Scanner(System.in).nextInt();
+            if (choice == 4)break;
+            switch(choice){
+                case 1:
+                    // view professor details
+                    // take professor id as input
+                    System.out.println("Enter professor id");
+                    String professorId = new Scanner(System.in).nextLine();
+                    adminRef.viewprofessorDetails(professorId);
+                    break;
+                case 2:
+                    // view student details
+                    // take student id as input
+                    // System.out.println("Enter course id");
+                    // String studentId = new Scanner(System.in).nextLine();
+                    // adminRef.viewstudentDetails(studentId);
+                    break;
+                case 3:
+                    // submit grades
+                    // take student id, course id and grade as input
+                    System.out.println("Enter student id");
+                    String studentId1 = new Scanner(System.in).nextLine();
+                    System.out.println("Enter course id");
+                    String courseId1 = new Scanner(System.in).nextLine();
+                    System.out.println("Enter grade");
+                    //take semester as input
+                    int semester1 = new Scanner(System.in).nextInt();
 
+
+                    int grade = new Scanner(System.in).nextInt();
+                    adminRef.submitGrades(studentId1,courseId1,grade, semester1);
+                    break;
+            }
+        }
     }
     public static void student(){
 

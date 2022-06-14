@@ -259,4 +259,27 @@ public class AdminImpl implements AdminInterface {
         Course course = courseCatalogue.getCourse(semester, courseID);
         registeredStudent.submitGrades(studentId, course, grade);
     }
+    @Override
+    public void addCourseAdmin(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the name of the course:");
+        String name = scanner.next();
+        //println
+        System.out.println("\nEnter the course ID of the course:");
+        String courseID = scanner.next();
+        //println
+        System.out.println("\nEnter the semester of the course:");
+        int semester = scanner.nextInt();
+        //println
+        // take professor id
+        System.out.println("\nEnter the professor ID of the course:");
+        String professorID = scanner.next();
+        //println
+        // take vacancy count
+        System.out.println("\nEnter the vacancy count of the course:");
+        int vacancyCount = scanner.nextInt();
+        //println
+        Course course_to_add = new Course(courseID, name, professorID, vacancyCount);
+        addCourse(course_to_add, semester);
+    }
 }

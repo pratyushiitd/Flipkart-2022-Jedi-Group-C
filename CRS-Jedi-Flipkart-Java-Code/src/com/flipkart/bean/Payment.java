@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-public class Payment {
+public class Payment{
     public String rollNo;
     public int amount;
     public boolean status;

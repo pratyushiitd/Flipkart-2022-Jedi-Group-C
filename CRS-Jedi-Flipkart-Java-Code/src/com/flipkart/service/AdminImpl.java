@@ -4,54 +4,95 @@ import com.flipkart.bean.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class AdminImpl implements AdminInterface {
     List<Admin> admin=new ArrayList<Admin>();
-    HashMap<Integer,List<String>> courseListSem=new HashMap<>();
+    HashMap<Integer,List<String>> courseListSem=new HashMap<>();//list corresponding to list of courses
+    HashMap<Professor,List<String>> professorList=new HashMap<>();//list corresponding to professorID
     @Override
-    public void createAdmin() {
-        Admin admin1=new Admin("admin1","admin","UA1","password1",
-                1234567890,"admin@gmail.com","A1");
+    public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID,String adminID) {
+        Admin admin1=new Admin(name,role,userId,password,mobile,emailID,adminID);
         admin.add(admin1);
 
     }
     @Override
-    public boolean addProfessor(String professorID, String courseID) {
-
-        return false;
+    public boolean addProfessor(String name,String userID,String password,long mobile,String email_id,String professorID,String department,String designation,String office, List<String> courseList) {
+        Professor professor=new Professor(name,"professor",userID,password,mobile,email_id,professorID,department,designation,office,courseList);
+        professorList.put(professor,courseList);
+        return true;
     }
-
     @Override
-    public Professor professorDetails(String professorID) {
-
+        public int getNumProf(){
+            return professorList.size();
+        }
+    @Override
+    public Professor professorDetails(List<Professor> professorsList,String professorID) {
+        try{
+            for(Professor professor:professorsList){
+                if(professor.getProfessorId().equals(professorID)){
+                    return professor;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
         return null;
     }
 
     @Override
-    public Student studentDetails(String studentID) {
-        Student student=
+    public Student studentDetails(List<Student> studentsList,String studentID) {
+        try{
+            for(Student student:studentsList){
+                if(student.getRollNo().equals(studentID)){
+                    return student;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
         return null;
     }
 
     @Override
-    public boolean approveCourses(String studentID) {
-
+    public boolean approveCourses(String studentID,List<Student> studentsList) {
+        try{
+            for(Student student:studentsList){
+                if(student.getRollNo().equals(studentID)&&student.isRegistered()==true){
+                    return true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
         return false;
     }
 
     @Override
-    public String addCourse() {
-        List<Student> registeredStudents1=new ArrayList<>();
+    public String addCourse(Course course,int semester ) {
+        List<Student> registeredStudents=new ArrayList<>();
         RegisteredStudent registeredStudent=new RegisteredStudent();
-        registeredStudents1=registeredStudent.getRegisteredStudents();
-        Course course=new Course("C1","course 1","P1",registeredStudents1,10);
+        registeredStudents=registeredStudent.getRegisteredStudentList(semester);
         List<String> courseList=new ArrayList<>();
-        //check if sem already present just update the list of courses(list of string) in hashmap else make a new list
-        courseList.add("C1");
-        courseListSem.put(1,courseList);
-        //courseList.add()
-        return "C1";
+        if(courseListSem.containsKey(semester)==true)
+        {
+            courseList=courseListSem.get(semester);
+            courseList.add(course.courseID);
+            courseListSem.put(semester,courseList);
+        }
+        else {
+            courseList.add(course.courseID);
+            courseListSem.put(semester,courseList);
+        }
+        System.out.println("Course added:"+course.courseName+" with course ID:"+course.courseID);
+        return course.courseID;
     }
 
     @Override

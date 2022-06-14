@@ -42,7 +42,7 @@ public class UserImpl implements UserInterface{
     @Override
     public boolean register(String name, String role, String userID, String password, long mobile, String email_id) {
         try{
-            User user = new User(name, role, userID, password, mobile, email_id);
+            User user= new User(name, role, userID, password, mobile, email_id);
             users.add(user);
             return true;
         }
@@ -56,7 +56,7 @@ public class UserImpl implements UserInterface{
     public boolean setname(String userId,String name) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setName(name);
                     return true;
                 }
@@ -72,7 +72,7 @@ public class UserImpl implements UserInterface{
     public boolean setrole(String userId,String role) {
         try{
             for(User user: users){
-                if(user.getUserID().equals( userID)){
+                if(user.getUserID().equals( userId)){
                     user.setRole(role);
                     return true;
                 }
@@ -88,7 +88,7 @@ public class UserImpl implements UserInterface{
     public boolean setmobile(String userId, long mobile) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setMobile(mobile);
                     return true;
                 }
@@ -105,7 +105,7 @@ public class UserImpl implements UserInterface{
     public boolean setemail(String userId, String email_id) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setEmail_id(email_id);
                     return true;
                 }
@@ -121,7 +121,7 @@ public class UserImpl implements UserInterface{
     public boolean setpassword(String userId, String password) {
         try{
             for(User user: users){
-                if(user.getUserID().equals(userID)){
+                if(user.getUserID().equals(userId)){
                     user.setPassword(password);
                     return true;
                 }

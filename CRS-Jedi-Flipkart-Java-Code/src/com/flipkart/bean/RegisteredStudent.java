@@ -11,11 +11,8 @@ public class RegisteredStudent extends User {
         return registeredStudents.get(semester);
     }
 
-    public HashMap<Integer, List<Student>> getRegisteredStudents() {
-        return registeredStudents;
-    }
 
-    public void setRegisteredStudents(HashMap<Integer, List<Student>> registeredStudents) {
-        this.registeredStudents = registeredStudents;
+    public void setRegisteredStudents(int semester, List<Student> registeredStudentsList) {
+        registeredStudents.put(semester,registeredStudentsList);
     }
 }

@@ -1,18 +1,36 @@
 package com.flipkart.bean;
 import java.util.HashMap;
 import java.util.List;
-import com.flipkart.bean.Student;
-
+import java.util.ArrayList;
 public class RegisteredStudent extends User {
 
-    HashMap<Integer, List<Student>> registeredStudents;
+    HashMap<Student, List<Course>> courseEnrolled;
+    HashMap<Student, GradeCard> gradeCards;
+    List<Student> registeredStudents;
 
-    public List<Student> getRegisteredStudentList(int semester){
-        return registeredStudents.get(semester);
+    // get students registered 
+    public List<Student> getRegisteredStudents() {
+        return registeredStudents;
     }
-
-
-    public void setRegisteredStudents(int semester, List<Student> registeredStudentsList) {
-        registeredStudents.put(semester,registeredStudentsList);
+    // add student to registered students
+    public void addStudent(Student student) {
+        registeredStudents.add(student);
+        courseEnrolled.put(student, new ArrayList<Course>());
+        gradeCards.put(student, new GradeCard(student));
+    }
+    public void submitGrades(String studentID, Course course, int grade) {
+        Student student = getStudent(studentID);
+        gradeCards.get(student).addGrade(course, grade);
+    }
+    public void addCourseforStudent(Student student, Course course) {
+        courseEnrolled.get(student).add(course);
+    }
+    public Student getStudent(String studentID) {
+        for(Student student : registeredStudents) {
+            if(student.getUserID().equals(studentID)) {
+                return student;
+            }
+        }
+        return null;
     }
 }

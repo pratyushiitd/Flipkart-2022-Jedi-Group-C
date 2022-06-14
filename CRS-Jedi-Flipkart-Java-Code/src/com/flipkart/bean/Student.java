@@ -1,7 +1,5 @@
 package com.flipkart.bean;
 
-import java.util.List;
-
 public class Student extends User{
 
     private int semester;
@@ -23,7 +21,6 @@ public class Student extends User{
         String department,
         float cg,
         char gender){
-
         super(name, role, userID, password, email_id);
         this.semester = semester;
         this.section = section;
@@ -40,6 +37,12 @@ public class Student extends User{
         return department;
     }
 
+
+    // get userid of student
+
+    public String getUserID(){
+        return super.getUserID();
+    }
     public void setDepartment(String department) {
         this.department = department;
     }
@@ -85,7 +88,16 @@ public class Student extends User{
         this.section = section;
     }
 
-    public void viewStudent() {
-
+    public void viewStudentDetails(){
+        System.out.println("Name: " + this.getName());
+        System.out.println("Role: " + this.getRole());
+        System.out.println("UserID: " + this.getUserID());
+        System.out.println("Password: " + this.getPassword());
+        System.out.println("Email: " + this.getEmail_id());
+        System.out.println("Semester: " + this.getSemester());
+        System.out.println("Section: " + this.getSection());
+        System.out.println("Department: " + this.getDepartment());
+        System.out.println("CG: " + this.getCg());
+        System.out.println("Gender: " + this.gender);
     }
 }

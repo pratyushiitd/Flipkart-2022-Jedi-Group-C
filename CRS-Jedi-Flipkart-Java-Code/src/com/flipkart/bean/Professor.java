@@ -1,38 +1,30 @@
 package com.flipkart.bean;
 
 import java.util.List;
-
+import java.util.ArrayList;
 public class Professor extends User{
 
     public String department;
-    public String designation;
-    public String office;
-    public List<String> coursesTeaching;
+    public List<Course> coursesTeaching;
 
     public Professor(
         String name, 
         String role,
         String userID,
         String password,
-        long mobile,
         String email_id,
-        String department,
-        String designation,
-        String office,
-        List<String> coursesTeaching){
+        String department
+        ){
 
-        super(name, role, userID, password, mobile, email_id);
+        super(name, role, userID, password, email_id);
         this.department = department;
-        this.designation = designation;
-        this.office = office;
-        this.coursesTeaching = coursesTeaching;
+        this.coursesTeaching = new ArrayList<Course>();
     }
 
     public Professor(){
-
+        this.coursesTeaching = new ArrayList<Course>();
     }
 
-    
     public String getProfessorId() {
         return getUserID();
     }
@@ -41,7 +33,7 @@ public class Professor extends User{
         setUserID(professorId);
     }
 
-    public List<String> getList() {
+    public List<Course> getList() {
         return coursesTeaching;
     }
 
@@ -49,31 +41,27 @@ public class Professor extends User{
         return department;
     }
 
-    public String getOffice() {
-        return office;
-    }
-
-    public void setOffice(String office) {
-        this.office = office;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-
     public void setDepartment(String department) {
         this.department = department;
     }
 
-    public void setList(List<String> coursesTeaching) {
-        this.coursesTeaching = coursesTeaching;
+    // add course to the list
+    public void addCourse(Course course){
+        coursesTeaching.add(course);
     }
 
     public void showProfessorDetails() {
+        System.out.println("Professor Details");
+        System.out.println("Name: " + getName());
+        System.out.println("Role: " + getRole());
+        System.out.println("UserID: " + getUserID());
+        System.out.println("Password: " + getPassword());
+        System.out.println("Email: " + getEmail_id());
+        System.out.println("Department: " + getDepartment());
+        System.out.println("Courses: ");
+        for(Course course : coursesTeaching){
+            System.out.println(course.getCourseID() + ": " + course.getCourseName());
+        }
     }
 }
 

@@ -1,20 +1,20 @@
 package com.flipkart.bean;
 
-public class Billing {
+public class Payment{
     public String rollNo;
     public int amount;
     public boolean status;
     public String payment_id;
     public String transaction_id;
 
-    public Billing(String rollNo, int amount, boolean status, String payment_id) {
+    public Payment(String rollNo, int amount, boolean status, String payment_id) {
         this.rollNo = rollNo;
         this.amount = amount;
         this.status = status;
         this.payment_id = payment_id;
     }
 
-    public Billing() {
+    public Payment() {
     }
 
     public String getPayment_id() {

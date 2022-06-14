@@ -27,6 +27,10 @@ public class CRSApplication {
     static CourseCatalogue courseCatalogue = new CourseCatalogue();
     // list of courses
     static List<Course> coursesList = new ArrayList<Course>();
+    static UserInterface userRef=new UserImpl();
+    static AdminInterface adminRef=new AdminImpl();
+    static ProfessorInterface profRef = new ProfessorImpl();
+    static StudentInterface studentRef = new StudentImpl();
     public static int adminMenu()
     {
         System.out.println("\nPlease select an option from the following menu:");
@@ -56,8 +60,6 @@ public class CRSApplication {
     {
         String professorID;
         Scanner scanner = new Scanner(System.in);
-        UserInterface userRef = new UserImpl();
-        AdminInterface adminRef = new AdminImpl();
         System.out.println("\nEnter the name of the professor:");
         String name = scanner.next();
         //println
@@ -120,8 +122,6 @@ public class CRSApplication {
     {
         String professorID;
         Scanner scanner = new Scanner(System.in);
-        UserInterface userRef = new UserImpl();
-        AdminInterface adminRef = new AdminImpl();
         System.out.println("\nEnter the name of the student:");
         String name_student = scanner.next();
         //println
@@ -171,8 +171,6 @@ public class CRSApplication {
     {
         String professorID;
         Scanner scanner = new Scanner(System.in);
-        UserInterface userRef = new UserImpl();
-        AdminInterface adminRef = new AdminImpl();
         System.out.println("\nEnter the name of the course:");
         String name_course = scanner.next();
         //println
@@ -190,7 +188,6 @@ public class CRSApplication {
     }
     public static void getProfessorDetails()
     {
-        ProfessorInterface profRef = new ProfessorImpl();
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the userID of the professor:");
         String professorID = scanner.next();
@@ -254,8 +251,6 @@ public static void removeCourseAdmin()
     public static void admin()
     {
         Scanner scanner = new Scanner(System.in);
-        UserInterface userRef = new UserImpl();
-        AdminInterface adminRef = new AdminImpl();
         System.out.println("\nEnter your userID:");
         String userId = scanner.next();
         System.out.println("\nEnter your password:");
@@ -324,9 +319,7 @@ public static void removeCourseAdmin()
 
     public static void professor()
     {
-        ProfessorInterface profRef = new ProfessorImpl();
         Scanner scanner = new Scanner(System.in);
-        UserInterface userRef = new UserImpl();
         System.out.println("\nEnter your userID:");
         String userId = scanner.next();
         //println
@@ -407,8 +400,6 @@ public static void removeCourseAdmin()
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        ProfessorInterface profRef = new ProfessorImpl();
-        StudentInterface studentRef = new StudentImpl();
         System.out.println("Welcome to the Course Registration System!");
         while (true) {
             // println

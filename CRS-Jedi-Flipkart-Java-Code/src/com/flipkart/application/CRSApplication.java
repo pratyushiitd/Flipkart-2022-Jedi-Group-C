@@ -95,7 +95,7 @@ public class CRSApplication {
                         // switch case
                         switch (type) {
                             // case 1
-                            case 1:
+                            case 1://professor
                                 //println
                                 System.out.println("\nEnter the name of the professor:");
                                 String name = scanner.next();
@@ -155,7 +155,7 @@ public class CRSApplication {
                             //     System.out.println("\nProfessor addition failed!");
                             // }
                             // take integer
-                            case 2:
+                            case 2://student
                                 //println
                                 System.out.println("\nEnter the name of the student:");
                                 String name_student = scanner.next();
@@ -194,7 +194,6 @@ public class CRSApplication {
                                 // call the addStudent function
                                 // int studentID = adminRef.getNumStudent()+1;
                                 // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
-                                break;
                             if (adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student)) {
                                 //     //println
                                 System.out.println("\nStudent added successfully!");
@@ -202,6 +201,7 @@ public class CRSApplication {
                                 //println
                                 System.out.println("\nStudent addition failed!");
                             }
+                                break;
                             // take integer
                             case 3:
                                 //println
@@ -326,5 +326,5 @@ public class CRSApplication {
                 }
             }
         }
-    }
 }
+

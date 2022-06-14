@@ -12,6 +12,9 @@ import com.flipkart.service.StudentInterface;
 import java.util.List;
 import java.util.ArrayList;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.CourseCatalogue;
 // import scanner
 import java.util.Scanner;
 
@@ -30,6 +33,14 @@ public class CRSApplication {
         StudentInterface studentRef = new StudentImpl();
         // list of professor
         List<Professor> professorsList = new ArrayList<Professor>();
+
+        // list of students
+        List<Student> studentsList = new ArrayList<Student>();
+
+        // new course catalog
+        CourseCatalogue courseCatalogue = new CourseCatalogue();
+        // list of courses
+        List<Course> coursesList = new ArrayList<Course>();
         // println
         System.out.println("Welcome to the Course Registration System!");
         // while loop   
@@ -114,7 +125,7 @@ public class CRSApplication {
                                 //println
                                 // take space seperated list of courses
                                 System.out.println("\nEnter the courses of the professor:");
-                                String courses = scanner.next();
+                                String courses = scanner.nextLine();
                                 // split the courses
                                 String[] courses_array = courses.split(" ");
                                 // convert the courses to integer
@@ -181,7 +192,7 @@ public class CRSApplication {
                                 courses_int_student[i] = Integer.parseInt(courses_array_student[i]);
                             }
                             // call the addStudent function
-                            int studentID = adminRef.getNumStudent()+1;
+                            // int studentID = adminRef.getNumStudent()+1;
                             // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
                             break;
                             if (adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student)) {
@@ -207,27 +218,70 @@ public class CRSApplication {
                             int semester_course = scanner.nextInt();
                             //println
                             // add course
-                            if (adminRef.addCourse(name_course, courseID, department_course, semester_course)) {
-                                //println
-                                System.out.println("\nCourse added successfully!");
-                            } else {
-                                //println
-                                System.out.println("\nCourse addition failed!");
-                            }
+                            courseCatalogue.addCourse(semester_course, courseID);
                             break;
                         // take integer
                         case 4:
                             //get professor details
                             System.out.println("\nEnter the userID of the professor:");
-                             = scanner.next();
+                            String userId_prof_4 = scanner.next();
                             // get professor details
                             // iterate over professor list
 
                             for (int i = 0; i < adminRef.getNumProf(); i++) {
                                 // if userId_prof_delete matches with userId of professor
-                                if (adminRef.professorDetails(professorsList, professorID))
+                                if (adminRef.professorDetails(professorsList, professorID).getUserID() == userId_prof_4)
+                                adminRef.professorDetails(professorsList, professorID).showProfessorDetails();
                             }
-                        }
+                            break;
+                        case 5:
+                            //get student details
+                            System.out.println("\nEnter the userID of the student:");
+                            String userId_student_5 = scanner.next();
+                            // get student details
+                            // iterate over student list
+                            for (int i = 0; i < studentsList.size(); i++) {
+                                // if userId_student_delete matches with userId of student
+                                if (studentsList.get(i).getRollNo() == userId_student_5){
+                                    studentsList.get(i).viewStudent();
+                                }
+                            }
+                            break;
+                        case 6:
+                            //get course details
+                            System.out.println("\nEnter the course ID of the course:");
+                            String courseID_6 = scanner.next();
+                            // System.out.println("\nEnter the semester of the course:");
+                            // int sem_6 = scanner.nextInt();
+                            // get course details
+                            // iterate over courselist
+                            for(int i = 0; i < coursesList.size(); i++){
+                                // if courseID_delete matches with courseID of course
+                                if(coursesList.get(i).getCourseID() == courseID_6){
+                                    coursesList.get(i).printCourseDetails();
+                                }
+                            }
+                            
+                        break;
+                        case 7:
+                            // Approve course for student
+                            System.out.println("\nEnter the userID of the student:");
+                            String userId_student_7 = scanner.next();
+                            System.out.println("\nEnter the course ID of the course:");
+                            int courseID_7 = scanner.nextInt();
+                            System.out.println("\nEnter the semester of the course:");
+                            int sem_7 = scanner.nextInt();
+                            // println
+                            System.out.println("Course approved successfully!");
+                            break;
+                        case 8:
+                        // remove course
+                        System.out.println("\nEnter the course ID of the course:");
+                        int courseID_8 = scanner.nextInt();
+                        System.out.println("\nEnter the semester of the course:");
+                        int sem_8 = scanner.nextInt();
+                        // remove course
+                        courseCatalogue.removeCourse(sem_8, courseID_8);
                     }
                     else{
                         //println

@@ -14,6 +14,6 @@ public interface ProfessorInterface {
     public void viewCourses(String professorID);
     public void viewResults(String courseID);
     //public void viewSchedule(int professorID);
-    public void viewProfile(String professorID,List<Professor> prof_list);
+    public void viewProfile(String professorID);
 
 }

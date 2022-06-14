@@ -62,11 +62,11 @@ public class Student extends User{
         this.department = department;
     }
 
-    public float getCg() {
+    public float getCg(String courseID) {
         return cg;
     }
 
-    public void setCg(float cg) {
+    public void setCg(float cg,String courseID) {
         this.cg = cg;
     }
 

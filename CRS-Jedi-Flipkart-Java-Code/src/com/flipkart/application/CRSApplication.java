@@ -119,8 +119,42 @@ public class CRSApplication {
             }
         }
     }
-    public static void student(){
-
+    public static void student(String userId){
+        while(true) {
+            studentRef.showStudentMenu();
+            int choice = new Scanner(System.in).nextInt();
+            if (choice == 7)break;
+            switch (choice) {
+                case 1:
+                    // register for course
+                    // take course id as input
+                    System.out.println("Enter course id");
+                    String courseId = new Scanner(System.in).nextLine();
+                    // take semester as input
+                    System.out.println("Enter semester");
+                    int semester = new Scanner(System.in).nextInt();
+                    adminRef.approveCourseforStudent(userId, courseId, semester);
+                    break;
+                case 2:
+                    // pay fees
+                    // take semester as input
+                    System.out.println("Enter semester");
+                    int semester1 = new Scanner(System.in).nextInt();
+                    System.out.println("Enter Amount");
+                    int amount = new Scanner(System.in).nextInt();
+                    System.out.println("Fees paid :)");
+                    break;
+                case 3:
+                    // update student info
+                    break;
+                case 4:
+                    // view grade card
+                    // take semester as input
+                    System.out.println("Enter semester");
+                    int semester2 = new Scanner(System.in).nextInt();
+                    break;
+            }
+        }
     }
         // main method
     public static void main(String[] args) {
@@ -154,7 +188,7 @@ public class CRSApplication {
                     String role = userRef.getRole(userId);
                     if (role == "admin") admin(); 
                     else if (role == "professor") professor();
-                    else if (role == "student") student();
+                    else if (role == "student") student(userId);
                     else System.out.println("\nInvalid role!");
                 }
                 else{

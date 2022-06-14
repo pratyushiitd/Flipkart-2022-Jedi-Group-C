@@ -8,7 +8,7 @@ import java.util.*;
 
 public class ProfessorImpl implements ProfessorInterface{
 
-        List<Professor> prof_list =new ArrayList<>();
+
         HashMap<String, List<String>> prof_course_map= new HashMap<>();
         HashMap<String, List<List<String>>> course_stu_grade_map=new HashMap<>();
 
@@ -24,7 +24,7 @@ public class ProfessorImpl implements ProfessorInterface{
 //
 //        }
 
-        public void viewProfile(String professorid){
+        public void viewProfile(String professorid,List<Professor> prof_list){
                 for(Professor p : prof_list) {
                         if(p.getUserID().equals(professorid)) {
                                 System.out.println("Name: " + p.getName());
@@ -82,7 +82,6 @@ public class ProfessorImpl implements ProfessorInterface{
         public void dropCoursestoTeach(String professorID, String courseID) {
                 List<String> course_list= prof_course_map.get(professorID);
                 course_list.remove(courseID);
-
         }
 
         //@Override

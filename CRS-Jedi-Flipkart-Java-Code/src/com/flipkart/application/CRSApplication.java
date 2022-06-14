@@ -1,5 +1,7 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Student;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;
@@ -263,17 +265,30 @@ public class CRSApplication {
                         //println
                         System.out.println("\nPlease select an option from the following menu:");
                         //println
-                        System.out.println("1. View Students list :");
-                        System.out.println("2. Submit grades :");
-                        System.out.println("3. Logout");
+                        System.out.println("1. View professor details");
+                        System.out.println("2. View Students list ");
+                        System.out.println("3. Submit grades ");
+                        System.out.println("4. Logout");
                         int type=scanner.nextInt();
                         switch(type)
                         {
-                            case 1:  System.out.println("You have the following courses under you,Select " +
+                            case 1:profRef.viewProfile(userId);
+                                    break;
+                            case 2:  System.out.println("You have the following courses under you,Select " +
                                     "any one to view students list");
+                                     profRef.viewCourses(userId);
+                                     System.out.println("Enter the courseId to view students list:");
+                                     String courseID=scanner.next();
+                                    // Course course=
+                                     //List<Student> studentListCourse=profRef.getStudentsList(courseID,)
 
                             break;
-
+                            case 3:
+                                break;
+                            case 4:System.out.println("Successfully logged out.");
+                            break;
+                            default:System.out.println("Invalid choice");
+                            break;
                         }
                     break;
                 // case 3

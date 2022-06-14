@@ -10,6 +10,7 @@ public class ProfessorImpl implements ProfessorInterface{
 
 
         HashMap<String, List<String>> prof_course_map= new HashMap<>();
+        //prof id->course id list
         HashMap<String, List<List<String>>> course_stu_grade_map=new HashMap<>();
 
         public void viewResults(String courseid){
@@ -87,9 +88,9 @@ public class ProfessorImpl implements ProfessorInterface{
         //@Override
         public void viewCourses(String professorID) {
                 List<String> course_list= prof_course_map.get(professorID);
-                System.out.println("The courses taught by "+professorID+" are: ");
+                //System.out.println("The courses taught by "+professorID+" are: ");
                 for(int i=0;i<course_list.size();i++)
-                        System.out.println(i+" "+ course_list.get(i));
+                        System.out.println(i+". "+ course_list.get(i));
 
         }
 

@@ -13,6 +13,7 @@ public interface AdminInterface {
         public Student studentDetails(List<Student> studentList,String studentID);
         public boolean approveCourses(String studentID,List<Student> studentsList);
         public String addCourse(Course course, int semester );
+        public int getNumProf();
         public boolean removeCourses(String courseID,int semester);
         public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
                 ,String adminID) ;

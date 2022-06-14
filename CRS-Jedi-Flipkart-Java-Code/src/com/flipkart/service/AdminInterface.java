@@ -5,7 +5,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 public interface AdminInterface {
         public Professor addProfessor(String name,String userID,String password,String email_id,
-                                    String professorID, String department);
+                                    String department);
         public boolean viewprofessorDetails(String professorID);
         public boolean viewstudentDetails(String studentID);
         public void viewcoursedetail(int semester, String courseID);

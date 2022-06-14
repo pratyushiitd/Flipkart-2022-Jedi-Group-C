@@ -43,11 +43,11 @@ public class AdminImpl implements AdminInterface {
     }
     @Override
     public Professor addProfessor(String name,String userID,String password,String email_id,
-    String professorID, String department){
+    String department){
         // check if professorID already exists
         boolean taken = false;
         for(Professor pf: professorsList){
-            if(professorID.equals(pf.getUserID())){
+            if(userID.equals(pf.getUserID())){
                 taken = true;
             }
         }
@@ -56,7 +56,7 @@ public class AdminImpl implements AdminInterface {
             System.out.println("Professor ID already exists");
             return null;
         }
-        Professor professor = new Professor(name,"professor",professorID,password,email_id,department);
+        Professor professor = new Professor(name,"professor",userID, password,email_id,department);
         professorsList.add(professor);
         return professor;
     }
@@ -227,8 +227,6 @@ public class AdminImpl implements AdminInterface {
         System.out.println("\nEnter the email ID of the professor:");
         String email_id = scanner.next();
         // take professor id
-        System.out.println("\nEnter the professor ID of the professor:");
-        String professorID = scanner.next();
         //println
         // take semester
         System.out.println("\nEnter the semester of the professor:");
@@ -244,7 +242,7 @@ public class AdminImpl implements AdminInterface {
             courses_int[i] = Integer.parseInt(courses_array[i]);
         }
         // add the professor to the list of professors
-        Professor newProf = addProfessor(name, userId_prof, password_prof, email_id, professorID, department);
+        Professor newProf = addProfessor(name, userId_prof, password_prof, email_id, department);
         // add the courses to the professor
         if (newProf!=null){
             for (int i = 0; i < courses_int.length; i++) {

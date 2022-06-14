@@ -78,6 +78,7 @@ public class AdminImpl implements AdminInterface {
         //println
         System.out.println("\nEnter the semester of the student:");
         int semester_student = scanner.nextInt();
+        scanner.nextLine();
         //println
         System.out.println("\nEnter the section of the student:");
         char section_student = scanner.next().charAt(0);
@@ -231,6 +232,7 @@ public class AdminImpl implements AdminInterface {
         // take semester
         System.out.println("\nEnter the semester of the professor:");
         int semester = scanner.nextInt();
+        scanner.nextLine();
         // take space seperated list of courses
         System.out.println("\nEnter the courses of the professor:");
         String courses = scanner.nextLine();
@@ -247,7 +249,12 @@ public class AdminImpl implements AdminInterface {
         if (newProf!=null){
             for (int i = 0; i < courses_int.length; i++) {
                 Course toAdd = courseCatalogue.getCourse(semester, Integer.toString(courses_int[i]));
-                newProf.addCourse(toAdd);
+                if (toAdd!=null){
+                    newProf.addCourse(toAdd);
+                }
+                else{
+                    System.out.println("Courses not found! Register them first!");
+                }
             }
         }
         return newProf;

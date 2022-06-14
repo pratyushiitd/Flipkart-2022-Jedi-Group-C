@@ -88,6 +88,18 @@ public class Student extends User{
         this.section = section;
     }
 
+    // get name of student
+    public String getName(){
+        return super.getName();
+    }
+    // get password of student
+    public String getPassword(){
+        return super.getPassword();
+    }
+    // get email id of student
+    public String getEmail_id(){
+        return super.getEmail_id();
+    }
     public void viewStudentDetails(){
         System.out.println("Name: " + this.getName());
         System.out.println("Role: " + this.getRole());

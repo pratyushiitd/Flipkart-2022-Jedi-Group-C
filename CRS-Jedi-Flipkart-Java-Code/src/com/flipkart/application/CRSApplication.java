@@ -164,7 +164,9 @@ public class CRSApplication {
             }
             else if (login_option == 2){
                 // register a student
-                adminRef.addStudentAdmin();;
+                Student stud = adminRef.addStudentAdmin();
+                // register stud
+                userRef.register(stud.getName(), "student", stud.getUserID(), stud.getPassword(), stud.getEmail_id());
             }
         }
     }

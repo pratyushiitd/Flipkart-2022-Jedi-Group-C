@@ -9,7 +9,11 @@ public class CourseCatalogue{
     public HashMap<Integer,List<Course>> semCourses;
 
     public CourseCatalogue() {
+
         this.semCourses = new HashMap<Integer,List<Course>>();
+        for(int i = 1; i <= 8; i++){
+            this.semCourses.put(i, new ArrayList<Course>());
+        }
     }
     public List<Course> getCourses(int semester) {
         return semCourses.get(semester);

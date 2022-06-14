@@ -1,7 +1,5 @@
 package com.flipkart.application;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Student;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;
@@ -11,7 +9,6 @@ import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 // list
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import com.flipkart.bean.Professor;
@@ -26,7 +23,6 @@ public class CRSApplication {
 
     // scanner object
     Scanner scanner_main = new Scanner(System.in);
-
     // main function
     public static void main(String[] args) {
 
@@ -47,6 +43,7 @@ public class CRSApplication {
         List<Course> coursesList = new ArrayList<Course>();
         // println
         System.out.println("Welcome to the Course Registration System!");
+        String professorID = null;
         // while loop   
         while (true) {
             // println
@@ -62,7 +59,7 @@ public class CRSApplication {
             //switch case
             switch (scanner.nextInt()) {
                 // case 1
-                case 1:
+                    case 1:
                     //println
                     System.out.println("\nEnter your userID:");
                     String userId = scanner.next();
@@ -98,7 +95,7 @@ public class CRSApplication {
                         // switch case
                         switch (type) {
                             // case 1
-                            case 1:
+                            case 1://professor
                                 //println
                                 System.out.println("\nEnter the name of the professor:");
                                 String name = scanner.next();
@@ -141,7 +138,7 @@ public class CRSApplication {
                                 //int to string
 
 
-                                String professorID = Integer.toString(adminRef.getNumProf() + 1);
+                                professorID = Integer.toString(adminRef.getNumProf() + 1);
                                 // adminRef.addProfessor(name, userId_prof, password_prof, department, mobile, email_id, rollNo, semester, section, courses_int);
                                 // new professor
                                 Professor professor = new Professor();
@@ -158,7 +155,7 @@ public class CRSApplication {
                             //     System.out.println("\nProfessor addition failed!");
                             // }
                             // take integer
-                            case 2:
+                            case 2://student
                                 //println
                                 System.out.println("\nEnter the name of the student:");
                                 String name_student = scanner.next();
@@ -197,7 +194,6 @@ public class CRSApplication {
                                 // call the addStudent function
                                 // int studentID = adminRef.getNumStudent()+1;
                                 // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
-                                break;
                             if (adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student)) {
                                 //     //println
                                 System.out.println("\nStudent added successfully!");
@@ -205,6 +201,7 @@ public class CRSApplication {
                                 //println
                                 System.out.println("\nStudent addition failed!");
                             }
+                                break;
                             // take integer
                             case 3:
                                 //println
@@ -286,146 +283,48 @@ public class CRSApplication {
                                 // remove course
                                 courseCatalogue.removeCourse(sem_8, courseID_8);
                         }
-                    else{
-                            //println
-                            count_fail++;
-                            System.out.println("\nLogin failed!");
-                            if (count_fail == 5) {
-                                //println
-                                System.out.println("\nYou have failed to login 5 times. Please try again later.");
-                                //break
-                                // wait for 10 sec
-                                try {
-                                    Thread.sleep(10000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }
-                        break;
-                        // case 2
-                        case 2:
-                            // call professor menu
-                            // profRef.professorMenu();
-                            //println
-                            System.out.println("\nEnter your userID:");
-                            userId = scanner.next();
-                            //println
-                            System.out.println("\nEnter your password:");
-                            password = scanner.next();
-                            count_fail = 0;
-                            if (userRef.login(userId, password)) {
-                                //println
-                                System.out.println("\nLogin successful!");
-                                //println
-                                System.out.println("\nPlease select an option from the following menu:");
-                                //println
-                                System.out.println("1. View professor details");
-                                System.out.println("2. View Students list ");
-                                System.out.println("3. Submit grades ");
-                                System.out.println("4. Logout");
-                                type = scanner.nextInt();
-                                switch (type) {
-                                    case 1:
-                                        profRef.viewProfile(userId);
-                                        break;
-                                    case 2:
-                                        System.out.println("You have the following courses under you,Select " +
-                                                "any one to view students list");
-                                        profRef.viewCourses(userId);
-                                        System.out.println("Enter the courseId to view students list:");
-                                        String courseID = scanner.next();
-                                        try {
-                                            List<Student> studentsListCourse;
-
-                                            for (Course course : coursesList) {
-                                                if (course.getCourseID().equals(courseID)) {
-                                                    studentsListCourse = course.getStudentsEnrolled(courseID);
-                                                    for (int i = 0; i < studentsListCourse.size(); i++) {
-                                                        System.out.println("Student name: " + studentsListCourse.get(i).getName());
-                                                        System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
-                                                    }
-                                                }
-                                            }
-                                        } catch (Exception e) {
-                                            System.out.println("Incorrect course id chosen");
-                                        }
-
-                                        break;
-                                    case 3:
-                                        System.out.println("Enter the courseId to submit grades of students:");
-                                        String courseIDP = scanner.next();
-                                        try {
-                                            List<Student> studentsListCourse;
-
-                                            for (Course course : coursesList) {
-                                                if (course.getCourseID().equals(courseIDP)) {
-                                                    studentsListCourse = course.getStudentsEnrolled(courseIDP);
-                                                    for (int i = 0; i < studentsListCourse.size(); i++) {
-                                                        System.out.println("Student name: " + studentsListCourse.get(i).getName());
-                                                        System.out.println("Student roll number: " + studentsListCourse.get(i).getRollNo());
-                                                        System.out.println("Enter grade for this student: ");
-                                                        float grade = scanner.nextFloat();
-                                                        studentsListCourse.get(i).setCg(grade, courseIDP);
-                                                    }
-                                                }
-                                            }
-                                        } catch (Exception e) {
-                                            System.out.println("Incorrect course id chosen");
-                                        }
-                                        break;
-                                    case 4:
-                                        System.out.println("Successfully logged out.");
-                                        break;
-                                    default:
-                                        System.out.println("Invalid choice");
-                                        break;
-                                }
-                                break;
-                                // case 3
-                                case 3:
-                                    // call student menu
-                                    // studentRef.studentMenu();
-                                    System.out.println("\nEnter your userID:");
-                                    userId = scanner.next();
-                                    //println
-                                    System.out.println("\nEnter your password:");
-                                    password = scanner.next();
-                                    count_fail = 0;
-                                    if (userRef.login(userId, password)) {
-                                        //println
-                                        System.out.println("\nLogin successful!");
-                                        //println
-                                        System.out.println("\nPlease select an option from the following menu:");
-                                        //println
-                                        System.out.println("1. View Courses");
-                                        System.out.println("2. Registration and payment");
-                                        System.out.println("3. Courses opted");
-                                        System.out.println("4. Updated course list");
-                                        System.out.println("5. Add Courses");
-                                        System.out.println("6. Drop Courses");
-                                        System.out.println("7. View Grades");
-                                        System.out.println("8. Logout");
-                                        type = scanner.nextInt();
-                                        switch (type) {
-                                            case 1:
-                                        }
-                                        break;
-                                        // case 4
-                                        case 4:
-                                            // println
-                                            System.out.println("Thank you for using the Course Registration System!");
-                                            // exit
-                                            System.exit(0);
-                                            break;
-                                        // default
-                                        default:
-                                            // println
-                                            System.out.println("Invalid option. Please try again.");
-                                            break;
-                                    }
-                            }
                     }
+                    else{
+                        //println
+                        count_fail++;
+                        System.out.println("\nLogin failed!");
+                        if (count_fail == 5) {
+                            //println
+                            System.out.println("\nYou have failed to login 5 times. Please try again later.");
+                            //break
+                            // wait for 10 sec
+                            try {
+                                Thread.sleep(10000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
+                    }
+                // case 2
+                case 2:
+                    // call professor menu
+                    // profRef.professorMenu();
+                    break;
+                // case 3
+                case 3:
+                    // call student menu
+                    // studentRef.studentMenu();
+                    break;
+                // case 4
+                case 4:
+                    // println
+                    System.out.println("Thank you for using the Course Registration System!");
+                    // exit
+                    System.exit(0);
+                    break;
+                // default
+                default:
+                    // println
+                    System.out.println("Invalid option. Please try again.");
+                    break;
+                }
             }
         }
+}
+

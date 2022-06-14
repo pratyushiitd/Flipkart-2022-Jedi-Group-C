@@ -72,5 +72,8 @@ public class Professor extends User{
     public void setList(List<String> coursesTeaching) {
         this.coursesTeaching = coursesTeaching;
     }
+
+    public void showProfessorDetails() {
+    }
 }
 

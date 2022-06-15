@@ -20,32 +20,30 @@ public class StudentDAOImpl {
     static List<String> studentID=new ArrayList<>();
     static List<String> studentName=new ArrayList<>();
     static List<String> studentPswd=new ArrayList<>();
-    static List<Long> studentMobile=new ArrayList<>();
     static List<String> studentEmail=new ArrayList<>();
     static List<Integer> studentSemester=new ArrayList<>();
     static List<String> studentDept=new ArrayList<>();
     static List<Float> studentCg=new ArrayList<>();
     static List<String> studentGender=new ArrayList<>();
     static List<String> studentPaymentID=new ArrayList<>();
-    public static void addStudent(String id,String name,String pswd,String role, long mobile,String email, int sem,
-                                  String section,String dept,float cg,String gender,String paymentID,PreparedStatement stmt,
+    public static void addStudent(String id,String name,String pswd,String role,String email, int sem,
+                                  int section,String dept,float cg,String gender,String paymentID,PreparedStatement stmt,
                                   Connection conn)
     {
         try{
-        String sql="insert into student values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql="insert into student values(?,?,?,?,?,?,?,?,?,?,?)";
         stmt = conn.prepareStatement(sql);
         stmt.setString(1, id);
         stmt.setString(2,name);
         stmt.setString(3, pswd);
         stmt.setString(4, role);
-        stmt.setLong(5, mobile);
-        stmt.setString(6,email);
-        stmt.setInt(7,sem );
-        stmt.setString(8,section );
-        stmt.setString(9,dept);
-        stmt.setFloat(10, cg);
-        stmt.setString(11,gender);
-        stmt.setString(12, paymentID);
+        stmt.setString(5,email);
+        stmt.setInt(6,sem );
+        stmt.setInt(7,section );
+        stmt.setString(8,dept);
+        stmt.setFloat(9, cg);
+        stmt.setString(10,gender);
+        stmt.setString(11, paymentID);
         stmt.executeUpdate();
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -68,13 +66,12 @@ public class StudentDAOImpl {
             }//end finally try
         }//end try
     }
-    public static void addStudent(String id,String name,String pswd,long mobile,String email, int sem,
+    public static void addStudent(String id,String name,String pswd,String email, int sem,
                                   String dept,float cg,String gender,String paymentID)
     {
         studentID.add(id);
         studentName.add(name);
         studentPswd.add(pswd);
-        studentMobile.add(mobile);
         studentEmail.add(email);
         studentSemester.add(sem);
         studentDept.add(dept);
@@ -104,6 +101,20 @@ public class StudentDAOImpl {
 
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
+            addStudent("s1","ankit","jedi_ankit","ankit@fk.com",1,"cse",0.0f,"M","");
+            addStudent("s2","pramod","jedi_pramod","pramod@fk.com",1,"cse",0.0f,"M","");
+            addStudent("s3","shreya","jedi_shreya","shreya@fk.com",1,"cse",0.0f,"F","");
+            addStudent("s4","rahul","jedi_rahul","rahul@fk.com",1,"cse",0.0f,"M","");
+            addStudent("s5","rohit","jedi_rohit","rohit@fk.com",1,"cse",0.0f,"M","");
+            addStudent("s6","ansh","jedi_ansh","ansh@fk.com",1,"cse",0.0f,"F","");
+            addStudent("s7","shruti","jedi_shruti","shruti@fk.com",1,"cse",0.0f,"M","");
+            addStudent("s8","kavya","jedi_kavya","kavya@fk.com",1,"cse",0.0f,"M","");
+            addStudent("s9","sarita","jedi_sarita","sarita@fk.com",1,"cse",0.0f,"F","");
+            for(int i=0;i<9;i++)
+            {
+                addStudent(studentID.get(i),studentName.get(i),studentPswd.get(i),"student",studentEmail.get(i),studentSemester.get(i),1,
+                        studentDept.get(i),studentCg.get(i),studentGender.get(i),studentPaymentID.get(i),stmt,conn);
+            }
 
             //stmt.executeUpdate();
 

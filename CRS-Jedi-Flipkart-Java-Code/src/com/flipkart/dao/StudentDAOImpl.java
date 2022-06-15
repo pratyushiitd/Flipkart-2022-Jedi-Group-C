@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDAOImpl {
     // Step 1
@@ -15,8 +17,19 @@ public class StudentDAOImpl {
     static final String USER = "root";
     static final String PASS = "root";
 
-
-    public static void addStudent(String id,String name,String pswd,String role, long mobile,String email, int sem,String section,String dept,float cg,String gender,String paymentID,PreparedStatement stmt,Connection conn)
+    static List<String> studentID=new ArrayList<>();
+    static List<String> studentName=new ArrayList<>();
+    static List<String> studentPswd=new ArrayList<>();
+    static List<Long> studentMobile=new ArrayList<>();
+    static List<String> studentEmail=new ArrayList<>();
+    static List<Integer> studentSemester=new ArrayList<>();
+    static List<String> studentDept=new ArrayList<>();
+    static List<Float> studentCg=new ArrayList<>();
+    static List<String> studentGender=new ArrayList<>();
+    static List<String> studentPaymentID=new ArrayList<>();
+    public static void addStudent(String id,String name,String pswd,String role, long mobile,String email, int sem,
+                                  String section,String dept,float cg,String gender,String paymentID,PreparedStatement stmt,
+                                  Connection conn)
     {
         try{
         String sql="insert into student values(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -55,11 +68,26 @@ public class StudentDAOImpl {
             }//end finally try
         }//end try
     }
-
+    public static void addStudent(String id,String name,String pswd,long mobile,String email, int sem,
+                                  String dept,float cg,String gender,String paymentID)
+    {
+        studentID.add(id);
+        studentName.add(name);
+        studentPswd.add(pswd);
+        studentMobile.add(mobile);
+        studentEmail.add(email);
+        studentSemester.add(sem);
+        studentDept.add(dept);
+        studentCg.add(cg);
+        studentGender.add(gender);
+        studentPaymentID.add(paymentID);
+    }
     public static void main(String[] args) {
 
         // Step 2
         // Declare the Coneection or prepaidstatement variable here
+
+
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -76,24 +104,8 @@ public class StudentDAOImpl {
 
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
-            //String sql="insert into employeefc values(?,?,?,?)";
-            //String sql = "UPDATE Employees set age=? WHERE id=?";
-            // String sql1="delete from employee where id=?";
-            // stmt.setInt(1, 101);
-            //stmt = conn.prepareStatement(sql);
 
-            // Hard coded data
-
-            /*int id=627;
-            String name="Vabhav";
-            String address="Delhi";
-            String location="india";
-            //Bind values into the parameters.
-            stmt.setInt(1, id);  // This would set age
-            stmt.setString(2,name);
-            stmt.setString(3, address);
-            stmt.setString(4, location);
-            */stmt.executeUpdate();
+            //stmt.executeUpdate();
 
 
 			   /*

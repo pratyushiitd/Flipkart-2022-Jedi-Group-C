@@ -1,29 +1,13 @@
 package com.flipkart.service;
 
 public class ProfessorImpl implements ProfessorInterface{
-        
-        public void addCourse(int professorId,int courseid){
-            
+        public void professorMenu()
+        {
+            System.out.println("\nPlease select an option from the following menu:");
+            //println
+            System.out.println("1. View professor details");
+            System.out.println("2. View Students list ");
+            System.out.println("3. Submit grades ");
+            System.out.println("4. Logout");
         }
-        
-        public void dropCourse(int professorid, int courseid){
-            
-        }
-        
-        public void viewCourses(int professorid){
-            
-        }
-        
-        public void viewResults(int professorid){
-            
-        }
-        
-        public void viewSchedule(int professorid){
-            
-        }
-        
-        public void viewProfile(int professorid){
-            
-        }
-        
 }

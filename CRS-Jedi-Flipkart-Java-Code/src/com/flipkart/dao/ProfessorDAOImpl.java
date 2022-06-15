@@ -1,5 +1,6 @@
 package com.flipkart.dao;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +16,52 @@ public class ProfessorDAOImpl {
     static final String USER = "root";
     static final String PASS = "root";
 
+    static List<String> professorID = new ArrayList<String>();
+    static List<String> professorName = new ArrayList<String>();
+    static List<String> professorPswd = new ArrayList<String>();
+    static List<String> professorEmail = new ArrayList<String>();
+    static List<String> professorDept = new ArrayList<String>();
 
+    public static void addProfessor(String id, String name, String pswd, String email, String dept) {
+        professorID.add(id);
+        professorName.add(name);
+        professorPswd.add(pswd);
+        professorEmail.add(email);
+        professorDept.add(dept);
+        }
+    public static void addProfessor(String id, String name, String pswd, String email, String dept, PreparedStatement stmt, Connection conn) {
+
+        try {
+            String sql = "insert into professor values(?,?,?,?,?)";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id);
+            stmt.setString(2, name);
+            stmt.setString(3, pswd);
+            stmt.setString(4, email);
+            stmt.setString(5, dept);
+            stmt.executeUpdate();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+    }
 
     public static void main(String[] args) {
 
@@ -37,6 +83,15 @@ public class ProfessorDAOImpl {
 
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
+            addProfessor("p1", "Naveen", "jedi_naveen", "naveen@fk.com", "CSE");
+            addProfessor("p2", "Sachin", "jedi_sachin", "sachin@fk.com", "CSE");
+            addProfessor("p3", "Vijay", "jedi_vijay", "vijay@fk.com", "CSE");
+            addProfessor("p4", "Ramesh", "jedi_ramesh", "ramesh@fk.com", "CSE");
+            addProfessor("p5", "Suresh", "jedi_suresh", "suresh@fk.com", "CSE");
+            addProfessor("p6", "Sachin", "jedi_sachin", "sachin@fk.com", "CSE");
+            for(int i=0;i<6;i++) {
+                addProfessor(professorID.get(i), professorName.get(i), professorPswd.get(i), professorEmail.get(i), professorDept.get(i), stmt, conn);
+            }
             //String sql="insert into employeefc values(?,?,?,?)";
             //String sql = "UPDATE Employees set age=? WHERE id=?";
             // String sql1="delete from employee where id=?";

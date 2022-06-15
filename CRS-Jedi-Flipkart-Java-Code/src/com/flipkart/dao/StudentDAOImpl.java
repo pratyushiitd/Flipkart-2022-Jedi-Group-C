@@ -18,7 +18,8 @@ public class StudentDAOImpl {
 
     public static void addStudent(String id,String name,String pswd,String role, long mobile,String email, int sem,String section,String dept,float cg,String gender,String paymentID,PreparedStatement stmt,Connection conn)
     {
-        String sql="insert into student values(?,?,?,?)";
+        try{
+        String sql="insert into student values(?,?,?,?,?,?,?,?,?,?,?,?)";
         stmt = conn.prepareStatement(sql);
         stmt.setString(1, id);
         stmt.setString(2,name);
@@ -33,6 +34,26 @@ public class StudentDAOImpl {
         stmt.setString(11,gender);
         stmt.setString(12, paymentID);
         stmt.executeUpdate();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
     }
 
     public static void main(String[] args) {

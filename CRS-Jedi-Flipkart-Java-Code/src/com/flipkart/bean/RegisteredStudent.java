@@ -38,4 +38,16 @@ public class RegisteredStudent extends User {
         }
         return null;
     }
+    // show courses of student
+    public void showCourses(String studentID) {
+        Student student = getStudent(studentID);
+        if (student == null) {
+            System.out.println("Student not found");
+        } else {
+            System.out.println("Courses of " + student.getName());
+            for(Course course : courseEnrolled.get(student)) {
+                System.out.println(course.getCourseName());
+            }
+        }
+    }
 }

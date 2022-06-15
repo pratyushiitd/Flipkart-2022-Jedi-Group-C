@@ -1,7 +1,5 @@
 package com.flipkart.bean;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class GradeCard {
 
@@ -23,27 +21,17 @@ public class GradeCard {
     public int getGrade(Course course){
         return this.grades.get(course);
     }
-    public List<Course> getCourses(){
-        return new ArrayList<Course>(this.grades.keySet());
-    }
-    public Student getStudent(){
-        return this.student;
-    }
-    public void setStudent(Student student){
-        this.student = student;
-    }
     public void printGrades(){
         for(Course course: this.grades.keySet()){
             System.out.println(course.getCourseName() + ": " + this.grades.get(course));
         }
     }
-
+    // GET STUDENT
+    public Student getStudent(){
+        return this.student;
+    }
     public HashMap<Course, Integer> getGrades() {
         return grades;
-    }
-
-    public void setGrades(HashMap<Course, Integer> grades) {
-        this.grades = grades;
     }
 
 }

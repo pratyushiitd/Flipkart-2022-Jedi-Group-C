@@ -22,5 +22,7 @@ public interface AdminInterface {
         public Professor addProfessorAdmin();
         public Student addStudentAdmin();
         public void addCourseAdmin();
+
+        public void viewEnrolledStudents(String courseID);
         public void submitGrades(String studentId, String courseId, int grade,int semester);
 }

@@ -71,7 +71,7 @@ public class CRSApplication {
                     // approve course for student
                     // take student id and course id as input
                     System.out.println("Enter student id");
-                    String studentId1 = new Scanner(System.in).nextLine();
+                    String studentId1 = new Scanner(System.in).next();
                     System.out.println("Enter course id");
                     String courseId1 = new Scanner(System.in).nextLine();
                     System.out.println("Enter semester");
@@ -97,9 +97,15 @@ public class CRSApplication {
                 case 2:
                     // view student details
                     // take student id as input
-                    // System.out.println("Enter course id");
-                    // String studentId = new Scanner(System.in).nextLine();
-                    // adminRef.viewstudentDetails(studentId);
+                     System.out.println("Enter course id");
+                     String studentId = new Scanner(System.in).nextLine();
+
+                        System.out.println("Enter semester");
+                        int semester = new Scanner(System.in).nextInt();
+//                     adminRef.viewstudentDetails(studentId);
+                    adminRef.viewEnrolledStudents(studentId);
+
+
                     break;
                 case 3:
                     // submit grades

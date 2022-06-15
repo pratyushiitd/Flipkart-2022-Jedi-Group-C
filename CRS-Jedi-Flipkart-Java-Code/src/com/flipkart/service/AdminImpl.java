@@ -129,6 +129,7 @@ public class AdminImpl implements AdminInterface {
             for(Student student:registeredStudent.getRegisteredStudents()){
                 if(student.getUserID().equals(studentID)){
                     student.viewStudentDetails();
+                    registeredStudent.showCourses(studentID);
                     return true;
                 }
             }
@@ -207,6 +208,14 @@ public class AdminImpl implements AdminInterface {
         Student student = registeredStudent.getStudent(studentID);
         if (course!= null && student!=null){
             registeredStudent.addCourseforStudent(student, course);
+        }
+        else{
+            if (course==null){
+                System.out.println("Course not found");
+            }
+            if (student==null){
+                System.out.println("Student not found");
+            }
         }
     }
     @Override

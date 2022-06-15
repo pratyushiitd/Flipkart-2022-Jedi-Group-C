@@ -269,6 +269,18 @@ public class AdminImpl implements AdminInterface {
         return newProf;
 
     }
+
+    @Override
+    public void viewEnrolledStudents(String courseID) {
+        System.out.println("Enrolled Students:");
+        for(Student student:registeredStudent.getRegisteredStudents()){
+            for(Course course:registeredStudent.getCourses(student)){
+                if(course.getCourseID().equals(courseID)){
+                    System.out.println(student.getUserID() + ": " + student.getName());
+                }
+            }
+        }
+    }
     @Override
     public void submitGrades(String studentId, String courseID, int grade, int semester) {
         Course course = courseCatalogue.getCourse(semester, courseID);

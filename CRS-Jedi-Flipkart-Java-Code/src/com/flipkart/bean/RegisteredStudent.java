@@ -38,6 +38,9 @@ public class RegisteredStudent extends User {
         }
         return null;
     }
+    public List<Course> getCourses(Student student) {
+        return courseEnrolled.get(student);
+    }
     // show courses of student
     public void showCourses(String studentID) {
         Student student = getStudent(studentID);

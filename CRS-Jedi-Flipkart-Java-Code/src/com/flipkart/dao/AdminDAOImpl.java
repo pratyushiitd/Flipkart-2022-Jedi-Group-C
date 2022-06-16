@@ -1,26 +1,40 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AdminDAOImpl {
     // Step 1
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/test";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/test?characterEncoding=latin1&useConfigs=maxPerformance";
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "janhavi544";
 
+    public static void addProfessor()
+    {
 
+    }
+    public static void addStudent() {
+    }
+    public static void addCourse() {
+    }
+    public static void getProfessorDetails() {
+    }
+    public static void getStudentDetails() {
+    }
+    public static void getCourseDetails() {
+    }
+    public static void approveCourse() {
+    }
 
     public static void main(String[] args) {
 
         // Step 2
         // Declare the Coneection or prepaidstatement variable here
+
+
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -32,57 +46,45 @@ public class AdminDAOImpl {
 
             // Step 4 make/open  a connection
 
-            System.out.println("Connecting to database...");
+            // System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            //String sql="insert into employeefc values(?,?,?,?)";
-            //String sql = "UPDATE Employees set age=? WHERE id=?";
-            // String sql1="delete from employee where id=?";
-            // stmt.setInt(1, 101);
-            //stmt = conn.prepareStatement(sql);
-
-            // Hard coded data
-
-            /*int id=627;
-            String name="Vabhav";
-            String address="Delhi";
-            String location="india";
-            //Bind values into the parameters.
-            stmt.setInt(1, id);  // This would set age
-            stmt.setString(2,name);
-            stmt.setString(3, address);
-            stmt.setString(4, location);
-            */stmt.executeUpdate();
+            //System.out.println("Creating statement...");
 
 
-			   /*
+            //stmt.executeUpdate();
 
-			   // Let us update age of the record with ID = 102;
-			      int rows = stmt.executeUpdate();
-			      System.out.println("Rows impacted : " + rows );
 
-			      // Let us select all the records and display them.
-			      sql = "SELECT id, name ,address, location FROM employeefc";
-			      ResultSet rs = stmt.executeQuery(sql);
 
-			      //STEP 5: Extract data from result set
-			      while(rs.next()){
-			         //Retrieve by column name
-			         int eid  = rs.getInt("id");
-			         String name1 = rs.getString("name");
-			         String address1 = rs.getString("address");
-			         String location1 = rs.getString("location");
 
-			         //Display values
-			         System.out.print("ID: " + eid);
-			         System.out.print(", Age: " + name1);
-			         System.out.print(", First: " + address1);
-			         System.out.println(", Last: " + location1);
-			      }*/
+            // Let us update age of the record with ID = 102;
+            // int rows = stmt.executeUpdate();
+            // System.out.println("Rows impacted : " + rows );
+
+            // Let us select all the records and display them.
+
+            String sql = "SELECT * FROM student";
+            stmt = conn.prepareStatement(sql);
+            // stmt.executeUpdate();
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println(sql);
+            //STEP 5: Extract data from result set
+            while(rs.next()){
+                //Retrieve by column name
+                String eid  = rs.getString("studentID");
+                String name1 = rs.getString("name");
+                String address1 = rs.getString("email");
+                //String location1 = rs.getString("location");
+
+                //Display values
+                System.out.print("ID: " + eid);
+                System.out.print(", Age: " + name1);
+                System.out.print(", First: " + address1);
+                // System.out.println(", Last: " + location1);
+            }
             //STEP 6: Clean-up environment
-            // rs.close();
+            rs.close();
             stmt.close();
             conn.close();
         }catch(SQLException se){

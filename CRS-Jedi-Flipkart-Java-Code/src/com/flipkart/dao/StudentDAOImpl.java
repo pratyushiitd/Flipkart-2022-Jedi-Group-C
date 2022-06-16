@@ -1,9 +1,6 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,21 +8,36 @@ public class StudentDAOImpl {
     // Step 1
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/test";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/test?characterEncoding=latin1&useConfigs=maxPerformance";
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "janhavi544";
+    public static void register()
+    {
 
-    static List<String> studentID=new ArrayList<>();
-    static List<String> studentName=new ArrayList<>();
-    static List<String> studentPswd=new ArrayList<>();
-    static List<String> studentEmail=new ArrayList<>();
-    static List<Integer> studentSemester=new ArrayList<>();
-    static List<String> studentDept=new ArrayList<>();
-    static List<Float> studentCg=new ArrayList<>();
-    static List<String> studentGender=new ArrayList<>();
-    static List<String> studentPaymentID=new ArrayList<>();
+    }
+    public static void payFees()
+    {
+
+    }
+    public static void updateStudent()
+    {
+
+    }
+    public static void gradeCard()
+    {
+
+    }
+    public static void addCourse()
+    {
+
+    }
+    public static void removeCourse()
+    {
+
+    }
+
     public static void addStudent(String id,String name,String pswd,String role,String email, int sem,
                                   int section,String dept,float cg,String gender,String paymentID,PreparedStatement stmt,
                                   Connection conn)
@@ -66,19 +78,6 @@ public class StudentDAOImpl {
             }//end finally try
         }//end try
     }
-    public static void addStudent(String id,String name,String pswd,String email, int sem,
-                                  String dept,float cg,String gender,String paymentID)
-    {
-        studentID.add(id);
-        studentName.add(name);
-        studentPswd.add(pswd);
-        studentEmail.add(email);
-        studentSemester.add(sem);
-        studentDept.add(dept);
-        studentCg.add(cg);
-        studentGender.add(gender);
-        studentPaymentID.add(paymentID);
-    }
     public static void main(String[] args) {
 
         // Step 2
@@ -96,55 +95,45 @@ public class StudentDAOImpl {
 
             // Step 4 make/open  a connection
 
-            System.out.println("Connecting to database...");
+           // System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            addStudent("s1","ankit","jedi_ankit","ankit@fk.com",1,"cse",0.0f,"M","");
-            addStudent("s2","pramod","jedi_pramod","pramod@fk.com",1,"cse",0.0f,"M","");
-            addStudent("s3","shreya","jedi_shreya","shreya@fk.com",1,"cse",0.0f,"F","");
-            addStudent("s4","rahul","jedi_rahul","rahul@fk.com",1,"cse",0.0f,"M","");
-            addStudent("s5","rohit","jedi_rohit","rohit@fk.com",1,"cse",0.0f,"M","");
-            addStudent("s6","ansh","jedi_ansh","ansh@fk.com",1,"cse",0.0f,"F","");
-            addStudent("s7","shruti","jedi_shruti","shruti@fk.com",1,"cse",0.0f,"M","");
-            addStudent("s8","kavya","jedi_kavya","kavya@fk.com",1,"cse",0.0f,"M","");
-            addStudent("s9","sarita","jedi_sarita","sarita@fk.com",1,"cse",0.0f,"F","");
-            for(int i=0;i<9;i++)
-            {
-                addStudent(studentID.get(i),studentName.get(i),studentPswd.get(i),"student",studentEmail.get(i),studentSemester.get(i),1,
-                        studentDept.get(i),studentCg.get(i),studentGender.get(i),studentPaymentID.get(i),stmt,conn);
-            }
+            //System.out.println("Creating statement...");
+
 
             //stmt.executeUpdate();
 
 
-			   /*
+
 
 			   // Let us update age of the record with ID = 102;
-			      int rows = stmt.executeUpdate();
-			      System.out.println("Rows impacted : " + rows );
+			     // int rows = stmt.executeUpdate();
+			     // System.out.println("Rows impacted : " + rows );
 
 			      // Let us select all the records and display them.
-			      sql = "SELECT id, name ,address, location FROM employeefc";
-			      ResultSet rs = stmt.executeQuery(sql);
 
+			      String sql = "SELECT * FROM student";
+            stmt = conn.prepareStatement(sql);
+           // stmt.executeUpdate();
+			      ResultSet rs = stmt.executeQuery(sql);
+                    System.out.println(sql);
 			      //STEP 5: Extract data from result set
 			      while(rs.next()){
 			         //Retrieve by column name
-			         int eid  = rs.getInt("id");
+			         String eid  = rs.getString("studentID");
 			         String name1 = rs.getString("name");
-			         String address1 = rs.getString("address");
-			         String location1 = rs.getString("location");
+			         String address1 = rs.getString("email");
+			         //String location1 = rs.getString("location");
 
 			         //Display values
 			         System.out.print("ID: " + eid);
 			         System.out.print(", Age: " + name1);
 			         System.out.print(", First: " + address1);
-			         System.out.println(", Last: " + location1);
-			      }*/
+			        // System.out.println(", Last: " + location1);
+			      }
             //STEP 6: Clean-up environment
-            // rs.close();
+             rs.close();
             stmt.close();
             conn.close();
         }catch(SQLException se){

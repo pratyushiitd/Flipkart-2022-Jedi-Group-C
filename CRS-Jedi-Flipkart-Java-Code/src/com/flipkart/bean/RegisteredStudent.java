@@ -9,6 +9,11 @@ public class RegisteredStudent extends User {
     List<Student> registeredStudents;
 
     // get students registered 
+    public RegisteredStudent() {
+        this.courseEnrolled = new HashMap<Student, List<Course>>();
+        this.gradeCards = new HashMap<Student, GradeCard>();
+        this.registeredStudents = new ArrayList<Student>();
+    }
     public List<Student> getRegisteredStudents() {
         return registeredStudents;
     }
@@ -32,5 +37,20 @@ public class RegisteredStudent extends User {
             }
         }
         return null;
+    }
+    public List<Course> getCourses(Student student) {
+        return courseEnrolled.get(student);
+    }
+    // show courses of student
+    public void showCourses(String studentID) {
+        Student student = getStudent(studentID);
+        if (student == null) {
+            System.out.println("Student not found");
+        } else {
+            System.out.println("Courses of " + student.getName());
+            for(Course course : courseEnrolled.get(student)) {
+                System.out.println(course.getCourseName());
+            }
+        }
     }
 }

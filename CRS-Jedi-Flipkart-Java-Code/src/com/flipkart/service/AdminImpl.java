@@ -26,27 +26,28 @@ public class AdminImpl implements AdminInterface {
         this.professorsList = new ArrayList<Professor>();
     }
     @Override
-    public boolean addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
+    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
 
         try{
             Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
             registeredStudent.addStudent(student);
             student.setRegistered(true);
+            return student;
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
         //incomplete
-        return false;
+        return null;
     }
     @Override
     public Professor addProfessor(String name,String userID,String password,String email_id,
-    String professorID, String department){
+    String department){
         // check if professorID already exists
         boolean taken = false;
         for(Professor pf: professorsList){
-            if(professorID.equals(pf.getUserID())){
+            if(userID.equals(pf.getUserID())){
                 taken = true;
             }
         }
@@ -55,12 +56,12 @@ public class AdminImpl implements AdminInterface {
             System.out.println("Professor ID already exists");
             return null;
         }
-        Professor professor = new Professor(name,"professor",professorID,password,email_id,department);
+        Professor professor = new Professor(name,"professor",userID, password,email_id,department);
         professorsList.add(professor);
         return professor;
     }
 
-    public void addStudentAdmin()
+    public Student addStudentAdmin()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the name of the student:");
@@ -77,6 +78,7 @@ public class AdminImpl implements AdminInterface {
         //println
         System.out.println("\nEnter the semester of the student:");
         int semester_student = scanner.nextInt();
+        scanner.nextLine();
         //println
         System.out.println("\nEnter the section of the student:");
         char section_student = scanner.next().charAt(0);
@@ -101,7 +103,7 @@ public class AdminImpl implements AdminInterface {
         // call the addStudent function
         // int studentID = adminRef.getNumStudent()+1;
         // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
-        boolean status = addStudent(name_student, userId_student, password_student, email_id_student, semester_student, section_student, department, gender);
+        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, section_student, department, gender);
     
     }
     @Override
@@ -127,6 +129,7 @@ public class AdminImpl implements AdminInterface {
             for(Student student:registeredStudent.getRegisteredStudents()){
                 if(student.getUserID().equals(studentID)){
                     student.viewStudentDetails();
+                    registeredStudent.showCourses(studentID);
                     return true;
                 }
             }
@@ -206,9 +209,17 @@ public class AdminImpl implements AdminInterface {
         if (course!= null && student!=null){
             registeredStudent.addCourseforStudent(student, course);
         }
+        else{
+            if (course==null){
+                System.out.println("Course not found");
+            }
+            if (student==null){
+                System.out.println("Student not found");
+            }
+        }
     }
     @Override
-    public boolean addProfessorAdmin()
+    public Professor addProfessorAdmin()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the name of the professor:");
@@ -226,12 +237,11 @@ public class AdminImpl implements AdminInterface {
         System.out.println("\nEnter the email ID of the professor:");
         String email_id = scanner.next();
         // take professor id
-        System.out.println("\nEnter the professor ID of the professor:");
-        String professorID = scanner.next();
         //println
         // take semester
         System.out.println("\nEnter the semester of the professor:");
         int semester = scanner.nextInt();
+        scanner.nextLine();
         // take space seperated list of courses
         System.out.println("\nEnter the courses of the professor:");
         String courses = scanner.nextLine();
@@ -243,20 +253,60 @@ public class AdminImpl implements AdminInterface {
             courses_int[i] = Integer.parseInt(courses_array[i]);
         }
         // add the professor to the list of professors
-        Professor newProf = addProfessor(name, userId_prof, password_prof, email_id, professorID, department);
+        Professor newProf = addProfessor(name, userId_prof, password_prof, email_id, department);
         // add the courses to the professor
         if (newProf!=null){
             for (int i = 0; i < courses_int.length; i++) {
                 Course toAdd = courseCatalogue.getCourse(semester, Integer.toString(courses_int[i]));
-                newProf.addCourse(toAdd);
+                if (toAdd!=null){
+                    newProf.addCourse(toAdd);
+                }
+                else{
+                    System.out.println("Courses not found! Register them first!");
+                }
             }
         }
-        return true;
+        return newProf;
 
+    }
+
+    @Override
+    public void viewEnrolledStudents(String courseID) {
+        System.out.println("Enrolled Students:");
+        for(Student student:registeredStudent.getRegisteredStudents()){
+            for(Course course:registeredStudent.getCourses(student)){
+                if(course.getCourseID().equals(courseID)){
+                    System.out.println(student.getUserID() + ": " + student.getName());
+                }
+            }
+        }
     }
     @Override
     public void submitGrades(String studentId, String courseID, int grade, int semester) {
         Course course = courseCatalogue.getCourse(semester, courseID);
         registeredStudent.submitGrades(studentId, course, grade);
+    }
+    @Override
+    public void addCourseAdmin(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the name of the course:");
+        String name = scanner.next();
+        //println
+        System.out.println("\nEnter the course ID of the course:");
+        String courseID = scanner.next();
+        //println
+        System.out.println("\nEnter the semester of the course:");
+        int semester = scanner.nextInt();
+        //println
+        // take professor id
+        System.out.println("\nEnter the professor ID of the course:");
+        String professorID = scanner.next();
+        //println
+        // take vacancy count
+        System.out.println("\nEnter the vacancy count of the course:");
+        int vacancyCount = scanner.nextInt();
+        //println
+        Course course_to_add = new Course(courseID, name, professorID, vacancyCount);
+        addCourse(course_to_add, semester);
     }
 }

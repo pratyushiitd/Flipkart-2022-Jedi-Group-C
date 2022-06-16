@@ -44,7 +44,9 @@ public class CRSApplication {
                     Professor prof = adminRef.addProfessorAdmin();
                     // register prof
                     userRef.register(prof.getName(), SQLQueryConstants.professorRole, prof.getUserID(), prof.getPassword(), prof.getEmail_id());
+                    userRefDAO.addUser(prof.getUserID(),prof.getName(),prof.getPassword(),SQLQueryConstants.professorRole,prof.getEmail_id());
                     adminRefDAO.addProfessor(prof.getUserID(),prof.getName(), prof.getPassword(), prof.getEmail_id(),prof.getDepartment());
+
                     break;
                 case 2:
                     Student stud = adminRef.addStudentAdmin();

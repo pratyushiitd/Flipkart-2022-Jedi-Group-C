@@ -117,18 +117,50 @@ public class UserDAOImpl implements UserDAO{
             }
         }
     }
-    public void register_student(String userID, String name, String password, int role, String email_id, int semester, int section, String department, String gender)
+    public void addUser(String userID, String name, String password, int role, String email_id)
     {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.prepareStatement(addUser);
+            stmt.setString(1,userID);
+            stmt.setString(2,name);
+            stmt.setString(3,password);
+            stmt.setInt(4,role);
+            stmt.setString(5,email_id);
+            stmt.executeUpdate();
 
-            String sql = "insert into student values ('"+ userID+"','" + name+ "','"+ email_id + "','" + semester + "','" + section + "'," + department + ",'" + "0.0" + "','" + department + "'," + gender+ ",'" + null+"'," + role + ")" ;
-            stmt = conn.prepareStatement(sql);
-            stmt.executeUpdate(sql);
-            System.out.println("Student successfully registered");
+            //System.out.println("Student successfully registered");
+            stmt.close();
+            conn.close();
+}catch(SQLException se){
+        se.printStackTrace();
+        }catch(Exception e){
+        e.printStackTrace();
+        }finally{
+        try{
+        if(stmt!=null)
+        stmt.close();
+        }catch(SQLException se2){
+        }
+        try{
+        if(conn!=null)
+        conn.close();
+        }catch(SQLException se){
+        se.printStackTrace();
+        }
+        }
+
+        }
+public void register_student(String userID, String name, String password, int role, String email_id, int semester, int section, String department, String gender)
+        {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection(DB_URL, USER, PASS);System.out.println("Student successfully registered");
             stmt.close();
             conn.close();
         }catch(SQLException se){

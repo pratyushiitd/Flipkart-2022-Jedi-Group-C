@@ -1,6 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.*;
+import com.flipkart.exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 public class AdminImpl implements AdminInterface {
     Admin admin;
     public CourseCatalogue courseCatalogue;
-    RegisteredStudent registeredStudent;
+    public RegisteredStudent registeredStudent;
     List<Professor> professorsList;
 
     //constructor
@@ -26,12 +27,18 @@ public class AdminImpl implements AdminInterface {
         this.professorsList = new ArrayList<Professor>();
     }
 
+    public void viewmycourse(String userID){
+        registeredStudent.showmycourses(userID);
+    }
     public void viewallcourses() {
         courseCatalogue.showCourseCatalogue();
     }
-    @Override
-    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
 
+
+
+    @Override
+    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender)
+    {
         try{
             Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
             registeredStudent.addStudent(student);
@@ -112,14 +119,17 @@ public class AdminImpl implements AdminInterface {
     
     }
     @Override
-    public boolean viewprofessorDetails(String professorID) {
+    public boolean viewprofessorDetails(String professorID) throws ProfessorNotAddedException {
         try{
+            boolean found = false;
             for(Professor professor:professorsList){
                 if(professor.getProfessorId().equals(professorID)){
                     professor.showProfessorDetails();
+                    found = true;
                     return true;
                 }
             }
+            if (!found) throw new ProfessorNotAddedException(professorID);
         }
         catch (Exception e)
         {
@@ -207,20 +217,27 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public void approveCourseforStudent(String studentID, String courseID, int semester) {
+    public boolean approveCourseforStudent(String studentID, String courseID) throws CourseNotFoundException, StudentNotFoundForApprovalException, CourseAlreadyRegisteredException {
         //incomplete
-        Course course = courseCatalogue.getCourse(semester, courseID);
         Student student = registeredStudent.getStudent(studentID);
+        Course course = courseCatalogue.getCourse(student.getSemester(), courseID);
+        if (course.get_strength() == 10) {
+            CourseNotFoundException CourseLimitExceededException = null;
+            throw CourseLimitExceededException;
+        }
         if (course!= null && student!=null){
             registeredStudent.addCourseforStudent(student, course);
+            course.increment_strength();
+            return true;
         }
         else{
             if (course==null){
-                System.out.println("Course not found");
+                throw new CourseNotFoundException(courseID);
             }
             if (student==null){
-                System.out.println("Student not found");
+                throw new StudentNotFoundForApprovalException(studentID);
             }
+            return false;
         }
     }
     @Override
@@ -287,7 +304,7 @@ public class AdminImpl implements AdminInterface {
         }
     }
     @Override
-    public void submitGrades(String studentId, String courseID, int grade, int semester) {
+    public void submitGrades(String studentId, String courseID, int grade, int semester) throws UserNotFoundException {
         Course course = courseCatalogue.getCourse(semester, courseID);
         registeredStudent.submitGrades(studentId, course, grade);
     }
@@ -308,10 +325,7 @@ public class AdminImpl implements AdminInterface {
         String professorID = scanner.next();
         //println
         // take vacancy count
-        System.out.println("Enter the vacancy count of the course:");
-        int vacancyCount = scanner.nextInt();
-        //println
-        Course course_to_add = new Course(courseID, name, professorID, vacancyCount);
+        Course course_to_add = new Course(courseID, name, professorID);
         addCourse(course_to_add, semester);
     }
 }

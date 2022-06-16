@@ -1,4 +1,7 @@
 package com.flipkart.bean;
+import com.flipkart.exception.CourseAlreadyRegisteredException;
+import com.flipkart.exception.UserNotFoundException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -23,11 +26,21 @@ public class RegisteredStudent extends User {
         courseEnrolled.put(student, new ArrayList<Course>());
         gradeCards.put(student, new GradeCard(student));
     }
-    public void submitGrades(String studentID, Course course, int grade) {
+    public void submitGrades(String studentID, Course course, int grade)
+    throws UserNotFoundException {
         Student student = getStudent(studentID);
+        UserNotFoundException UserNotFoundException = new UserNotFoundException(studentID);
+        if (student == null) {
+            assert UserNotFoundException != null;
+            throw UserNotFoundException;
+        }
         gradeCards.get(student).addGrade(course, grade);
     }
-    public void addCourseforStudent(Student student, Course course) {
+    public void addCourseforStudent(Student student, Course course)
+    throws CourseAlreadyRegisteredException {
+        if (courseEnrolled.get(student).contains(course)) {
+            throw new CourseAlreadyRegisteredException(course.courseID);
+        }
         courseEnrolled.get(student).add(course);
     }
     public Student getStudent(String studentID) {
@@ -40,6 +53,16 @@ public class RegisteredStudent extends User {
     }
     public List<Course> getCourses(Student student) {
         return courseEnrolled.get(student);
+    }
+    public void showmycourses(String student_id){
+        for(Student student : registeredStudents) {
+            if(student.getUserID().equals(student_id)) {
+                System.out.println("Courses of student with id: " + student_id +" are:") ;
+                for(Course course : courseEnrolled.get(student)) {
+                    System.out.println(course.getCourseID() + ": " + course.getCourseName());
+                }
+            }
+        }
     }
     // show courses of student
     public void showCourses(String studentID) {

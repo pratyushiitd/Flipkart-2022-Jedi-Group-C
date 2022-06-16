@@ -55,20 +55,34 @@ public class StudentImpl implements StudentInterface{
             }
         }
 
+        public List<String> getRegisteredCourses_student(String studentID) {
+            for(Student student : registeredCourses_pending.keySet()) {
+                if(student.getUserID().equals(studentID)) {
+                    return registeredCourses_pending.get(student);
+                }
+            }
+            return null;
+        }
         /**
          * @param student
          */
         public void addStudent(Student student){
             registeredCourses_pending.put(student, new ArrayList<String>());
         }
-        public void showStudentMenu() {
+
+    @Override
+//    public String[] getRegisteredCourses(String studentId1) {
+//        return new String[0];
+//    }
+
+    public void showStudentMenu() {
                 System.out.println("1. Register for a course");
                 System.out.println("2. Pay Fees");
                 System.out.println("3. Update Student");
                 System.out.println("4. View Grade Card");
                 System.out.println("5. Add Course");
                 System.out.println("6. Remove Course");
-                System.out.println("7. View All Courses");
+                System.out.println("7. View my Courses");
                 System.out.println("8. Logout");
         }
 }

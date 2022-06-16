@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.flipkart.bean.User;
+import com.flipkart.exception.UserIDAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
 
 public class UserImpl implements UserInterface{
 
@@ -49,8 +51,14 @@ public class UserImpl implements UserInterface{
     }
 
     @Override
-    public boolean register(String name, String role, String userID, String password, String email_id) {
+    public boolean register(String name, String role, String userID, String password, String email_id)
+            throws UserIDAlreadyInUseException {
         try{
+            for(User user: users){
+                if(user.getUserID().equals(userID)){
+                    throw new UserIDAlreadyInUseException(userID);
+                }
+            }
             User user= new User(name, role, userID, password, email_id);
             users.add(user);
             return true;
@@ -62,14 +70,18 @@ public class UserImpl implements UserInterface{
     }
 
     @Override
-    public boolean setname(String userId,String name) {
+    public boolean setname(String userId,String name) throws UserNotFoundException {
         try{
+            // throw excdeption if user not found
+            boolean found = false;
             for(User user: users){
                 if(user.getUserID().equals(userId)){
                     user.setName(name);
+                    found = true;
                     return true;
                 }
             }
+            if (!found) throw new UserNotFoundException(userId);
         }
         catch(Exception e){
             return false;

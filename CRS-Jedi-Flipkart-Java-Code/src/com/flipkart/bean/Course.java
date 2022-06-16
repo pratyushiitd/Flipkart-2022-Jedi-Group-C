@@ -5,13 +5,14 @@ public class Course{
     public String courseID;
     public String courseName;
     public String professorID;
-    public int vacancy;
+    public int vacancy = 10;
 
-    public Course(String courseID, String courseName, String professorID, int vacancy) {
+    public int strength = 0;
+    public Course(String courseID, String courseName, String professorID) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.professorID = professorID;
-        this.vacancy = vacancy;
+        this.vacancy = 10;
     }
 
     public int getVacancy() {
@@ -30,6 +31,12 @@ public class Course{
         this.courseID = courseID;
     }
 
+    public void increment_strength() {
+        this.strength++;
+    }
+    public int get_strength() {
+        return this.strength;
+    }
     public String getProfessorID() {
         return professorID;
     }

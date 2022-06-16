@@ -1,6 +1,6 @@
 package com.flipkart.application;
 
-import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.*;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;
@@ -24,13 +24,14 @@ public class CRSApplication {
     public static StudentInterface studentRef = new StudentImpl();
 
 
-    public static void admin() throws ProfessorNotAddedException {
+    public static void admin() throws ProfessorNotAddedException, UserIDAlreadyInUseException, CourseNotFoundException, StudentNotFoundForApprovalException, CourseAlreadyRegisteredException {
         while(true){
             adminRef.displayAdminMenu();
             int choice=new Scanner(System.in).nextInt();
             if (choice == 8)break;
             switch(choice){
                 case 1:
+                    adminRef.viewallcourses();
                     Professor prof = adminRef.addProfessorAdmin();
                     // register prof
                     userRef.register(prof.getName(), "professor", prof.getUserID(), prof.getPassword(), prof.getEmail_id());
@@ -74,25 +75,23 @@ public class CRSApplication {
                     // take student id and course id as input
                     System.out.println("Enter student id");
                     String studentId1 = new Scanner(System.in).next();
-                    System.out.println("Enter course id");
-                    String courseId1 = new Scanner(System.in).nextLine();
-                    System.out.println("Enter semester");
-                    int semester1 = new Scanner(System.in).nextInt();
+
 //                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
                     // student found
-                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
-                        adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+                    int num_approved = 0;
+                    for (String courseID: studentRef.getRegisteredCourses_student(studentId1)) {
+
+                        boolean status = adminRef.approveCourseforStudent(studentId1, courseID);
                         // println
+                        if (!status)continue;
                         System.out.println("Course approved");
-                    }
-                    else{
-                        System.out.println("Course not Registered!");
+                        if (++num_approved == 4)break;
                     }
                     break;
             }
         }
     }
-    public static void professor(){
+    public static void professor() throws ProfessorNotAddedException {
         while(true){
             profRef.professorMenu();
             int choice=new Scanner(System.in).nextInt();
@@ -177,13 +176,13 @@ public class CRSApplication {
                     // take semester as input
 //                    System.out.println("Enter semester");
 //                    int semester3 = new Scanner(System.in).nextInt();
-                    adminRef.viewallcourses();
+                    adminRef.viewmycourse(userId);
                     break;
             }
         }
     }
         // main method
-    public static void main(String[] args) throws ProfessorNotAddedException {
+    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, CourseAlreadyRegisteredException, CourseNotFoundException, StudentNotFoundForApprovalException {
         userRef.register("flipkart","admin","admin","jedi","admin@fk.com");
         // print welcome to course registration system
         System.out.println("-----------Welcome to Course Registration System!-------------");

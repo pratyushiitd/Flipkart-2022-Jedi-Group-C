@@ -16,6 +16,11 @@ public class StudentImpl implements StudentInterface{
         public StudentImpl() {
             this.registeredCourses_pending = new HashMap<Student, List<String>>();
         }
+        /**
+         * @param studentID
+         * @param courseID
+         * @return
+         */
         public boolean isCourseforStudent(String studentID, String courseID) {
             for(Student student : registeredCourses_pending.keySet()) {
                 if(student.getUserID().equals(studentID)) {
@@ -28,6 +33,10 @@ public class StudentImpl implements StudentInterface{
             }
             return false;
         }
+        /**
+         * @param studentID
+         * @param courseID
+         */
         public void setRegisteredCourse_student(String studentID, String courseID)
         {
                 boolean found = false;
@@ -46,6 +55,9 @@ public class StudentImpl implements StudentInterface{
             }
         }
 
+        /**
+         * @param student
+         */
         public void addStudent(Student student){
             registeredCourses_pending.put(student, new ArrayList<String>());
         }
@@ -56,6 +68,7 @@ public class StudentImpl implements StudentInterface{
                 System.out.println("4. View Grade Card");
                 System.out.println("5. Add Course");
                 System.out.println("6. Remove Course");
-                System.out.println("7. Logout");
+                System.out.println("7. View All Courses");
+                System.out.println("8. Logout");
         }
 }

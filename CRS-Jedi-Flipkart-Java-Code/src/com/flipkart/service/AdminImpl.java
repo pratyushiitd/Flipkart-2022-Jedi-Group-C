@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 public class AdminImpl implements AdminInterface {
     Admin admin;
-    CourseCatalogue courseCatalogue;
+    public CourseCatalogue courseCatalogue;
     RegisteredStudent registeredStudent;
     List<Professor> professorsList;
 
@@ -24,6 +24,10 @@ public class AdminImpl implements AdminInterface {
         this.courseCatalogue = new CourseCatalogue();
         this.registeredStudent = new RegisteredStudent();
         this.professorsList = new ArrayList<Professor>();
+    }
+
+    public void viewallcourses() {
+        courseCatalogue.showCourseCatalogue();
     }
     @Override
     public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){

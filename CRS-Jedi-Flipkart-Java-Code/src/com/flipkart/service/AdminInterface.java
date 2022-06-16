@@ -25,4 +25,6 @@ public interface AdminInterface {
 
         public void viewEnrolledStudents(String courseID);
         public void submitGrades(String studentId, String courseId, int grade,int semester);
+
+    void viewallcourses();
 }

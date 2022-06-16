@@ -1,5 +1,6 @@
 package com.flipkart.application;
 
+import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;
@@ -23,7 +24,7 @@ public class CRSApplication {
     public static StudentInterface studentRef = new StudentImpl();
 
 
-    public static void admin(){
+    public static void admin() throws ProfessorNotAddedException {
         while(true){
             adminRef.displayAdminMenu();
             int choice=new Scanner(System.in).nextInt();
@@ -139,17 +140,19 @@ public class CRSApplication {
         while(true) {
             studentRef.showStudentMenu();
             int choice = new Scanner(System.in).nextInt();
-            if (choice == 7)break;
+            if (choice == 8)break;
             switch (choice) {
                 case 1:
                     // register for course
                     // take course id as input
-                    System.out.println("Enter course id");
-                    String courseId = new Scanner(System.in).nextLine();
-                    // take semester as input
-                    System.out.println("Enter semester");
-                    int semester = new Scanner(System.in).nextInt();
-                    studentRef.setRegisteredCourse_student(userId, courseId);
+                    adminRef.viewallcourses();
+                    for(int i = 1; i <= 6; i++) {
+                        // println
+                        System.out.println("Enter course"+Integer.toString(i)+ " id:");
+                        String courseId = new Scanner(System.in).nextLine();
+                        // take semester as input
+                        studentRef.setRegisteredCourse_student(userId, courseId);
+                    }
                     break;
                 case 2:
                     // pay fees
@@ -169,14 +172,21 @@ public class CRSApplication {
                     System.out.println("Enter semester");
                     int semester2 = new Scanner(System.in).nextInt();
                     break;
+                case 7:
+                    // view all courses
+                    // take semester as input
+//                    System.out.println("Enter semester");
+//                    int semester3 = new Scanner(System.in).nextInt();
+                    adminRef.viewallcourses();
+                    break;
             }
         }
     }
         // main method
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ProfessorNotAddedException {
         userRef.register("flipkart","admin","admin","jedi","admin@fk.com");
         // print welcome to course registration system
-        System.out.println("Welcome to Course Registration System!");
+        System.out.println("-----------Welcome to Course Registration System!-------------");
         // WHILE LOOP -> LOGIN / LOGOUT
         while(true){
             int login_option = -1;

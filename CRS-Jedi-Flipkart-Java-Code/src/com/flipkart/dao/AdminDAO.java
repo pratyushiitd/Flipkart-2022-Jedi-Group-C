@@ -11,25 +11,14 @@ import com.flipkart.bean.Course;
 
 public interface AdminDAO {
 
-    List<Course> viewCourses();
-    String addCourse(Course newCourse);
+    public String getDepartmentCourse(String courseId);
+    public int professorSize();
+    public  void addProfessor(String professorId,String name,String password,String mail,String department);
+    public  void approveCourse();
+    public  void getCourseDetails(String courseId);
+    public  void getStudentDetails(String studentId);
+    public  void addCourse() ;
+    public  void addStudent();
 
-    void dropCourse(String courseId) throws CourseNotFoundException;
-
-    List<Student> getPendingStudents();
-
-    String approveStudent(Student newStudent);
-
-
-    String addProfessor(Professor newProfessor) throws EmailAlreadyInUseException;
-
-    List<Professor> viewProfessorList();
-
-    void dropProfessor(String professorId) throws UserNotFoundException;
-
-    List<Student> getPendingGradeStudents();
-
-
-    void generateGradeCard(String studentId, String semester) throws GradeNotAllottedException;
 
 }

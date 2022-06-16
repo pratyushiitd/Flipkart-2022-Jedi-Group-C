@@ -3,15 +3,9 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ProfessorDAOImpl implements ProfessorDAO{
-    // Step 1
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/test?characterEncoding=latin1&useConfigs=maxPerformance";
+import static com.flipkart.constants.SQLQueryConstants.*;
 
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "Blue_175981";
+public class ProfessorDAOImpl implements ProfessorDAO{
 
     public  void viewProfessorDetails(String professorID)
     {

@@ -1,7 +1,9 @@
 package com.flipkart.application;
 
-import com.flipkart.dao.ProfessorDAO;
-import com.flipkart.dao.ProfessorDAOImpl;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.CourseCatalogue;
+import com.flipkart.constants.SQLQueryConstants;
+import com.flipkart.dao.*;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
@@ -16,11 +18,16 @@ import com.flipkart.bean.Student;
 
 // list
 // import scanner
+import java.util.List;
 import java.util.Scanner;
 
 public class CRSApplication {
 
+    public static CourseDAO courseDAO=new CourseDAOImpl();
     public static ProfessorDAO profRefDAO= new ProfessorDAOImpl();
+    public static UserDAO userRefDAO= new UserDAOImpl();
+    public static StudentDAO studentRefDAO= new StudentDAOImpl();
+    public static AdminDAO adminRefDAO= new AdminDAOImpl() ;
     public static UserInterface userRef=new UserImpl();
     public static AdminInterface adminRef=new AdminImpl();
     public static ProfessorInterface profRef = new ProfessorImpl();
@@ -36,14 +43,15 @@ public class CRSApplication {
                 case 1:
                     Professor prof = adminRef.addProfessorAdmin();
                     // register prof
-                    userRef.register(prof.getName(), "professor", prof.getUserID(), prof.getPassword(), prof.getEmail_id());
-
+                    userRef.register(prof.getName(), SQLQueryConstants.professorRole, prof.getUserID(), prof.getPassword(), prof.getEmail_id());
+                    adminRefDAO.addProfessor(prof.getUserID(),prof.getName(), prof.getPassword(), prof.getEmail_id(),prof.getDepartment());
                     break;
                 case 2:
                     Student stud = adminRef.addStudentAdmin();
                     studentRef.addStudent(stud);
                     // register stud
-                    userRef.register(stud.getName(), "student", stud.getUserID(), stud.getPassword(), stud.getEmail_id());
+                    userRef.register(stud.getName(), SQLQueryConstants.studentRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
+
                     break;
                 case 3:
                     adminRef.addCourseAdmin();
@@ -107,6 +115,7 @@ public class CRSApplication {
                     // take professor id as input
                     System.out.println("Enter professor id");
                     String professorId = new Scanner(System.in).nextLine();
+                    adminRef.viewprofessorDetails(professorId);
                     profRefDAO.viewProfessorDetails(professorId);
 
                     break;
@@ -114,13 +123,13 @@ public class CRSApplication {
                     // view student details
                     // take student id as input
                      System.out.println("Enter course id");
-                     String studentId = new Scanner(System.in).nextLine();
+                     String courseId = new Scanner(System.in).nextLine();
 
                         System.out.println("Enter semester");
                         int semester = new Scanner(System.in).nextInt();
 //                     adminRef.viewstudentDetails(studentId);
-                    adminRef.viewEnrolledStudents(studentId);
-
+                    adminRef.viewEnrolledStudents(courseId);
+                    profRefDAO.viewStudentsList(courseId,semester);
 
                     break;
                 case 3:
@@ -137,6 +146,7 @@ public class CRSApplication {
 
                     int grade = new Scanner(System.in).nextInt();
                     adminRef.submitGrades(studentId1,courseId1,grade, semester1);
+                    profRefDAO.submitGrades(studentId1,grade,courseId1);
                     break;
             }
         }
@@ -189,7 +199,7 @@ public class CRSApplication {
     }
         // main method
     public static void main(String[] args) throws ProfessorNotAddedException {
-        userRef.register("flipkart","admin","admin","jedi","admin@fk.com");
+        userRef.register("flipkart",SQLQueryConstants.adminRole,"a001","jedi","admin@fk.com");
         // print welcome to course registration system
         System.out.println("-----------Welcome to Course Registration System!-------------");
         // WHILE LOOP -> LOGIN / LOGOUT
@@ -205,9 +215,11 @@ public class CRSApplication {
             Scanner scanner = new Scanner(System.in);
             login_option = scanner.nextInt();
             if (login_option == 4){
+                //exit
                 break;
             }
             if (login_option == 3) {
+                //reset password
                 System.out.println("Enter your user id");
                 String userId = scanner.next();
                 System.out.println("Enter your password");
@@ -219,6 +231,7 @@ public class CRSApplication {
                     System.out.println("Enter new password");
                     String newPassword = scanner.next();
                         if (userRef.resetPassword(userId, newPassword)) {
+                            userRefDAO.reset_password(userId,password,newPassword);
                             System.out.println("Password reset successfully");
                         } else {
                             System.out.println("Password reset failed");
@@ -235,10 +248,10 @@ public class CRSApplication {
                 if (userRef.login(userId, password)){
                     System.out.println("Login successful!");
                     //println
-                    String role = userRef.getRole(userId);
-                    if (role == "admin") admin(); 
-                    else if (role == "professor") professor();
-                    else if (role == "student") student(userId);
+                    int role = userRef.getRole(userId);
+                    if (role == SQLQueryConstants.adminRole) admin();
+                    else if (role == SQLQueryConstants.professorRole) professor();
+                    else if (role == SQLQueryConstants.studentRole) student(userId);
                     else System.out.println("Invalid role!");
                 }
                 else{
@@ -250,8 +263,23 @@ public class CRSApplication {
                 // register a student
                 Student stud = adminRef.addStudentAdmin();
                 studentRef.addStudent(stud);
+                int size=studentRefDAO.studentSize()+1;
+                stud.setUserID("s0"+size);
+                studentRefDAO.addStudent(stud.getName(),SQLQueryConstants.studentRole,stud.getUserID(),stud.getPassword()
+                ,stud.getEmail_id(),stud.getSemester(),stud.getSection(),stud.getDepartment(), stud.getCg(), stud.getGender()
+                ,null);
+                //view all courses
+                courseDAO.showCourses(stud.getDepartment());
+                System.out.println("Enter 6 courses of your choice(course id)");
+                String studID=stud.getUserID();
+                String studName=stud.getUserID();
+                for(int i=0;i<6;i++)
+                {
+                    String courseId=scanner.next();
+                    studentRefDAO.addStudentRegistration(studID,courseId,studName);
+                }
                 // register stud
-                userRef.register(stud.getName(), "student", stud.getUserID(), stud.getPassword(), stud.getEmail_id());
+                userRef.register(stud.getName(), SQLQueryConstants.adminRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
             }
         }
     }

@@ -33,7 +33,6 @@ public class Course{
     public String getProfessorID() {
         return professorID;
     }
-
     public void setProfessorID(String professorID) {
         this.professorID = professorID;
     }

@@ -1,18 +1,14 @@
 package com.flipkart.dao;
+import com.flipkart.constants.SQLQueryConstants;
+
 import java.sql.*;
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class UserDAOImpl {
-    // Step 1
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/test?characterEncoding=latin1&useConfigs=maxPerformance";
+import static com.flipkart.constants.SQLQueryConstants.*;
 
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "Blue_175984";
+public class UserDAOImpl implements UserDAO{
 
     public void login(String userId, String password)
     {
@@ -20,7 +16,7 @@ public class UserDAOImpl {
         PreparedStatement stmt = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(DB_URL,USER, PASS);
 
             String sql = "SELECT password FROM user"+" WHERE userId= '"+userId+"'";
             stmt = conn.prepareStatement(sql);
@@ -73,11 +69,33 @@ public class UserDAOImpl {
                 String sql2 = "UPDATE user " + "SET password = '"+ new_password +"' WHERE userId = '"+userId +"'";
                 stmt = conn.prepareStatement(sql2);
                 stmt.executeUpdate(sql2);
+                sql2="SELECT role FROM user WHERE userId = '"+userId +"'";
 
-                System.out.println("The new password is updated successfully");
+                rs = stmt.executeQuery(sql2);
+                int role=-1;
+                while(rs.next())
+                role=rs.getInt("role");
+                //System.out.println(role);
+                if(role== adminRole)
+                {
+                    sql2 = "UPDATE admin " + "SET password = '"+ new_password +"' WHERE adminId = '"+userId +"'";
+                    stmt = conn.prepareStatement(sql2);
+                    stmt.executeUpdate(sql2);
+                }
+                else if(role==professorRole)
+                {
+                    sql2 = "UPDATE professor " + "SET password = '"+ new_password +"' WHERE professorId = '"+userId +"'";
+                    stmt = conn.prepareStatement(sql2);
+                    stmt.executeUpdate(sql2);
+                }
+                else if(role==studentRole)
+                {
+                    sql2 = "UPDATE student " + "SET password = '"+ new_password +"' WHERE studentID = '"+userId +"'";
+                    stmt = conn.prepareStatement(sql2);
+                    stmt.executeUpdate(sql2);
+                }
+                //System.out.println("The new password is updated successfully");
             }
-            else
-                System.out.println("The current password is invalid");
             rs.close();
             stmt.close();
             conn.close();
@@ -99,7 +117,7 @@ public class UserDAOImpl {
             }
         }
     }
-    public void register_student(String userID, String name, String password, String role, String email_id, int semester, String section, String department, String gender)
+    public void register_student(String userID, String name, String password, int role, String email_id, int semester, String section, String department, String gender)
     {
         Connection conn = null;
         PreparedStatement stmt = null;

@@ -1,17 +1,142 @@
 package com.flipkart.dao;
+import com.flipkart.constants.SQLQueryConstants;
+
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class StudentDAOImpl implements StudentDAO{
-    // Step 1
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/test?characterEncoding=latin1&useConfigs=maxPerformance";
+import static com.flipkart.constants.SQLQueryConstants.*;
 
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "Blue_175981";
+public class StudentDAOImpl implements StudentDAO{
+    public void addStudent(String name,int role,String userId,String password,String emailId ,
+                           int semester,int section,String department,float cg,String gender,String paymentId){
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //System.out.println(sql);
+            stmt = conn.prepareStatement(addStudent);
+            //stmt.setString(1,studentID);
+            stmt.setString(1,userId);
+            stmt.setString(2,name);
+            stmt.setString(3,password);
+            stmt.setString(4,emailId);
+            stmt.setInt(5,semester);
+            stmt.setInt(6,section);
+            stmt.setString(7,department);
+            stmt.setFloat(8,cg);
+            stmt.setString(9,gender);
+            stmt.setString(10,paymentId);
+            stmt.setInt(11, studentRole);
+            stmt.executeUpdate();
+            //ResultSet rs = stmt.executeQuery(sql);
+            //System.out.println(sql);
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+    }
+
+    @Override
+    public void addStudentRegistration(String courseId,String studentId,String student_name) {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //System.out.println(sql);
+            stmt = conn.prepareStatement(addStudent);
+            //stmt.setString(1,studentID);
+            stmt.setString(1,courseId);
+            stmt.setString(2,studentId);
+            stmt.setString(3,student_name);
+            stmt.executeUpdate();
+            System.out.println("Student registered with the system!");
+            //ResultSet rs = stmt.executeQuery(sql);
+            //System.out.println(sql);
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+    }
+
+    @Override
+    public int studentSize() {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //System.out.println(sql);
+            String sql="SELECT COUNT(*) AS size FROM student";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            int size=100;
+            while(rs.next())
+                size=rs.getInt("size");
+            //System.out.println(sql);
+            stmt.close();
+            conn.close();
+            return size;
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        return 100;
+    }
 
     public  void viewStudentDetails(String studentID)
     {

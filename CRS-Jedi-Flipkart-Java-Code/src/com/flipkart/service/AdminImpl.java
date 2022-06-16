@@ -1,6 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.*;
+import com.flipkart.constants.SQLQueryConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,8 @@ public class AdminImpl implements AdminInterface {
     public AdminImpl() {
         this.admin = new Admin(
                 "flipkart",
-                "admin",
-                "admin",
+                SQLQueryConstants.adminRole,
+                "a001",
                 "jedi",
                 "admin@fk.com"
         );
@@ -30,10 +31,10 @@ public class AdminImpl implements AdminInterface {
         courseCatalogue.showCourseCatalogue();
     }
     @Override
-    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
+    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, int section_student, String department, String gender){
 
         try{
-            Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
+            Student student = new Student(name_student, userId_student,SQLQueryConstants.studentRole,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
             registeredStudent.addStudent(student);
             student.setRegistered(true);
             return student;
@@ -60,7 +61,7 @@ public class AdminImpl implements AdminInterface {
             System.out.println("Professor ID already exists");
             return null;
         }
-        Professor professor = new Professor(name,"professor",userID, password,email_id,department);
+        Professor professor = new Professor(name,SQLQueryConstants.professorRole,userID, password,email_id,department);
         professorsList.add(professor);
         return professor;
     }
@@ -90,6 +91,8 @@ public class AdminImpl implements AdminInterface {
         //take department
         System.out.println("Enter the department of the student:");
         String department = scanner.next();
+        System.out.println("Enter the gender of the student:");
+        String gender = scanner.next();
         //
         //println
         // take space separated list of courses
@@ -106,7 +109,7 @@ public class AdminImpl implements AdminInterface {
         // int studentID = adminRef.getNumStudent()+1;
         // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
         System.out.println("Student Registeration success!:\n");
-        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, 'A', department, 'M');
+        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, 1, department, gender);
         //
         // //println
     

@@ -9,13 +9,13 @@ public class UserImpl implements UserInterface{
     List<User> users = new ArrayList<User>();
 
     @Override 
-    public String getRole(String userID) {
+    public int getRole(String userID) {
         for(User user : users) {
             if(user.getUserID().equals(userID)) {
                 return user.getRole();
             }
         }
-        return null;
+        return -1;
     }
     @Override
     public boolean resetPassword(String userID, String newPassword) {
@@ -49,7 +49,7 @@ public class UserImpl implements UserInterface{
     }
 
     @Override
-    public boolean register(String name, String role, String userID, String password, String email_id) {
+    public boolean register(String name, int role, String userID, String password, String email_id) {
         try{
             User user= new User(name, role, userID, password, email_id);
             users.add(user);
@@ -78,7 +78,7 @@ public class UserImpl implements UserInterface{
     }
 
     @Override
-    public boolean setrole(String userId,String role) {
+    public boolean setrole(String userId,int role) {
         try{
             for(User user: users){
                 if(user.getUserID().equals( userId)){

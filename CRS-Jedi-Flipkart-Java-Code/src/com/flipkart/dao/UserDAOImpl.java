@@ -117,7 +117,7 @@ public class UserDAOImpl implements UserDAO{
             }
         }
     }
-    public void register_student(String userID, String name, String password, int role, String email_id, int semester, String section, String department, String gender)
+    public void register_student(String userID, String name, String password, int role, String email_id, int semester, int section, String department, String gender)
     {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -125,7 +125,7 @@ public class UserDAOImpl implements UserDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "insert into student values ('"+ userID+"','" + name+ "','"+ password + "','" + role + "','" + email_id + "'," + semester + ",'" + section + "','" + department + "'," + 0 + ",'" + gender+"'," + null + ")" ;
+            String sql = "insert into student values ('"+ userID+"','" + name+ "','"+ email_id + "','" + semester + "','" + section + "'," + department + ",'" + "0.0" + "','" + department + "'," + gender+ ",'" + null+"'," + role + ")" ;
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate(sql);
             System.out.println("Student successfully registered");

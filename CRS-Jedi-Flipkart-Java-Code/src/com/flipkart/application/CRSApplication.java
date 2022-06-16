@@ -280,6 +280,8 @@ public class CRSApplication {
                 }
                 // register stud
                 userRef.register(stud.getName(), SQLQueryConstants.adminRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
+                userRefDAO.register_student(studID,studName,stud.getPassword(),SQLQueryConstants.studentRole,stud.getEmail_id(),
+                        stud.getSemester(),stud.getSection(), stud.getDepartment(), stud.getGender());
             }
         }
     }

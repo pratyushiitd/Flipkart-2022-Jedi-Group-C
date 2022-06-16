@@ -64,7 +64,7 @@ public class StudentDAOImpl implements StudentDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             //System.out.println(sql);
-            stmt = conn.prepareStatement(addStudent);
+            stmt = conn.prepareStatement(addStudentRegistration);
             //stmt.setString(1,studentID);
             stmt.setString(1,courseId);
             stmt.setString(2,studentId);

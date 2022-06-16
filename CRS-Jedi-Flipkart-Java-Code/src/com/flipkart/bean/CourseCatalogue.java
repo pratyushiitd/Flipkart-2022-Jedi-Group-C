@@ -34,11 +34,13 @@ public class CourseCatalogue{
 
     // void show course catalogue
     public void showCourseCatalogue() {
-        System.out.println("Course Catalogue");
+        System.out.println("Course Catalogue:\n");
         for(int semester = 1; semester <= 8; semester++) {
+            if (semCourses.get(semester).size() == 0)continue;
             System.out.println("Semester " + semester);
             for(Course course : semCourses.get(semester)) {
                 course.printCourseDetails();
+                System.out.println("-----");
             }
         }
     }

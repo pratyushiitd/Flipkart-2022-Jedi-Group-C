@@ -1,5 +1,7 @@
 package com.flipkart.application;
 
+import com.flipkart.dao.ProfessorDAO;
+import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.exception.ProfessorNotAddedException;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
@@ -18,6 +20,7 @@ import java.util.Scanner;
 
 public class CRSApplication {
 
+    public static ProfessorDAO profRefDAO= new ProfessorDAOImpl();
     public static UserInterface userRef=new UserImpl();
     public static AdminInterface adminRef=new AdminImpl();
     public static ProfessorInterface profRef = new ProfessorImpl();
@@ -34,6 +37,7 @@ public class CRSApplication {
                     Professor prof = adminRef.addProfessorAdmin();
                     // register prof
                     userRef.register(prof.getName(), "professor", prof.getUserID(), prof.getPassword(), prof.getEmail_id());
+
                     break;
                 case 2:
                     Student stud = adminRef.addStudentAdmin();
@@ -103,7 +107,8 @@ public class CRSApplication {
                     // take professor id as input
                     System.out.println("Enter professor id");
                     String professorId = new Scanner(System.in).nextLine();
-                    adminRef.viewprofessorDetails(professorId);
+                    profRefDAO.viewProfessorDetails(professorId);
+
                     break;
                 case 2:
                     // view student details

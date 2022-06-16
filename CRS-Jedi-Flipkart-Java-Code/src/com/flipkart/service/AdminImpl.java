@@ -64,34 +64,32 @@ public class AdminImpl implements AdminInterface {
     public Student addStudentAdmin()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nEnter the name of the student:");
+        System.out.println("Enter the name of the student:");
         String name_student = scanner.next();
         //println
-        System.out.println("\nEnter the userID of the student:");
+        System.out.println("Enter the userID of the student:");
         String userId_student = scanner.next();
         //println
-        System.out.println("\nEnter the password of the student:");
+        System.out.println("Enter the password of the student:");
         String password_student = scanner.next();
         //println
-        System.out.println("\nEnter the email ID of the student:");
+        System.out.println("Enter the email ID of the student:");
         String email_id_student = scanner.next();
         //println
-        System.out.println("\nEnter the semester of the student:");
+        System.out.println("Enter the semester of the student:");
         int semester_student = scanner.nextInt();
         scanner.nextLine();
         //println
-        System.out.println("\nEnter the section of the student:");
-        char section_student = scanner.next().charAt(0);
+//        System.out.println("Enter the section of the student:");
+//        char section_student = scanner.next().charAt(0);
 
         //take department
-        System.out.println("\nEnter the department of the student:");
+        System.out.println("Enter the department of the student:");
         String department = scanner.next();
         //
-        System.out.println("\nEnter gender:");
-        char gender = scanner.next().charAt(0);
         //println
         // take space separated list of courses
-        // System.out.println("\nEnter the courses of the student:");
+        // System.out.println("Enter the courses of the student:");
         // String courses_student = scanner.next();
         // // split the courses
         // String[] courses_array_student = courses_student.split(" ");
@@ -103,7 +101,10 @@ public class AdminImpl implements AdminInterface {
         // call the addStudent function
         // int studentID = adminRef.getNumStudent()+1;
         // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
-        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, section_student, department, gender);
+        System.out.println("Student Registeration success!:\n");
+        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, 'A', department, 'M');
+        //
+        // //println
     
     }
     @Override
@@ -182,7 +183,7 @@ public class AdminImpl implements AdminInterface {
     }
     @Override
     public void displayAdminMenu() {
-        System.out.println("\nPlease select an option from the following menu:");
+        System.out.println("Please select an option from the following menu:");
         //println
         System.out.println("1. Add Professor");
         //println
@@ -222,28 +223,28 @@ public class AdminImpl implements AdminInterface {
     public Professor addProfessorAdmin()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nEnter the name of the professor:");
+        System.out.println("Enter the name of the professor:");
         String name = scanner.next();
         //println
-        System.out.println("\nEnter the userID of the professor:");
+        System.out.println("Enter the userID of the professor:");
         String userId_prof = scanner.next();
         //println
-        System.out.println("\nEnter the password of the professor:");
+        System.out.println("Enter the password of the professor:");
         String password_prof = scanner.next();
         //println
-        System.out.println("\nEnter the department of the professor:");
+        System.out.println("Enter the department of the professor:");
         String department = scanner.next();
         //println
-        System.out.println("\nEnter the email ID of the professor:");
+        System.out.println("Enter the email ID of the professor:");
         String email_id = scanner.next();
         // take professor id
         //println
         // take semester
-        System.out.println("\nEnter the semester of the professor:");
+        System.out.println("Enter the semester of the professor:");
         int semester = scanner.nextInt();
         scanner.nextLine();
         // take space seperated list of courses
-        System.out.println("\nEnter the courses of the professor:");
+        System.out.println("Enter the courses of the professor:");
         String courses = scanner.nextLine();
         // split the courses
         String[] courses_array = courses.split(" ");
@@ -289,21 +290,21 @@ public class AdminImpl implements AdminInterface {
     @Override
     public void addCourseAdmin(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nEnter the name of the course:");
+        System.out.println("Enter the name of the course:");
         String name = scanner.next();
         //println
-        System.out.println("\nEnter the course ID of the course:");
+        System.out.println("Enter the course ID of the course:");
         String courseID = scanner.next();
         //println
-        System.out.println("\nEnter the semester of the course:");
+        System.out.println("Enter the semester of the course:");
         int semester = scanner.nextInt();
         //println
         // take professor id
-        System.out.println("\nEnter the professor ID of the course:");
+        System.out.println("Enter the professor ID of the course:");
         String professorID = scanner.next();
         //println
         // take vacancy count
-        System.out.println("\nEnter the vacancy count of the course:");
+        System.out.println("Enter the vacancy count of the course:");
         int vacancyCount = scanner.nextInt();
         //println
         Course course_to_add = new Course(courseID, name, professorID, vacancyCount);

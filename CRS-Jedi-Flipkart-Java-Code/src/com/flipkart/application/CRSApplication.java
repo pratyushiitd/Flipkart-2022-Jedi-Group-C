@@ -36,6 +36,7 @@ public class CRSApplication {
                     break;
                 case 2:
                     Student stud = adminRef.addStudentAdmin();
+                    studentRef.addStudent(stud);
                     // register stud
                     userRef.register(stud.getName(), "student", stud.getUserID(), stud.getPassword(), stud.getEmail_id());
                     break;
@@ -76,7 +77,16 @@ public class CRSApplication {
                     String courseId1 = new Scanner(System.in).nextLine();
                     System.out.println("Enter semester");
                     int semester1 = new Scanner(System.in).nextInt();
-                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+//                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+                    // student found
+                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
+                        adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+                        // println
+                        System.out.println("Course approved");
+                    }
+                    else{
+                        System.out.println("Course not Registered!");
+                    }
                     break;
             }
         }
@@ -139,7 +149,7 @@ public class CRSApplication {
                     // take semester as input
                     System.out.println("Enter semester");
                     int semester = new Scanner(System.in).nextInt();
-                    adminRef.approveCourseforStudent(userId, courseId, semester);
+                    studentRef.setRegisteredCourse_student(userId, courseId);
                     break;
                 case 2:
                     // pay fees
@@ -170,41 +180,61 @@ public class CRSApplication {
         // WHILE LOOP -> LOGIN / LOGOUT
         while(true){
             int login_option = -1;
-            System.out.println("\nPlease select an option from the following menu:");
+            System.out.println("Please select an option from the following menu:");
             //println
             System.out.println("1. Login");
             System.out.println("2. Register a student");
-            System.out.println("3. Exit");
+            System.out.println("3. Reset password");
+            System.out.println("4. Exit");
             //scanner
             Scanner scanner = new Scanner(System.in);
             login_option = scanner.nextInt();
-            if (login_option == 3){
+            if (login_option == 4){
                 break;
             }
+            if (login_option == 3) {
+                System.out.println("Enter your user id");
+                String userId = scanner.next();
+                System.out.println("Enter your password");
+                String password = scanner.next();
+                if (!userRef.login(userId, password)) {
+                    System.out.println("Invalid user id or password");
+                } else {
+                    // take new password as input
+                    System.out.println("Enter new password");
+                    String newPassword = scanner.next();
+                        if (userRef.resetPassword(userId, newPassword)) {
+                            System.out.println("Password reset successfully");
+                        } else {
+                            System.out.println("Password reset failed");
+                        }
+                    }
+                }
             if (login_option == 1){
                 // login
-                System.out.println("\nEnter the userID:");
+                System.out.println("Enter the userID:");
                 String userId = scanner.next();
                 //println
-                System.out.println("\nEnter the password:");
+                System.out.println("Enter the password:");
                 String password = scanner.next();
                 if (userRef.login(userId, password)){
-                    System.out.println("\nLogin successful!");
+                    System.out.println("Login successful!");
                     //println
                     String role = userRef.getRole(userId);
                     if (role == "admin") admin(); 
                     else if (role == "professor") professor();
                     else if (role == "student") student(userId);
-                    else System.out.println("\nInvalid role!");
+                    else System.out.println("Invalid role!");
                 }
                 else{
-                    System.out.println("\nLogin failed!");
+                    System.out.println("Login failed!");
                     continue;
                 }
             }
             else if (login_option == 2){
                 // register a student
                 Student stud = adminRef.addStudentAdmin();
+                studentRef.addStudent(stud);
                 // register stud
                 userRef.register(stud.getName(), "student", stud.getUserID(), stud.getPassword(), stud.getEmail_id());
             }

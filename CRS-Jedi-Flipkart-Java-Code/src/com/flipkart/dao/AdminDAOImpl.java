@@ -133,7 +133,38 @@ public class AdminDAOImpl implements AdminDAO{
     }
     public  void addStudent() {
     }
-    public  void addCourse() {
+    public  void addCourse(String courseId,String courseName,String professorId,int vacancy) {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //System.out.println(sql);
+            String sql="insert into course values('"+courseId+"','"+courseName+"','"+professorId+"','"+vacancy+"')";
+
+
+            stmt.executeUpdate(sql);
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se) {
+                se.printStackTrace();
+            }
+        }
     }
     public  void getStudentDetails(String studentId) {
         PreparedStatement stmt=null;

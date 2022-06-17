@@ -161,7 +161,38 @@ public class UserDAOImpl implements UserDAO{
 
     @Override
     public int getRole(String userId) {
-
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            String sql="Select role from user where userId= '"+userId+"'";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            int role=-1;
+            while(rs.next())
+                role= rs.getInt("role");
+            //System.out.println("Student successfully registered");
+            stmt.close();
+            conn.close();
+            return role;
+        }catch(SQLException se){
+            se.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
         return -1;
     }
 

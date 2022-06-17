@@ -66,6 +66,7 @@ public class CRSApplication {
 
                     break;
                 case 3:
+
                     adminRef.addCourseAdmin();
 
                     break;
@@ -249,14 +250,14 @@ public class CRSApplication {
                             System.out.println("Password reset failed");
                         }
                     }
-                }
+                }}
             if (login_option == 1){
                 // login
                 System.out.println("Enter the userID:");
-                userId = scanner.next();
+               String userId = scanner.next();
                 //println
                 System.out.println("Enter the password:");
-                password = scanner.next();
+                String password = scanner.next();
                 userRefDAO.login(userId, password);
                 //    System.out.println("Login successful!");
                     //println
@@ -265,11 +266,6 @@ public class CRSApplication {
                     else if (role == SQLQueryConstants.professorRole) professor();
                     else if (role == SQLQueryConstants.studentRole) student(userId);
                     else System.out.println("Invalid role!");
-                }
-                else{
-                    System.out.println("Login failed!");
-                    continue;
-                }
             }
             else if (login_option == 2){
                 // register a student
@@ -299,4 +295,5 @@ public class CRSApplication {
         }
     }
 }
+
 

@@ -304,24 +304,25 @@ public class AdminImpl implements AdminInterface {
         System.out.println("Enter the name of the course:");
         String name = scanner.next();
         //println
-        System.out.println("Enter the course ID of the course:");
-        String courseID = scanner.next();
+//        System.out.println("Enter the course ID of the course:");
+        CourseDAO courseDAO=new CourseDAOImpl();
+        int size=courseDAO.viewSize()+1;
+        String courseID = "c00"+size;
         //println
         System.out.println("Enter the semester of the course:");
         int semester = scanner.nextInt();
+        System.out.println("Enter the department of the course:");
+        String department = scanner.next();
         //println
         // take professor id
-        System.out.println("Enter the professor ID of the course:");
-        String professorID = scanner.next();
+        //System.out.println("Enter the professor ID of the course:");
+        //String professorID = scanner.next();
         //println
         // take vacancy count
         System.out.println("Enter the vacancy count of the course:");
         int vacancyCount = scanner.nextInt();
         //println
-        Course course_to_add = new Course(courseID, name, professorID, vacancyCount);
-        addCourse(course_to_add, semester);
-        CourseDAO courseDAO=new CourseDAOImpl();
-        courseDAO.addCourseProfessor(null,course_to_add.getCourseID(),course_to_add.courseName,10,null);
+        courseDAO.addCourseProfessor(null,courseID,name,vacancyCount,department);
     }
 
 }

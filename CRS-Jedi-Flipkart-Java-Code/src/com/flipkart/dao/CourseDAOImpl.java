@@ -156,7 +156,7 @@ public int viewSize()
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "Insert into course (courseId,courseName,professorID,vacancy,department) values ('"+courseId+"','"+courseName+"','"+professorId+"','"+vacancy+"','"+department+"'";
+            String sql = "Insert into course (courseId,courseName,vacancy,department) values('"+courseId+"','"+courseName+"','"+vacancy+"','"+department+"')";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate(sql);

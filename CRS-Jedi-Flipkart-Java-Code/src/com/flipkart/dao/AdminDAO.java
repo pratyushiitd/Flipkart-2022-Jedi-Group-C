@@ -11,14 +11,14 @@ import com.flipkart.bean.Course;
 
 public interface AdminDAO {
 
-    public String getDepartmentCourse(String courseId);
+    public String getDepartmentCourse(String courseId) throws CourseNotFoundException;
     public int professorSize();
-    public  void addProfessor(String professorId,String name,String password,String mail,String department);
+    public  void addProfessor(String professorId,String name,String password,String mail,String department) throws UserNotAddedException, UserIDAlreadyInUseException, ProfessorNotAddedException;
     public  void approveCourse();
-    public  void getCourseDetails(String courseId);
-    public  void getStudentDetails(String studentId);
-    public  void addCourse() ;
-    public  void addStudent();
+    public  void getCourseDetails(String courseId) throws CourseNotFoundException;
+    public  void getStudentDetails(String studentId) throws UserNotFoundException;
+    public  void addCourse();
+    public  void addStudent() throws UserNotAddedException;
 
 
 }

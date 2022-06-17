@@ -43,6 +43,8 @@ public class CRSApplication {
                 case 1:
                     Professor prof = adminRef.addProfessorAdmin();
                     // register prof
+                    int size=adminRefDAO.professorSize()+1;
+                    prof.setUserID("p00"+size);
                     userRef.register(prof.getName(), SQLQueryConstants.professorRole, prof.getUserID(), prof.getPassword(), prof.getEmail_id());
                     userRefDAO.addUser(prof.getUserID(),prof.getName(),prof.getPassword(),SQLQueryConstants.professorRole,prof.getEmail_id());
                     adminRefDAO.addProfessor(prof.getUserID(),prof.getName(), prof.getPassword(), prof.getEmail_id(),prof.getDepartment());
@@ -51,12 +53,16 @@ public class CRSApplication {
                 case 2:
                     Student stud = adminRef.addStudentAdmin();
                     studentRef.addStudent(stud);
+                    userRefDAO.register_student(stud.getUserID(), stud.getName(), stud.getPassword(), SQLQueryConstants.studentRole
+                    , stud.getEmail_id(), stud.getSemester(), stud.getSection(), stud.getDepartment(), stud.getGender());
+                    userRefDAO.addUser(stud.getUserID(), stud.getName(), stud.getPassword(), SQLQueryConstants.studentRole, stud.getEmail_id());
                     // register stud
                     userRef.register(stud.getName(), SQLQueryConstants.studentRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
 
                     break;
                 case 3:
                     adminRef.addCourseAdmin();
+
                     break;
                 case 4:
                     // view professor details

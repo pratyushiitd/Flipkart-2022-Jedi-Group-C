@@ -50,4 +50,81 @@ public class CourseDAOImpl implements CourseDAO{
             }//end finally try
         }//end try
     }
+public int viewSize()
+{
+    PreparedStatement stmt=null;
+    Connection conn=null;
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        //System.out.println(sql);
+        String sql="SELECT distinct COUNT(*) AS size FROM course";
+        stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery(sql);
+        int size=100;
+        while(rs.next())
+            size=rs.getInt("size");
+        //System.out.println(sql);
+        stmt.close();
+        conn.close();
+        return size;
+    }catch(SQLException se){
+        //Handle errors for JDBC
+        se.printStackTrace();
+    }catch(Exception e){
+        //Handle errors for Class.forName
+        e.printStackTrace();
+    }finally{
+        //finally block used to close resources
+        try{
+            if(stmt!=null)
+                stmt.close();
+        }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        return 100;
+}
+    @Override
+    public void addCourseProfessor(String professorId, String courseId, String courseName, int vacancy, String department) {
+
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            String sql = "Insert into course (courseId,courseName,professorID,vacancy,department) values ('"+courseId+"','"+courseName+"','"+professorId+"','"+vacancy+"','"+department+"'";
+            //System.out.println(sql);
+            stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate(sql);
+                // System.out.println(", Last: " + location1);
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+    }
+
 }

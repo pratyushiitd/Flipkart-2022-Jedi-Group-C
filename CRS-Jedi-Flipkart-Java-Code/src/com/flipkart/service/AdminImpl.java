@@ -2,6 +2,10 @@ package com.flipkart.service;
 
 import com.flipkart.bean.*;
 import com.flipkart.constants.SQLQueryConstants;
+import com.flipkart.dao.AdminDAO;
+import com.flipkart.dao.AdminDAOImpl;
+import com.flipkart.dao.CourseDAO;
+import com.flipkart.dao.CourseDAOImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -256,18 +260,21 @@ public class AdminImpl implements AdminInterface {
         // split the courses
         String[] courses_array = courses.split(" ");
         // convert the courses to integer
-        int[] courses_int = new int[courses_array.length];
-        for (int i = 0; i < courses_array.length; i++) {
-            courses_int[i] = Integer.parseInt(courses_array[i]);
-        }
+        //int[] courses_int = new int[courses_array.length];
+        //for (int i = 0; i < courses_array.length; i++) {
+          //  courses_int[i] = Integer.parseInt(courses_array[i]);
+        //}
         // add the professor to the list of professors
         Professor newProf = addProfessor(name, userId_prof, password_prof, email_id, department);
+        CourseDAO courseDAO=new CourseDAOImpl();
         // add the courses to the professor
         if (newProf!=null){
-            for (int i = 0; i < courses_int.length; i++) {
-                Course toAdd = courseCatalogue.getCourse(semester, Integer.toString(courses_int[i]));
+            for (int i = 0; i < courses_array.length; i++) {
+                Course toAdd = courseCatalogue.getCourse(semester, courses_array[i]);
+                courseDAO.addCourseProfessor(newProf.getProfessorId(),toAdd.getCourseID(),toAdd.courseName,10, newProf.getDepartment() );
                 if (toAdd!=null){
                     newProf.addCourse(toAdd);
+
                 }
                 else{
                     System.out.println("Courses not found! Register them first!");
@@ -316,5 +323,8 @@ public class AdminImpl implements AdminInterface {
         //println
         Course course_to_add = new Course(courseID, name, professorID, vacancyCount);
         addCourse(course_to_add, semester);
+        CourseDAO courseDAO=new CourseDAOImpl();
+        courseDAO.addCourseProfessor(null,course_to_add.getCourseID(),course_to_add.courseName,10,null);
     }
+
 }

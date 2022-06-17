@@ -290,7 +290,7 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public static void approveStudent(String studentId, List<Course> courseChoiceList, int semester){
+    public  void approveStudent(String studentId, List<Course> courseChoiceList, int semester){
         List<Course>l=new ArrayList<>();
 
         try{
@@ -382,25 +382,25 @@ public class AdminImpl implements AdminInterface {
         courseDAO.addCourseProfessor(null,courseID,name,vacancyCount,department);
     }
 
-    public static void main(String[] args)
-    {
-        ArrayList<Course> courseList=new ArrayList<>();
-        Course c1= new Course("c001","dsa" , "p001", 10);
-        Course c2= new Course("c002","maths" , "p001", 10);
-        Course c3= new Course("c003","physics" , "p003", 10);
-        Course c4= new Course("c004","big data analysis" , "p005", 10);
-        Course c5= new Course("c005","AI" , "p003", 10);
-        Course c6= new Course("c006","dbms" , "p005", 10);
-
-        courseList.add(c1);
-        courseList.add(c2);
-        courseList.add(c3);
-        courseList.add(c4);
-        courseList.add(c5);
-        courseList.add(c6);
-
-        approveStudent("s001", courseList,2);
-    }
+//    public static void main(String[] args)
+//    {
+//        ArrayList<Course> courseList=new ArrayList<>();
+//        Course c1= new Course("c001","dsa" , "p001", 10);
+//        Course c2= new Course("c002","maths" , "p001", 10);
+//        Course c3= new Course("c003","physics" , "p003", 10);
+//        Course c4= new Course("c004","big data analysis" , "p005", 10);
+//        Course c5= new Course("c005","AI" , "p003", 10);
+//        Course c6= new Course("c006","dbms" , "p005", 10);
+//
+//        courseList.add(c1);
+//        courseList.add(c2);
+//        courseList.add(c3);
+//        courseList.add(c4);
+//        courseList.add(c5);
+//        courseList.add(c6);
+//
+//        approveStudent("s001", courseList,2);
+//    }
 
 
 }

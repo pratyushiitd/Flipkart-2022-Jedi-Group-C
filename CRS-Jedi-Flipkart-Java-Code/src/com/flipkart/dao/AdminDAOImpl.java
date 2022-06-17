@@ -5,7 +5,6 @@ import com.flipkart.constants.SQLQueryConstants;
 import java.sql.*;
 
 import static com.flipkart.constants.SQLQueryConstants.*;
-import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO{
 
@@ -131,8 +130,65 @@ public class AdminDAOImpl implements AdminDAO{
             }//end finally try
         }//end try
     }
+
     public  void addStudent() {
     }
+
+    @Override
+    public void approveCourse() {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //System.out.println(sql);
+            String sql="select * from student";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            String studentId=null;
+            while(rs.next())
+            {
+                studentId=rs.getString("studentId");
+                String studentName=rs.getString("student_name");
+                sql="select courseId from registration where studentId= '"+studentId+"'";
+                stmt = conn.prepareStatement(sql);
+                ResultSet rs2 = stmt.executeQuery(sql);
+                System.out.println("Student name:" +studentName);
+                System.out.println("Registered courses: ");
+                while(rs2.next())
+                {
+                    System.out.print(rs2.getString("courseId")+"   ");
+                }
+                rs2.close();
+            }
+            rs.close();
+            //System.out.println(sql);
+            stmt.close();
+            conn.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+    }
+
     public  void addCourse() {
     }
     public  void getStudentDetails(String studentId) {
@@ -284,4 +340,5 @@ public class AdminDAOImpl implements AdminDAO{
         }//end try
 
     }
+
 }

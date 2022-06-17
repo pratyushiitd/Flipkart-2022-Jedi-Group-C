@@ -7,10 +7,17 @@ import com.flipkart.dao.CourseDAOImpl;
 import com.flipkart.dao.StudentDAO;
 import com.flipkart.dao.StudentDAOImpl;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 // import scanner
 import java.util.Scanner;
+
+import java.sql.*;
+
+
+import static com.flipkart.constants.SQLQueryConstants.*;
+
 public class AdminImpl implements AdminInterface {
     Admin admin;
     public CourseCatalogue courseCatalogue;
@@ -283,7 +290,7 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public List<Course> approveStudent(String studentId, List<Course> courseChoiceList, int semester){
+    public static void approveStudent(String studentId, List<Course> courseChoiceList, int semester){
         List<Course>l=new ArrayList<>();
 
         try{
@@ -294,14 +301,43 @@ public class AdminImpl implements AdminInterface {
                     course.setVacancy(course.vacancy-1);
                     approveCourseforStudent(studentId, course.getCourseID(), semester);
                     l.add(course);
+
+                    Connection conn = null;
+                    PreparedStatement stmt = null;
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        conn = DriverManager.getConnection(DB_URL,USER, PASS);
+
+                        String sql = "insert into student_course_enrolled values ('"+studentId+"','"+course+"')";
+                        stmt = conn.prepareStatement(sql);
+                        stmt.executeUpdate(sql);
+                        stmt.close();
+                        conn.close();
+                    }catch(SQLException se){
+                        se.printStackTrace();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        try{
+                            if(stmt!=null)
+                                stmt.close();
+                        }catch(SQLException se2){
+                        }
+                        try{
+                            if(conn!=null)
+                                conn.close();
+                        }catch(SQLException se){
+                            se.printStackTrace();
+                        }
+                    }
                 }
             }
-            return l;
+            //return l;
         } catch(Exception e)
         {
             e.printStackTrace();
         }
-        return l;
+
     }
     @Override
     public void viewEnrolledStudents(String courseID) {
@@ -345,5 +381,26 @@ public class AdminImpl implements AdminInterface {
         //println
         courseDAO.addCourseProfessor(null,courseID,name,vacancyCount,department);
     }
+
+    public static void main(String[] args)
+    {
+        ArrayList<Course> courseList=new ArrayList<>();
+        Course c1= new Course("c001","dsa" , "p001", 10);
+        Course c2= new Course("c002","maths" , "p001", 10);
+        Course c3= new Course("c003","physics" , "p003", 10);
+        Course c4= new Course("c004","big data analysis" , "p005", 10);
+        Course c5= new Course("c005","AI" , "p003", 10);
+        Course c6= new Course("c006","dbms" , "p005", 10);
+
+        courseList.add(c1);
+        courseList.add(c2);
+        courseList.add(c3);
+        courseList.add(c4);
+        courseList.add(c5);
+        courseList.add(c6);
+
+        approveStudent("s001", courseList,2);
+    }
+
 
 }

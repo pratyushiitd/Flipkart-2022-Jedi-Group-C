@@ -233,9 +233,6 @@ public class AdminDAOImpl implements AdminDAO{
             }//end finally try
         }//end try
     }
-    public  void approveCourse() {
-
-    }
 
     public void approveStudent(String studentId) {
         PreparedStatement stmt=null;

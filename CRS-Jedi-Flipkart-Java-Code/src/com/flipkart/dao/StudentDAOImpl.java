@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static com.flipkart.constants.SQLQueryConstants.*;
 
 public class StudentDAOImpl implements StudentDAO{
+    //student table
     public void addStudent(String name,int role,String userId,String password,String emailId ,
                            int semester,int section,String department,float cg,String gender,String paymentId){
         PreparedStatement stmt=null;
@@ -58,7 +59,7 @@ public class StudentDAOImpl implements StudentDAO{
             }//end finally try
         }//end try
     }
-
+//add to registration table
     @Override
     public void addStudentRegistration(String courseId,String studentId,String student_name) {
         PreparedStatement stmt=null;

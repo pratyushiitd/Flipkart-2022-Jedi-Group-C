@@ -62,13 +62,12 @@ public class StudentImpl implements StudentInterface{
             registeredCourses_pending.put(student, new ArrayList<String>());
         }
         public void showStudentMenu() {
-                System.out.println("1. Register for a course");
-                System.out.println("2. Pay Fees");
-                System.out.println("3. Update Student");
-                System.out.println("4. View Grade Card");
-                System.out.println("5. Add Course");
-                System.out.println("6. Remove Course");
-                System.out.println("7. View All Courses");
-                System.out.println("8. Logout");
+                //System.out.println("1. Register for courses");
+                System.out.println("1. Pay Fees");
+                System.out.println("2. View Grade Card");
+                System.out.println("3. Add Course");
+                System.out.println("4. Remove Course");
+                System.out.println("5. View Department Courses");
+                System.out.println("6. Logout");
         }
 }

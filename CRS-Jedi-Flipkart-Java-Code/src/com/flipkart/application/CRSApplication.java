@@ -24,6 +24,8 @@ import java.util.Scanner;
 public class CRSApplication {
 
     public static CourseDAO courseDAO=new CourseDAOImpl();
+    public static GradeDAO gradeDAO=new GradeDAOImp();
+    public static PaymentDAO paymentDAO=new PaymentDAOImpl();
     public static ProfessorDAO profRefDAO= new ProfessorDAOImpl();
     public static UserDAO userRefDAO= new UserDAOImpl();
     public static StudentDAO studentRefDAO= new StudentDAOImpl();
@@ -62,6 +64,8 @@ public class CRSApplication {
                     //added to user table
                     userRefDAO.addUser(stud.getUserID(), stud.getName(), stud.getPassword(), SQLQueryConstants.studentRole, stud.getEmail_id());
                     // register stud
+
+                    //studentRefDAO.addStudentRegistration(stud.(),stud.getUserID());
                     //userRef.register(stud.getName(), SQLQueryConstants.studentRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
 
                     break;
@@ -75,14 +79,16 @@ public class CRSApplication {
                     // take professor id as input
                     System.out.println("Enter professor id");
                     String professorId = new Scanner(System.in).nextLine();
-                    adminRef.viewprofessorDetails(professorId);
+                    //adminRef.viewprofessorDetails(professorId);
+                    profRefDAO.viewProfessorDetails(professorId);
                     break;
                 case 5:
                     // view student details
                     // take student id as input
                     System.out.println("Enter student id");
                     String studentId = new Scanner(System.in).nextLine();
-                    adminRef.viewstudentDetails(studentId);
+                    studentRefDAO.viewStudentDetails(studentId);
+                    //adminRef.viewstudentDetails(studentId);
                     break;
                 case 6:
 
@@ -92,7 +98,8 @@ public class CRSApplication {
                     int semester = new Scanner(System.in).nextInt();
                     System.out.println("Enter course id");
                     String courseId = new Scanner(System.in).nextLine();
-                    adminRef.viewcoursedetail(semester,courseId);
+                    //adminRef.viewcoursedetail(semester,courseId);
+                    courseDAO.viewCourseDetails(courseId);
                     break;
                 case 7:
 
@@ -104,7 +111,7 @@ public class CRSApplication {
                     String courseId1 = new Scanner(System.in).nextLine();
                     System.out.println("Enter semester");
                     int semester1 = new Scanner(System.in).nextInt();
-//                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
                     // student found
                     if (studentRef.isCourseforStudent(studentId1,courseId1)){
                         adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
@@ -129,8 +136,8 @@ public class CRSApplication {
                     // take professor id as input
                     System.out.println("Enter professor id");
                     String professorId = new Scanner(System.in).nextLine();
-                    adminRef.viewprofessorDetails(professorId);
-                    //profRefDAO.viewProfessorDetails(professorId);
+                    //adminRef.viewprofessorDetails(professorId);
+                    profRefDAO.viewProfessorDetails(professorId);
 
                     break;
                 case 2:
@@ -142,25 +149,27 @@ public class CRSApplication {
                         System.out.println("Enter semester");
                         int semester = new Scanner(System.in).nextInt();
 //                     adminRef.viewstudentDetails(studentId);
-                    adminRef.viewEnrolledStudents(courseId);
-                    //profRefDAO.viewStudentsList(courseId,semester);
+                    //adminRef.viewEnrolledStudents(courseId);
+                    profRefDAO.viewStudentsList(courseId,semester);
 
                     break;
+                    //to do
                 case 3:
                     // submit grades
                     // take student id, course id and grade as input after approval
-                    System.out.println("Enter student id");
-                    String studentId1 = new Scanner(System.in).nextLine();
+                   // System.out.println("Enter student id");
+                    //String studentId1 = new Scanner(System.in).nextLine();
                     System.out.println("Enter course id");
                     String courseId1 = new Scanner(System.in).nextLine();
+
                     System.out.println("Enter grade");
                     //take semester as input
                     int semester1 = new Scanner(System.in).nextInt();
 
 
                     int grade = new Scanner(System.in).nextInt();
-                    adminRef.submitGrades(studentId1,courseId1,grade, semester1);
-                    profRefDAO.submitGrades(studentId1,grade,courseId1);
+                    //adminRef.submitGrades(studentId1,courseId1,grade, semester1);
+                   // profRefDAO.submitGrades(studentId1,grade,courseId1);
                     break;
             }
         }
@@ -172,42 +181,45 @@ public class CRSApplication {
             if (choice == 8)break;
             switch (choice) {
                 case 1:
-                    // register for course
-                    // take course id as input
-                    adminRef.viewallcourses();
-                    for(int i = 1; i <= 6; i++) {
-                        // println
-                        System.out.println("Enter course"+Integer.toString(i)+ " id:");
-                        String courseId = new Scanner(System.in).nextLine();
-                        // take semester as input
-                        studentRef.setRegisteredCourse_student(userId, courseId);
-                        //approve him
-                    }
-                    break;
-                case 2:
                     // pay fees
                     // take semester as input
                     System.out.println("Enter semester");
                     int semester1 = new Scanner(System.in).nextInt();
-                    System.out.println("Enter Amount");
-                    int amount = new Scanner(System.in).nextInt();
-                    System.out.println("Fees paid :)");
+                    System.out.println("Pay Rs 100000");
+                    //int amount = new Scanner(System.in).nextInt();
+                    System.out.println("Fees paid successfully!");
+                    int size= paymentDAO.getSize()+1;
+                    String paymentId="py00"+size;
+                    paymentDAO.makePayment(userId,paymentId);
+                    paymentDAO.getDetails(userId);
                     break;
-                case 3:
-                    // update student info
-                    break;
-                case 4:
+                case 2:
                     // view grade card
                     // take semester as input
                     System.out.println("Enter semester");
                     int semester2 = new Scanner(System.in).nextInt();
+                    gradeDAO.generateGrade(userId);
+                    //gpa karo generate
+                    //update in student
                     break;
-                case 7:
+                case 3:
+                    //addcourse
+
+                    break;
+                case 4:
+                    //remove course
+                    break;
+                case 5:
                     // view all courses
                     // take semester as input
 //                    System.out.println("Enter semester");
 //                    int semester3 = new Scanner(System.in).nextInt();
-                    adminRef.viewallcourses();
+                    courseDAO.viewCourseStudent(userId);
+                   // adminRef.viewallcourses();
+                    break;
+                case 6:
+                    //exit
+                    System.out.println("Logged out successfully");
                     break;
             }
         }

@@ -17,7 +17,7 @@ public interface AdminInterface {
         // public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
         //         ,String adminID) ;
 
-        public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender);
+        public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, int section_student, String department, String gender);
         public void displayAdminMenu();
         public Professor addProfessorAdmin();
         public Student addStudentAdmin();

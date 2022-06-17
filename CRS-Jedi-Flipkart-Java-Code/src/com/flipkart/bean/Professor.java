@@ -8,15 +8,15 @@ public class Professor extends User{
     public List<Course> coursesTeaching;
 
     public Professor(
-        String name, 
-        String role,
+        String name,
+        int role,
         String userID,
         String password,
         String email_id,
         String department
         ){
 
-        super(name, role, userID, password, email_id);
+        super(name, role,userID, password, email_id);
         this.department = department;
         this.coursesTeaching = new ArrayList<Course>();
     }
@@ -53,7 +53,6 @@ public class Professor extends User{
     public void showProfessorDetails() {
         System.out.println("Professor Details");
         System.out.println("Name: " + getName());
-        System.out.println("Role: " + getRole());
         System.out.println("UserID: " + getUserID());
         System.out.println("Password: " + getPassword());
         System.out.println("Email: " + getEmail_id());

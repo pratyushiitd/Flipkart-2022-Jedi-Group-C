@@ -2,17 +2,17 @@ package com.flipkart.bean;
 
 public class User {
     private String name;
-    private String role;
+    private int role;
     private String userID;
     private String password;
     private String email_id;
 
 
-    public User(String userID){
+    public User(String userID, String role,String id, String password, String email_id){
         this.userID = userID;
     }
     //constructor for user
-    public User(String name, String role, String userID, String password,String email_id) {
+    public User(String name, int role, String userID, String password,String email_id) {
         this.name = name;
         this.role = role;
         this.userID = userID;
@@ -30,11 +30,11 @@ public class User {
         return this.name;
     }
 
-    public void setRole(String role){
+    public void setRole(int role){
         this.role=role;
     }
 
-    public String getRole(){
+    public int getRole(){
         return this.role;
     }
 

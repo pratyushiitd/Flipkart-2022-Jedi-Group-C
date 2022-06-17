@@ -3,27 +3,28 @@ package com.flipkart.bean;
 public class Student extends User{
 
     private int semester;
-    private char section;
+    private int section;
     private String department;
     private float cg;
-    private char gender;
-
+    private String gender;
+    private int role;
     private boolean isRegistered;
 
     public Student(
-        String name, 
-        String role, 
+        String name,
         String userID,
+        int role,
         String password, 
         String email_id,
         int semester,
-        char section,
+        int section,
         String department,
         float cg,
-        char gender){
-        super(name, role, userID, password, email_id);
+        String gender){
+        super(name, role,userID, password, email_id);
         this.semester = semester;
         this.section = section;
+        this.role=role;
         this.department = department;
         this.cg = cg;
         this.gender = gender;
@@ -55,11 +56,11 @@ public class Student extends User{
         this.cg = cg;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -80,11 +81,11 @@ public class Student extends User{
         this.semester = semester;
     }
 
-    public char getSection() {
+    public int getSection() {
         return section;
     }
 
-    public void setSection(char section) {
+    public void setSection(int section) {
         this.section = section;
     }
 
@@ -102,7 +103,6 @@ public class Student extends User{
     }
     public void viewStudentDetails(){
         System.out.println("Name: " + this.getName());
-        System.out.println("Role: " + this.getRole());
         System.out.println("UserID: " + this.getUserID());
         System.out.println("Password: " + this.getPassword());
         System.out.println("Email: " + this.getEmail_id());

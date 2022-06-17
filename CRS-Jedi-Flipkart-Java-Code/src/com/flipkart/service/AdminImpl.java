@@ -1,6 +1,11 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.*;
+import com.flipkart.constants.SQLQueryConstants;
+import com.flipkart.dao.AdminDAO;
+import com.flipkart.dao.AdminDAOImpl;
+import com.flipkart.dao.CourseDAO;
+import com.flipkart.dao.CourseDAOImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +21,8 @@ public class AdminImpl implements AdminInterface {
     public AdminImpl() {
         this.admin = new Admin(
                 "flipkart",
-                "admin",
-                "admin",
+                SQLQueryConstants.adminRole,
+                "a001",
                 "jedi",
                 "admin@fk.com"
         );
@@ -30,10 +35,10 @@ public class AdminImpl implements AdminInterface {
         courseCatalogue.showCourseCatalogue();
     }
     @Override
-    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, char section_student, String department, char gender){
+    public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, int section_student, String department, String gender){
 
         try{
-            Student student = new Student(name_student,"student",userId_student,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
+            Student student = new Student(name_student, userId_student,SQLQueryConstants.studentRole,password_student,email_id_student,semester_student,section_student, department, 0.0f, gender);
             registeredStudent.addStudent(student);
             student.setRegistered(true);
             return student;
@@ -60,7 +65,7 @@ public class AdminImpl implements AdminInterface {
             System.out.println("Professor ID already exists");
             return null;
         }
-        Professor professor = new Professor(name,"professor",userID, password,email_id,department);
+        Professor professor = new Professor(name,SQLQueryConstants.professorRole,userID, password,email_id,department);
         professorsList.add(professor);
         return professor;
     }
@@ -90,6 +95,8 @@ public class AdminImpl implements AdminInterface {
         //take department
         System.out.println("Enter the department of the student:");
         String department = scanner.next();
+        System.out.println("Enter the gender of the student:");
+        String gender = scanner.next();
         //
         //println
         // take space separated list of courses
@@ -106,7 +113,7 @@ public class AdminImpl implements AdminInterface {
         // int studentID = adminRef.getNumStudent()+1;
         // adminRef.addStudent(name_student, userId_student, password_student, mobile_student, email_id_student, rollNo_student, semester_student, section_student, courses_int_student);
         System.out.println("Student Registeration success!:\n");
-        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, 'A', department, 'M');
+        return addStudent(name_student, userId_student, password_student, email_id_student, semester_student, 1, department, gender);
         //
         // //println
     
@@ -253,18 +260,21 @@ public class AdminImpl implements AdminInterface {
         // split the courses
         String[] courses_array = courses.split(" ");
         // convert the courses to integer
-        int[] courses_int = new int[courses_array.length];
-        for (int i = 0; i < courses_array.length; i++) {
-            courses_int[i] = Integer.parseInt(courses_array[i]);
-        }
+        //int[] courses_int = new int[courses_array.length];
+        //for (int i = 0; i < courses_array.length; i++) {
+          //  courses_int[i] = Integer.parseInt(courses_array[i]);
+        //}
         // add the professor to the list of professors
         Professor newProf = addProfessor(name, userId_prof, password_prof, email_id, department);
+        CourseDAO courseDAO=new CourseDAOImpl();
         // add the courses to the professor
         if (newProf!=null){
-            for (int i = 0; i < courses_int.length; i++) {
-                Course toAdd = courseCatalogue.getCourse(semester, Integer.toString(courses_int[i]));
+            for (int i = 0; i < courses_array.length; i++) {
+                Course toAdd = courseCatalogue.getCourse(semester, courses_array[i]);
+                courseDAO.addCourseProfessor(newProf.getProfessorId(),toAdd.getCourseID(),toAdd.courseName,10, newProf.getDepartment() );
                 if (toAdd!=null){
                     newProf.addCourse(toAdd);
+
                 }
                 else{
                     System.out.println("Courses not found! Register them first!");
@@ -313,5 +323,8 @@ public class AdminImpl implements AdminInterface {
         //println
         Course course_to_add = new Course(courseID, name, professorID, vacancyCount);
         addCourse(course_to_add, semester);
+        CourseDAO courseDAO=new CourseDAOImpl();
+        courseDAO.addCourseProfessor(null,course_to_add.getCourseID(),course_to_add.courseName,10,null);
     }
+
 }

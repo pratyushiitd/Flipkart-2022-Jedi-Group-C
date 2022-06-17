@@ -142,36 +142,6 @@ public class StudentDAOImpl implements StudentDAO{
         return 100;
     }
 
-    @Override
-    public boolean isApproved(String studentId) {
-        return false;
-    }
-
-    @Override
-    public boolean submittedCourses(String studentId) {
-        return false;
-    }
-
-    @Override
-    public boolean getFeeStatus(String studentId) {
-        return false;
-    }
-
-    @Override
-    public String makePayment(Payment payment) {
-        return null;
-    }
-
-    @Override
-    public void generatePaymentNotification(Payment payment) {
-
-    }
-
-    @Override
-    public GradeCard viewGradeCard(String studentId) throws GradeCardNotGeneratedException {
-        return null;
-    }
-
     public  void viewStudentDetails(String studentID)
     {
         PreparedStatement stmt=null;

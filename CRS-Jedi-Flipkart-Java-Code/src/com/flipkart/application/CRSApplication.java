@@ -4,10 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.CourseCatalogue;
 import com.flipkart.constants.SQLQueryConstants;
 import com.flipkart.dao.*;
-import com.flipkart.exception.EmailAlreadyInUseException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.UserIDAlreadyInUseException;
-import com.flipkart.exception.UserNotAddedException;
+import com.flipkart.exception.*;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;
@@ -39,7 +36,7 @@ public class CRSApplication {
     public static StudentInterface studentRef = new StudentImpl();
 
 
-    public static void admin() throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException {
+    public static void admin() throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException, UserNotFoundException {
         while(true){
             adminRef.displayAdminMenu();
             int choice=new Scanner(System.in).nextInt();
@@ -128,7 +125,7 @@ public class CRSApplication {
             }
         }
     }
-    public static void professor(){
+    public static void professor() throws CourseNotFoundException {
         while(true){
             profRef.professorMenu();
             int choice=new Scanner(System.in).nextInt();
@@ -228,7 +225,7 @@ public class CRSApplication {
         }
     }
         // main method
-    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException {
+    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException, UserNotFoundException, CourseNotFoundException {
         userRef.register("flipkart",SQLQueryConstants.adminRole,"a001","jedi","admin@fk.com");
         // print welcome to course registration system
         System.out.println("-----------Welcome to Course Registration System!-------------");
@@ -254,16 +251,17 @@ public class CRSApplication {
                 String userId = scanner.next();
                 System.out.println("Enter your password");
                 String password = scanner.next();
-                if (userRefDAO.login(userId, password)) {
+                userRefDAO.login(userId, password);
                     {
                     // take new password as input
                     System.out.println("Enter new password");
                     String newPassword = scanner.next();
-                        if ( userRefDAO.reset_password(userId,password,newPassword)) {
-                            System.out.println("Password reset successfully");
-                        } else {
-                            System.out.println("Password reset failed");
-                        }
+                    if(userRefDAO.reset_password(userId,password,newPassword))
+                    {
+                        System.out.println("Password reset successfully!");
+                    }
+                    else {
+                        System.out.println("Password couldn't be reset");
                     }
                 }}
             if (login_option == 1){

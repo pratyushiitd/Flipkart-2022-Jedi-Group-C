@@ -105,7 +105,7 @@ public class CRSApplication {
 
                     // approve course for student
                     // take student id and course id as input
-                    adminRefDAO.approveCourse();
+                    adminRefDAO.approveCourses();
 //                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
 //                    // student found
 //                    if (studentRef.isCourseforStudent(studentId1,courseId1)){

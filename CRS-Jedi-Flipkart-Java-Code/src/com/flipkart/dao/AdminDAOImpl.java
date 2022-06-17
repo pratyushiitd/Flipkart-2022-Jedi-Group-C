@@ -264,7 +264,87 @@ public class AdminDAOImpl implements AdminDAO{
             }//end finally try
         }//end try
     }
+    public void approveCourses()
+    {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            String sql = "SELECT * FROM student";
+            //System.out.println(sql);
+            stmt = conn.prepareStatement(sql);
+            //stmt.setString(1,professorID);
+            ResultSet rs = stmt.executeQuery(sql);
+            //System.out.println(sql);
+            while(rs.next()){
+                String studentId=rs.getString("studentId");
+                String studentName=rs.getString("name");
+                 sql="select courseId from registration where studentId= '"+studentId+"'";
+                stmt = conn.prepareStatement(sql);
+                ResultSet rs1 = stmt.executeQuery(sql);
+                int count=0;
+                while(rs1.next()&&count<4)
+                {
+                    String courseId=rs1.getString("courseId");
+                    sql="Select vacancy from course where courseId= '"+courseId+"'";
+                    String s="Select professorID from course where courseId= '"+courseId+"'";
+                    stmt = conn.prepareStatement(sql);
+                    int vacancy=0;
+                    ResultSet rs2 = stmt.executeQuery(sql);
+                    while(rs2.next())
+                        vacancy=rs2.getInt("vacancy");
+                    stmt = conn.prepareStatement(s);
+                    String professorId=null;
+                    ResultSet rs3 = stmt.executeQuery(s);
+                    while(rs3.next())
+                        professorId=rs3.getString("professorID");
+                    if(vacancy>0&&count<4)
+                    {
+                        vacancy--;
+                        count++;
+                        String approve="insert into approved values ('"+studentId+"','"+courseId+"','"+studentName+"','0.0','"+professorId+"')";
+                        stmt = conn.prepareStatement(approve);
+                        stmt.executeUpdate(approve);
+                        approve="insert into grade values ('"+courseId+"','"+studentId+"','0.0')";
+                        stmt = conn.prepareStatement(approve);
+                        stmt.executeUpdate(approve);
+                        approve="update course set vacancy= '"+vacancy+"' WHERE courseId= '"+courseId+ "'";
+                        stmt = conn.prepareStatement(approve);
+                        stmt.executeUpdate(approve);
+                        System.out.println("Student: "+studentName+" approved!");
+                    }
 
+                    rs2.close();
+                }
+                System.out.println(" All Students approved!");
+                rs1.close();
+            }
+            //STEP 6: Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+    }
     public void approveStudent(String studentId) {
         PreparedStatement stmt=null;
         Connection conn=null;

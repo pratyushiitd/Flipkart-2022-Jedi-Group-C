@@ -124,7 +124,7 @@ public class CRSApplication {
                     System.out.println("Enter professor id");
                     String professorId = new Scanner(System.in).nextLine();
                     adminRef.viewprofessorDetails(professorId);
-                    profRefDAO.viewProfessorDetails(professorId);
+                    //profRefDAO.viewProfessorDetails(professorId);
 
                     break;
                 case 2:
@@ -137,12 +137,12 @@ public class CRSApplication {
                         int semester = new Scanner(System.in).nextInt();
 //                     adminRef.viewstudentDetails(studentId);
                     adminRef.viewEnrolledStudents(courseId);
-                    profRefDAO.viewStudentsList(courseId,semester);
+                    //profRefDAO.viewStudentsList(courseId,semester);
 
                     break;
                 case 3:
                     // submit grades
-                    // take student id, course id and grade as input
+                    // take student id, course id and grade as input after approval
                     System.out.println("Enter student id");
                     String studentId1 = new Scanner(System.in).nextLine();
                     System.out.println("Enter course id");
@@ -175,6 +175,7 @@ public class CRSApplication {
                         String courseId = new Scanner(System.in).nextLine();
                         // take semester as input
                         studentRef.setRegisteredCourse_student(userId, courseId);
+                        //approve him
                     }
                     break;
                 case 2:

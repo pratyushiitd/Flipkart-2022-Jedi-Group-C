@@ -1,16 +1,12 @@
 package com.flipkart.dao;
-import com.flipkart.constants.SQLQueryConstants;
 
 import java.sql.*;
-
-import java.util.List;
-import java.util.ArrayList;
 
 import static com.flipkart.constants.SQLQueryConstants.*;
 
 public class UserDAOImpl implements UserDAO{
 
-    public void login(String userId, String password)
+    public boolean login(String userId, String password)
     {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -26,7 +22,10 @@ public class UserDAOImpl implements UserDAO{
                 pwd = rs.getString("password");
 
             if(password.equals(pwd))
+            {
                 System.out.println("Login Successful");
+                return true;
+            }
             else
                 System.out.println("Invalid Credentials");
             rs.close();
@@ -49,8 +48,9 @@ public class UserDAOImpl implements UserDAO{
                 se.printStackTrace();
             }
         }
+        return false;
     }
-    public void reset_password(String userId,String old_password,String new_password)
+    public boolean reset_password(String userId,String old_password,String new_password)
     {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO{
                 rs = stmt.executeQuery(sql2);
                 int role=-1;
                 while(rs.next())
-                role=rs.getInt("role");
+                    role=rs.getInt("role");
                 //System.out.println(role);
                 if(role== adminRole)
                 {
@@ -94,7 +94,9 @@ public class UserDAOImpl implements UserDAO{
                     stmt = conn.prepareStatement(sql2);
                     stmt.executeUpdate(sql2);
                 }
-                //System.out.println("The new password is updated successfully");
+
+               // System.out.println("The new password is updated successfully");
+                return true;
             }
             rs.close();
             stmt.close();
@@ -116,7 +118,9 @@ public class UserDAOImpl implements UserDAO{
                 se.printStackTrace();
             }
         }
+        return false;
     }
+    //add user to user table
     public void addUser(String userID, String name, String password, int role, String email_id)
     {
         Connection conn = null;
@@ -154,32 +158,12 @@ public class UserDAOImpl implements UserDAO{
         }
 
         }
-public void register_student(String userID, String name, String password, int role, String email_id, int semester, int section, String department, String gender)
-        {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL, USER, PASS);System.out.println("Student successfully registered");
-            stmt.close();
-            conn.close();
-        }catch(SQLException se){
-            se.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }catch(SQLException se2){
-            }
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-            }
-        }
 
+    @Override
+    public int getRole(String userId) {
+
+        return -1;
     }
+
+
 }

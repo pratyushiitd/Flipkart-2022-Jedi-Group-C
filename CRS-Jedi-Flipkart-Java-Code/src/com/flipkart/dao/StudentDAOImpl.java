@@ -1,5 +1,8 @@
 package com.flipkart.dao;
+import com.flipkart.bean.GradeCard;
+import com.flipkart.bean.Payment;
 import com.flipkart.constants.SQLQueryConstants;
+import com.flipkart.exception.GradeCardNotGeneratedException;
 
 import java.sql.*;
 import java.util.List;
@@ -136,6 +139,36 @@ public class StudentDAOImpl implements StudentDAO{
             }//end finally try
         }//end try
         return 100;
+    }
+
+    @Override
+    public boolean isApproved(String studentId) {
+        return false;
+    }
+
+    @Override
+    public boolean submittedCourses(String studentId) {
+        return false;
+    }
+
+    @Override
+    public boolean getFeeStatus(String studentId) {
+        return false;
+    }
+
+    @Override
+    public String makePayment(Payment payment) {
+        return null;
+    }
+
+    @Override
+    public void generatePaymentNotification(Payment payment) {
+
+    }
+
+    @Override
+    public GradeCard viewGradeCard(String studentId) throws GradeCardNotGeneratedException {
+        return null;
     }
 
     public  void viewStudentDetails(String studentID)

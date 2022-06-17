@@ -19,7 +19,7 @@ public interface AdminInterface {
 
         public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, int section_student, String department, String gender);
         public void displayAdminMenu();
-        public Professor addProfessorAdmin();
+        public Professor addProfessorAdmin(String uid);
         public Student addStudentAdmin();
         public void addCourseAdmin();
 

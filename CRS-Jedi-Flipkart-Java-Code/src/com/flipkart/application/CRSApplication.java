@@ -41,23 +41,28 @@ public class CRSApplication {
             if (choice == 8)break;
             switch(choice){
                 case 1:
-                    Professor prof = adminRef.addProfessorAdmin();
-                    // register prof
                     int size=adminRefDAO.professorSize()+1;
-                    prof.setUserID("p00"+size);
-                    userRef.register(prof.getName(), SQLQueryConstants.professorRole, prof.getUserID(), prof.getPassword(), prof.getEmail_id());
+                    String uid="p00"+size;
+                    Professor prof = adminRef.addProfessorAdmin(uid);
+                    // register prof
+
+                    //userRef.register(prof.getName(), SQLQueryConstants.professorRole, prof.getUserID(), prof.getPassword(), prof.getEmail_id());
+                    //add professor to user table
                     userRefDAO.addUser(prof.getUserID(),prof.getName(),prof.getPassword(),SQLQueryConstants.professorRole,prof.getEmail_id());
+                    //add professor to professor table
                     adminRefDAO.addProfessor(prof.getUserID(),prof.getName(), prof.getPassword(), prof.getEmail_id(),prof.getDepartment());
 
                     break;
                 case 2:
                     Student stud = adminRef.addStudentAdmin();
                     studentRef.addStudent(stud);
-                    userRefDAO.register_student(stud.getUserID(), stud.getName(), stud.getPassword(), SQLQueryConstants.studentRole
-                    , stud.getEmail_id(), stud.getSemester(), stud.getSection(), stud.getDepartment(), stud.getGender());
+                    //added to student table
+                    studentRefDAO.addStudent( stud.getName(), SQLQueryConstants.studentRole,stud.getUserID(), stud.getPassword(), stud.getEmail_id(), stud.getSemester(),
+                            stud.getSection(), stud.getDepartment(), 0.0f, stud.getGender(), null);
+                    //added to user table
                     userRefDAO.addUser(stud.getUserID(), stud.getName(), stud.getPassword(), SQLQueryConstants.studentRole, stud.getEmail_id());
                     // register stud
-                    userRef.register(stud.getName(), SQLQueryConstants.studentRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
+                    //userRef.register(stud.getName(), SQLQueryConstants.studentRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
 
                     break;
                 case 3:
@@ -233,14 +238,12 @@ public class CRSApplication {
                 String userId = scanner.next();
                 System.out.println("Enter your password");
                 String password = scanner.next();
-                if (!userRef.login(userId, password)) {
-                    System.out.println("Invalid user id or password");
-                } else {
+                if (userRefDAO.login(userId, password)) {
+                    {
                     // take new password as input
                     System.out.println("Enter new password");
                     String newPassword = scanner.next();
-                        if (userRef.resetPassword(userId, newPassword)) {
-                            userRefDAO.reset_password(userId,password,newPassword);
+                        if ( userRefDAO.reset_password(userId,password,newPassword)) {
                             System.out.println("Password reset successfully");
                         } else {
                             System.out.println("Password reset failed");
@@ -250,14 +253,14 @@ public class CRSApplication {
             if (login_option == 1){
                 // login
                 System.out.println("Enter the userID:");
-                String userId = scanner.next();
+                userId = scanner.next();
                 //println
                 System.out.println("Enter the password:");
-                String password = scanner.next();
-                if (userRef.login(userId, password)){
-                    System.out.println("Login successful!");
+                password = scanner.next();
+                userRefDAO.login(userId, password);
+                //    System.out.println("Login successful!");
                     //println
-                    int role = userRef.getRole(userId);
+                    int role = userRefDAO.getRole(userId);
                     if (role == SQLQueryConstants.adminRole) admin();
                     else if (role == SQLQueryConstants.professorRole) professor();
                     else if (role == SQLQueryConstants.studentRole) student(userId);
@@ -274,10 +277,11 @@ public class CRSApplication {
                 studentRef.addStudent(stud);
                 int size=studentRefDAO.studentSize()+1;
                 stud.setUserID("s0"+size);
+                //adding in student table
                 studentRefDAO.addStudent(stud.getName(),SQLQueryConstants.studentRole,stud.getUserID(),stud.getPassword()
                 ,stud.getEmail_id(),stud.getSemester(),stud.getSection(),stud.getDepartment(), stud.getCg(), stud.getGender()
                 ,null);
-                //view all courses
+                //view all courses of dept of student
                 courseDAO.showCourses(stud.getDepartment());
                 System.out.println("Enter 6 courses of your choice(course id)");
                 String studID=stud.getUserID();
@@ -285,12 +289,12 @@ public class CRSApplication {
                 for(int i=0;i<6;i++)
                 {
                     String courseId=scanner.next();
+                    //registration table
                     studentRefDAO.addStudentRegistration(studID,courseId,studName);
                 }
-                // register stud
+                // register stud in users table
                 userRef.register(stud.getName(), SQLQueryConstants.adminRole, stud.getUserID(), stud.getPassword(), stud.getEmail_id());
-                userRefDAO.register_student(studID,studName,stud.getPassword(),SQLQueryConstants.studentRole,stud.getEmail_id(),
-                        stud.getSemester(),stud.getSection(), stud.getDepartment(), stud.getGender());
+                userRefDAO.addUser(studID,studName,stud.getPassword(),SQLQueryConstants.studentRole,stud.getEmail_id());
             }
         }
     }

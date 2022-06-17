@@ -31,4 +31,8 @@ public interface AdminInterface {
     void viewallcourses();
 
         void viewmycourse(String userId);
+
+        void clearRegisteredCourses_student(String studentId1);
+
+        void removeRegisteredCourse_student(String userId, String courseId1);
 }

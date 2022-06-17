@@ -75,6 +75,17 @@ public class StudentImpl implements StudentInterface{
 //        return new String[0];
 //    }
 
+    public void updatestudent(String studentId, char section, String email, String password) {
+        // TODO Auto-generated method stub
+        // update info
+        for(Student student : registeredCourses_pending.keySet()) {
+            if(student.getUserID().equals(studentId)) {
+                student.setSection(section);
+                student.setEmail_id(email);
+                student.setPassword(password);
+            }
+        }
+    }
     public void showStudentMenu() {
                 System.out.println("1. Register for a course");
                 System.out.println("2. Pay Fees");

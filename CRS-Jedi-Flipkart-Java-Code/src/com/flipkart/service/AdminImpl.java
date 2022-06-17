@@ -122,6 +122,8 @@ public class AdminImpl implements AdminInterface {
     public boolean viewprofessorDetails(String professorID) throws ProfessorNotAddedException {
         try{
             boolean found = false;
+            //println
+            System.out.println("Professor Detailsxxx:\n");
             for(Professor professor:professorsList){
                 if(professor.getProfessorId().equals(professorID)){
                     professor.showProfessorDetails();
@@ -129,6 +131,7 @@ public class AdminImpl implements AdminInterface {
                     return true;
                 }
             }
+            System.out.println("Professor Details-----:\n");
             if (!found) throw new ProfessorNotAddedException(professorID);
         }
         catch (Exception e)
@@ -216,16 +219,20 @@ public class AdminImpl implements AdminInterface {
         System.out.println("8. Logout");
     }
 
+    public void clearRegisteredCourses_student(String studentID) {
+        registeredStudent.clearRegisteredCourses(studentID);
+    }
     @Override
     public boolean approveCourseforStudent(String studentID, String courseID) throws CourseNotFoundException, StudentNotFoundForApprovalException, CourseAlreadyRegisteredException {
         //incomplete
         Student student = registeredStudent.getStudent(studentID);
         Course course = courseCatalogue.getCourse(student.getSemester(), courseID);
+        student.setRegistered(true);
         if (course.get_strength() == 10) {
             CourseNotFoundException CourseLimitExceededException = null;
             throw CourseLimitExceededException;
         }
-        if (course!= null && student!=null){
+        if (course!= null && student!=null && registeredStudent.getnumcourses(studentID) < 4) {
             registeredStudent.addCourseforStudent(student, course);
             course.increment_strength();
             return true;
@@ -307,6 +314,9 @@ public class AdminImpl implements AdminInterface {
     public void submitGrades(String studentId, String courseID, int grade, int semester) throws UserNotFoundException {
         Course course = courseCatalogue.getCourse(semester, courseID);
         registeredStudent.submitGrades(studentId, course, grade);
+    }
+    public void removeRegisteredCourse_student(String studentID, String courseID) {
+        registeredStudent.removeRegisteredCourse(studentID, courseID);
     }
     @Override
     public void addCourseAdmin(){

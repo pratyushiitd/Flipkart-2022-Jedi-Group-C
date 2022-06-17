@@ -25,4 +25,6 @@ public interface StudentInterface {
 //    String[] getRegisteredCourses(String studentId1);
 
     List<String> getRegisteredCourses_student(String studentId1);
+
+    void updatestudent(String userId, char section, String email_id, String password);
 }

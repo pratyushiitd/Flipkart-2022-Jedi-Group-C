@@ -11,7 +11,29 @@ public class RegisteredStudent extends User {
     HashMap<Student, GradeCard> gradeCards;
     List<Student> registeredStudents;
 
-    // get students registered 
+    // get students registered
+    public int getnumcourses(String studentID) {
+        // size of student list in courses enrolled
+        int numcourses = 0;
+        for (Student student : courseEnrolled.keySet()) {
+            if (student.getUserID().equals(studentID)) {
+                numcourses = courseEnrolled.get(student).size();
+            }
+        }
+        return numcourses;
+    }
+    public void removeRegisteredCourse(String studentID, String courseID) {
+        for (Student student : courseEnrolled.keySet()) {
+            if (student.getUserID().equals(studentID)) {
+                for (Course course : courseEnrolled.get(student)) {
+                    if (course.getCourseID().equals(courseID)) {
+                        courseEnrolled.get(student).remove(course);
+                        return;
+                    }
+                }
+            }
+        }
+    }
     public RegisteredStudent() {
         this.courseEnrolled = new HashMap<Student, List<Course>>();
         this.gradeCards = new HashMap<Student, GradeCard>();
@@ -25,6 +47,13 @@ public class RegisteredStudent extends User {
         registeredStudents.add(student);
         courseEnrolled.put(student, new ArrayList<Course>());
         gradeCards.put(student, new GradeCard(student));
+    }
+    public void clearRegisteredCourses(String studentID) {
+        for(Student student : registeredStudents) {
+            if(student.getUserID().equals(studentID)) {
+                courseEnrolled.get(student).clear();
+            }
+        }
     }
     public void submitGrades(String studentID, Course course, int grade)
     throws UserNotFoundException {

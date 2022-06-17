@@ -87,11 +87,12 @@ public class CRSApplication {
                         System.out.println("Course approved");
                         if (++num_approved == 4)break;
                     }
+                    adminRef.clearRegisteredCourses_student(studentId1);
                     break;
             }
         }
     }
-    public static void professor() throws ProfessorNotAddedException {
+    public static void professor() throws ProfessorNotAddedException, UserNotFoundException {
         while(true){
             profRef.professorMenu();
             int choice=new Scanner(System.in).nextInt();
@@ -135,7 +136,7 @@ public class CRSApplication {
             }
         }
     }
-    public static void student(String userId){
+    public static void student(String userId) throws CourseAlreadyRegisteredException, CourseNotFoundException, StudentNotFoundForApprovalException {
         while(true) {
             studentRef.showStudentMenu();
             int choice = new Scanner(System.in).nextInt();
@@ -164,6 +165,14 @@ public class CRSApplication {
                     break;
                 case 3:
                     // update student info
+                    // take name, email id, password as input
+                    System.out.println("Enter section");
+                    char section = new Scanner(System.in).nextLine().charAt(0);
+                    System.out.println("Enter email id");
+                    String email_id = new Scanner(System.in).nextLine();
+                    System.out.println("Enter password");
+                    String password = new Scanner(System.in).nextLine();
+                    studentRef.updatestudent(userId, section, email_id, password);
                     break;
                 case 4:
                     // view grade card
@@ -171,6 +180,21 @@ public class CRSApplication {
                     System.out.println("Enter semester");
                     int semester2 = new Scanner(System.in).nextInt();
                     break;
+                case 5:
+                    // add course
+                    // take course id as input
+                    System.out.println("Enter course id");
+                    String courseId = new Scanner(System.in).nextLine();
+
+                    studentRef.setRegisteredCourse_student(userId, courseId);
+                    adminRef.approveCourseforStudent(userId, courseId);
+                    break;
+                case 6:
+                    // remove course
+                    // take course id as input
+                    System.out.println("Enter course id");
+                    String courseId1 = new Scanner(System.in).nextLine();
+                    adminRef.removeRegisteredCourse_student(userId, courseId1);
                 case 7:
                     // view all courses
                     // take semester as input
@@ -182,7 +206,7 @@ public class CRSApplication {
         }
     }
         // main method
-    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, CourseAlreadyRegisteredException, CourseNotFoundException, StudentNotFoundForApprovalException {
+    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, CourseAlreadyRegisteredException, CourseNotFoundException, StudentNotFoundForApprovalException, UserNotFoundException {
         userRef.register("flipkart","admin","admin","jedi","admin@fk.com");
         // print welcome to course registration system
         System.out.println("-----------Welcome to Course Registration System!-------------");

@@ -283,6 +283,27 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
+    public List<Course> approveStudent(String studentId, List<Course> courseChoiceList, int semester){
+        List<Course>l=new ArrayList<>();
+
+        try{
+            int count=4;
+            for(Course course: courseChoiceList){
+                if(course.vacancy>0 && count>0){
+                    count--;
+                    course.setVacancy(course.vacancy-1);
+                    approveCourseforStudent(studentId, course.getCourseID(), semester);
+                    l.add(course);
+                }
+            }
+            return l;
+        } catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return l;
+    }
+    @Override
     public void viewEnrolledStudents(String courseID) {
         System.out.println("Enrolled Students:");
         for(Student student:registeredStudent.getRegisteredStudents()){

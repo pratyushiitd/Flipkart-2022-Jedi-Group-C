@@ -5,6 +5,7 @@ import com.flipkart.constants.SQLQueryConstants;
 import java.sql.*;
 
 import static com.flipkart.constants.SQLQueryConstants.*;
+import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO{
 
@@ -233,5 +234,57 @@ public class AdminDAOImpl implements AdminDAO{
         }//end try
     }
     public  void approveCourse() {
+
+    }
+
+    public void approveStudent(String studentId) {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            String sql = "SELECT * FROM optedcourse"+" WHERE studentId= '"+studentId+"'";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String department = rs.getString("department");
+                int sem = rs.getInt("semester");
+                int section = rs.getInt("section");
+                //String department = rs.getString("department");
+                System.out.println("Student name: " + name);
+                System.out.println("Student email: " + email);
+                System.out.println("Student department: " + department);
+                System.out.println("Student semester: " + sem);
+                System.out.println("Student section: " + section);
+                //System.out.println("Student department: " + department);
+                // System.out.println(", Last: " + location1);
+            }
+            //STEP 6: Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
     }
 }

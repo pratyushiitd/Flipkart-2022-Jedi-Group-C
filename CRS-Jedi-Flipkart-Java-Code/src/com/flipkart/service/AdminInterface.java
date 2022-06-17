@@ -3,6 +3,9 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+
+import java.util.List;
+
 public interface AdminInterface {
         public Professor addProfessor(String name,String userID,String password,String email_id,
                                     String department);
@@ -16,7 +19,7 @@ public interface AdminInterface {
         // public boolean removeCourses(String courseID,int semester);
         // public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
         //         ,String adminID) ;
-
+        public List<Course> approveStudent(String studentId, List<Course> courseChoiceList, int semester);
         public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, int section_student, String department, String gender);
         public void displayAdminMenu();
         public Professor addProfessorAdmin(String uid);

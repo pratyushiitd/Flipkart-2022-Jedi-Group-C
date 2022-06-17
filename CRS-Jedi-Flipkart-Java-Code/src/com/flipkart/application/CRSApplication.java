@@ -135,8 +135,8 @@ public class CRSApplication {
                     // view professor details
                     // take professor id as input
                     System.out.println("Enter professor id");
-                    String professorId = new Scanner(System.in).nextLine();
-                    //adminRef.viewprofessorDetails(professorId);
+                    String professorId = new Scanner(System.in).nextLine();                    //adminRef.viewprofessorDetails(professorId);
+
                     profRefDAO.viewProfessorDetails(professorId);
 
                     break;

@@ -19,7 +19,7 @@ public interface AdminInterface {
         // public boolean removeCourses(String courseID,int semester);
         // public void createAdmin(String name,String role,String userId,String password,long mobile,String emailID
         //         ,String adminID) ;
-        public List<Course> approveStudent(String studentId, List<Course> courseChoiceList, int semester);
+        public  void approveStudent(String studentId, List<Course> courseChoiceList, int semester);
         public Student addStudent(String name_student, String userId_student, String password_student, String email_id_student, int semester_student, int section_student, String department, String gender);
         public void displayAdminMenu();
         public Professor addProfessorAdmin(String uid);

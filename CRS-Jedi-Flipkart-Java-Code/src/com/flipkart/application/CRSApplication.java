@@ -105,22 +105,17 @@ public class CRSApplication {
 
                     // approve course for student
                     // take student id and course id as input
-                    System.out.println("Enter student id");
-                    String studentId1 = new Scanner(System.in).next();
-                    System.out.println("Enter course id");
-                    String courseId1 = new Scanner(System.in).nextLine();
-                    System.out.println("Enter semester");
-                    int semester1 = new Scanner(System.in).nextInt();
-                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
-                    // student found
-                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
-                        adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
-                        // println
-                        System.out.println("Course approved");
-                    }
-                    else{
-                        System.out.println("Course not Registered!");
-                    }
+                    adminRefDAO.approveCourses();
+//                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+//                    // student found
+//                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
+//                        adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+//                        // println
+//                        System.out.println("Course approved");
+//                    }
+//                    else{
+//                        System.out.println("Course not Registered!");
+//                    }
                     break;
             }
         }

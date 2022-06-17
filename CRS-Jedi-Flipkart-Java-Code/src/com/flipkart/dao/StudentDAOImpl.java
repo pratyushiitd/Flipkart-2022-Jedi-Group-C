@@ -326,4 +326,39 @@ public class StudentDAOImpl implements StudentDAO{
         }//end try
 
     }
+    public void dropCourse(String studentId,String courseId) {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            int registeredCourses=studentSize(studentId);
+            if(registeredCourses<=4){
+                System.out.println("Please register in more than 4 courses");
+                return;
+            }
+            String sql="Delete from approved where studentId='"+studentId+"' and courseId='"+courseId+"'";
+            stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate(sql);
+            System.out.println("Remove Course successful");
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+    }
 }

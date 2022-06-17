@@ -18,4 +18,6 @@ public interface StudentDAO {
     public void addStudentRegistration(String courseId,String studentId,String student_name);
     public int studentSize();
     public void addCourse(String studentId,String courseId) throws CourseAlreadyRegisteredException;
+
+    public void dropCourse(String studentId,String courseId);
 }

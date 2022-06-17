@@ -4,7 +4,10 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.CourseCatalogue;
 import com.flipkart.constants.SQLQueryConstants;
 import com.flipkart.dao.*;
+import com.flipkart.exception.EmailAlreadyInUseException;
 import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.UserIDAlreadyInUseException;
+import com.flipkart.exception.UserNotAddedException;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.AdminImpl;
@@ -36,7 +39,7 @@ public class CRSApplication {
     public static StudentInterface studentRef = new StudentImpl();
 
 
-    public static void admin() throws ProfessorNotAddedException {
+    public static void admin() throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException {
         while(true){
             adminRef.displayAdminMenu();
             int choice=new Scanner(System.in).nextInt();
@@ -225,7 +228,7 @@ public class CRSApplication {
         }
     }
         // main method
-    public static void main(String[] args) throws ProfessorNotAddedException {
+    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException {
         userRef.register("flipkart",SQLQueryConstants.adminRole,"a001","jedi","admin@fk.com");
         // print welcome to course registration system
         System.out.println("-----------Welcome to Course Registration System!-------------");

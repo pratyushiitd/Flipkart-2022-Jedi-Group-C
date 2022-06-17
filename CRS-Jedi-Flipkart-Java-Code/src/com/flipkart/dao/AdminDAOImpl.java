@@ -5,6 +5,7 @@ import com.flipkart.constants.SQLQueryConstants;
 import java.sql.*;
 
 import static com.flipkart.constants.SQLQueryConstants.*;
+import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO{
 
@@ -130,41 +131,19 @@ public class AdminDAOImpl implements AdminDAO{
             }//end finally try
         }//end try
     }
-
     public  void addStudent() {
     }
-
-    @Override
-    public void approveCourse() {
+    public  void addCourse(String courseId,String courseName,String professorId,int vacancy) {
         PreparedStatement stmt=null;
         Connection conn=null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             //System.out.println(sql);
-            String sql="select * from student";
-            stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            String studentId=null;
-            while(rs.next())
-            {
-                studentId=rs.getString("studentId");
-                String studentName=rs.getString("student_name");
-                sql="select courseId from registration where studentId= '"+studentId+"'";
-                stmt = conn.prepareStatement(sql);
-                ResultSet rs2 = stmt.executeQuery(sql);
-                System.out.println("Student name:" +studentName);
-                System.out.println("Registered courses: ");
-                while(rs2.next())
-                {
-                    System.out.print(rs2.getString("courseId")+"   ");
-                }
-                rs2.close();
-            }
-            rs.close();
-            //System.out.println(sql);
-            stmt.close();
-            conn.close();
+            String sql="insert into course values('"+courseId+"','"+courseName+"','"+professorId+"','"+vacancy+"')";
+
+
+            stmt.executeUpdate(sql);
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -186,10 +165,6 @@ public class AdminDAOImpl implements AdminDAO{
                 se.printStackTrace();
             }
         }
-
-    }
-
-    public  void addCourse() {
     }
     public  void getStudentDetails(String studentId) {
         PreparedStatement stmt=null;
@@ -340,5 +315,4 @@ public class AdminDAOImpl implements AdminDAO{
         }//end try
 
     }
-
 }

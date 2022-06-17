@@ -61,6 +61,11 @@ public class StudentImpl implements StudentInterface{
         public void addStudent(Student student){
             registeredCourses_pending.put(student, new ArrayList<String>());
         }
+
+
+        public void addCourse(String ){
+
+        }
         public void showStudentMenu() {
                 //System.out.println("1. Register for courses");
                 System.out.println("1. Pay Fees");

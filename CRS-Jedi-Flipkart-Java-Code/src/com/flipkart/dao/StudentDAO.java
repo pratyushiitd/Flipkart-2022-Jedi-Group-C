@@ -7,12 +7,7 @@ import com.flipkart.exception.*;
 
 public interface StudentDAO {
 
-    /*boolean isApproved(String studentId);
 
-    boolean submittedCourses(String studentId);
-    boolean getFeeStatus(String studentId);
-    String makePayment(Payment payment);
-    void generatePaymentNotification(Payment payment);*/
 
     /*GradeCard viewGradeCard(String studentId) throws GradeCardNotGeneratedException;*/
     public  void viewStudentDetails(String studentID) throws UserNotFoundException;
@@ -22,4 +17,5 @@ public interface StudentDAO {
 
     public void addStudentRegistration(String courseId,String studentId,String student_name);
     public int studentSize();
+    public void addCourse(String studentId,String courseId) throws CourseAlreadyRegisteredException;
 }

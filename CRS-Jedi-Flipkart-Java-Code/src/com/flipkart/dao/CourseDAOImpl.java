@@ -58,7 +58,7 @@ public class CourseDAOImpl implements CourseDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "Select * from course where department='"+dept+"' AND professorId='NULL'";
+            String sql = "Select * from course where department='"+dept+"' AND professorID is NULL";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
 

@@ -305,3 +305,4 @@ public class CRSApplication {
 }
 
 
+//mvn archetype:generate -DgroupId=com.dropwizard -DartifactId=Jedi-Flipkart-DropWizard -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false

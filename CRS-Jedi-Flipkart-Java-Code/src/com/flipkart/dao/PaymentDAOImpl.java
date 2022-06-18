@@ -14,17 +14,17 @@ public class PaymentDAOImpl implements PaymentDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql="Select name from student where studentId='"+studentId+"'";
+            String sql="Select name from student where studentID='"+studentId+"'";
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
             String name=null;
             while(rs.next())
                 name=rs.getString("name");
-            sql = "Insert into payment values('"+studentId+"',"+paymentId+"','"+name+"') WHERE studentId= '"+studentId+"'";
+            String sql2 = "Insert into payment values('"+studentId+"','"+paymentId+"','"+name+"')" ;
             //System.out.println(sql);
-            stmt = conn.prepareStatement(sql);
+            stmt = conn.prepareStatement(sql2);
             //stmt.setString(1,studentID);
-             stmt.executeUpdate(sql);
+             stmt.executeUpdate(sql2);
             rs.close();
             stmt.close();
             conn.close();

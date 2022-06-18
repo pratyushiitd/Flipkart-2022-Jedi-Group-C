@@ -246,7 +246,7 @@ public class StudentDAOImpl implements StudentDAO{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             //System.out.println(sql);
-            String sql="SELECT distinct COUNT(*) AS size FROM course where studentId='"+studentId+"'";
+            String sql="SELECT distinct COUNT(*) AS size FROM approved where studentId='"+studentId+"'";
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
             int size=100;
@@ -282,25 +282,31 @@ public class StudentDAOImpl implements StudentDAO{
         PreparedStatement stmt=null;
         Connection conn=null;
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
             int registeredCourses=studentSize(studentId);
             if(registeredCourses>=6){
                 System.out.println("You have registered in "+registeredCourses+" courses");
                 return;
             }
-            String sql="Select name from student where studentId='"+studentId+"'";
+            String sql="Select name from student where studentID='"+studentId+"'";
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
-            String studentName=rs.getString("name");
+            String studentName=null;
+            while(rs.next())
+             studentName=rs.getString("name");
 
 
             sql="Select professorID from course where courseId='"+courseId+"'";
             stmt = conn.prepareStatement(sql);
 
             rs = stmt.executeQuery(sql);
-            String profId=rs.getString("professorID");
+            String profId=null;
+            while(rs.next())
+            profId=rs.getString("professorID");
 
 
-            sql="Insert into approved values('"+studentId+"','"+courseId+"','0.0','"+profId+"')";
+            sql="Insert into approved values('"+studentId+"','"+courseId+"','"+studentName+"','0.0','"+profId+"')";
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate(sql);
             System.out.println("Added Course successful");
@@ -330,6 +336,8 @@ public class StudentDAOImpl implements StudentDAO{
         PreparedStatement stmt=null;
         Connection conn=null;
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
             int registeredCourses=studentSize(studentId);
             if(registeredCourses<=4){
                 System.out.println("Please register in more than 4 courses");

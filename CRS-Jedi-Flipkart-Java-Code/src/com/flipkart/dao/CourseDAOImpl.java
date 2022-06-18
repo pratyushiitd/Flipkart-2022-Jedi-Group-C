@@ -12,7 +12,7 @@ public class CourseDAOImpl implements CourseDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "Select department from course where studentId='"+studentId+"'";
+            String sql = "Select department from student where studentID='"+studentId+"'";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);

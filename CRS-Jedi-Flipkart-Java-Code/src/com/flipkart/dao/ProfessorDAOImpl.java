@@ -59,7 +59,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "UPDATE approved SET gpa='"+gpa+"' WHERE studentId='"+studentId+"AND courseId='"+courseId+"'";
+            String sql = "UPDATE approved SET gpa='"+gpa+"' WHERE studentId='"+studentId+"' AND courseId='"+courseId+"'";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
@@ -95,8 +95,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "SELECT * FROM student"+" WHERE courseId= '"+courseId
-                    +"AND sem='"+sem+"'";
+            String sql = "SELECT * FROM approved"+" WHERE courseId= '"+courseId +"'";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
             //stmt.setString(1,professorID);
@@ -106,7 +105,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
                 String name = rs.getString("studentName");
                 String id = rs.getString("studentId");
                 System.out.println("Student name: " + name);
-                System.out.println("Student email: " + id);
+                System.out.println("Student id: " + id);
                 // System.out.println(", Last: " + location1);
             }
             //STEP 6: Clean-up environment

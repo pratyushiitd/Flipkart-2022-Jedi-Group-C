@@ -67,8 +67,8 @@ public class GradeDAOImp implements GradeDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "update grade set gpa= '"+gpa+" WHERE courseId= '"+courseId
-                    +"AND studentId='"+studentId+"'";
+            String sql = "update grade set gpa= '"+gpa+"' WHERE courseId= '"+courseId
+                    +"' AND studentId='"+studentId+"'";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
             //stmt.setString(1,studentID);

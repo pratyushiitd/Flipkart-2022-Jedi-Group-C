@@ -213,7 +213,7 @@ public class CRSApplication {
             }
         }
     }
-    public static void student(String userId){
+    public static void student(String userId) throws CourseAlreadyRegisteredException {
         while(true) {
             studentRef.showStudentMenu();
             int choice = new Scanner(System.in).nextInt();
@@ -243,10 +243,15 @@ public class CRSApplication {
                     break;
                 case 3:
                     //addcourse
-
+                    System.out.println("Enter course id:");
+                    String courseId=new Scanner(System.in).next();
+                    studentRefDAO.addCourse(userId,courseId);
                     break;
                 case 4:
                     //remove course
+                    System.out.println("Enter course id:");
+                    String courseId1=new Scanner(System.in).next();
+                    studentRefDAO.dropCourse(userId,courseId1);
                     break;
                 case 5:
                     // view all courses
@@ -264,7 +269,7 @@ public class CRSApplication {
         }
     }
         // main method
-    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException, UserNotFoundException, CourseNotFoundException {
+    public static void main(String[] args) throws ProfessorNotAddedException, UserIDAlreadyInUseException, UserNotAddedException, EmailAlreadyInUseException, UserNotFoundException, CourseNotFoundException, CourseAlreadyRegisteredException {
         userRef.register("flipkart",SQLQueryConstants.adminRole,"a001","jedi","admin@fk.com");
         // print welcome to course registration system
         System.out.println("-----------Welcome to Course Registration System!-------------");
@@ -349,3 +354,4 @@ public class CRSApplication {
 }
 
 
+//mvn archetype:generate -DgroupId=com.dropwizard -DartifactId=Jedi-Flipkart-DropWizard -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false

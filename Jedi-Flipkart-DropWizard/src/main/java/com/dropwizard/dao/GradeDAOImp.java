@@ -59,7 +59,7 @@ public class GradeDAOImp implements GradeDAO{
             }//end finally try
         }//end try
     }
-    public void submitGrade(String studentId, String courseId, float gpa)
+    public void submitGrade(String studentId,String courseId,String gpa)
     {
         //after enrolled students
         PreparedStatement stmt=null;
@@ -67,8 +67,8 @@ public class GradeDAOImp implements GradeDAO{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "update grade set gpa= '"+gpa+"' WHERE courseId= '"+courseId
-                    +"' AND studentId='"+studentId+"'";
+            String sql = "update grade set gpa= '"+gpa+" WHERE courseId= '"+courseId
+                    +"AND studentId='"+studentId+"'";
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
             //stmt.setString(1,studentID);
@@ -104,51 +104,5 @@ public class GradeDAOImp implements GradeDAO{
                 se.printStackTrace();
             }//end finally try
         }//end try
-    }
-
-    public float calc_gpa(String student_ID)
-    {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL,USER, PASS);
-
-            String sql = "select gpa from grade where studentId='"+student_ID+"'";
-            stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            float gpa= 0;
-            String courseId="";
-            while(rs.next()){
-                gpa+= rs.getFloat("gpa");
-            }
-
-            gpa/=4;
-            sql = "update student set cg = '"+gpa+"' where studentId= '"+student_ID+"'";
-            stmt = conn.prepareStatement(sql);
-            stmt.executeUpdate(sql);
-
-            rs.close();
-            stmt.close();
-            conn.close();
-            return gpa;
-        }catch(SQLException se){
-            se.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }catch(SQLException se2){
-            }
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-            }
-        }
-        return 0;
     }
 }

@@ -3,7 +3,7 @@ package com.flipkart.bean;
 public class Student extends User{
 
     private int semester;
-    private String section;
+    private int section;
     private String department;
     private float cg;
     private String gender;
@@ -17,7 +17,7 @@ public class Student extends User{
         String password, 
         String email_id,
         int semester,
-        String section,
+        int section,
         String department,
         float cg,
         String gender){
@@ -81,11 +81,11 @@ public class Student extends User{
         this.semester = semester;
     }
 
-    public String getSection() {
+    public int getSection() {
         return section;
     }
 
-    public void setSection(String section) {
+    public void setSection(int section) {
         this.section = section;
     }
 

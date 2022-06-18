@@ -2,6 +2,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Payment;
 import com.flipkart.constants.SQLQueryConstants;
+import com.flipkart.exception.CourseAlreadyRegisteredException;
 import com.flipkart.exception.GradeCardNotGeneratedException;
 
 import java.sql.*;
@@ -237,5 +238,127 @@ public class StudentDAOImpl implements StudentDAO{
             }//end finally try
         }//end try
         
+    }
+    public int studentSize(String studentId){
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            //System.out.println(sql);
+            String sql="SELECT distinct COUNT(*) AS size FROM course where studentId='"+studentId+"'";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            int size=100;
+            while(rs.next())
+                size=rs.getInt("size");
+            //System.out.println(sql);
+            stmt.close();
+            conn.close();
+            return size;
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        return 100;
+    }
+    public void addCourse(String studentId,String courseId) throws CourseAlreadyRegisteredException {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            int registeredCourses=studentSize(studentId);
+            if(registeredCourses>=6){
+                System.out.println("You have registered in "+registeredCourses+" courses");
+                return;
+            }
+            String sql="Select name from student where studentId='"+studentId+"'";
+            stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            String studentName=rs.getString("name");
+
+
+            sql="Select professorID from course where courseId='"+courseId+"'";
+            stmt = conn.prepareStatement(sql);
+
+            rs = stmt.executeQuery(sql);
+            String profId=rs.getString("professorID");
+
+
+            sql="Insert into approved values('"+studentId+"','"+courseId+"','0.0','"+profId+"')";
+            stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate(sql);
+            System.out.println("Added Course successful");
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+    }
+    public void dropCourse(String studentId,String courseId) {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            int registeredCourses=studentSize(studentId);
+            if(registeredCourses<=4){
+                System.out.println("Please register in more than 4 courses");
+                return;
+            }
+            String sql="Delete from approved where studentId='"+studentId+"' and courseId='"+courseId+"'";
+            stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate(sql);
+            System.out.println("Remove Course successful");
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
     }
 }

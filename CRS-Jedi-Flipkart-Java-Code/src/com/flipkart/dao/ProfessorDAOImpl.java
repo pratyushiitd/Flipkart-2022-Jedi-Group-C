@@ -1,7 +1,5 @@
 package com.flipkart.dao;
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
 
 import static com.flipkart.constants.SQLQueryConstants.*;
 
@@ -54,7 +52,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
             }//end finally try
         }//end try
     }
-    public  void submitGrades(String studentId,int gpa,String courseId)
+    public  void submitGrades(String studentId, float gpa, String courseId)
     {
         PreparedStatement stmt=null;
         Connection conn=null;

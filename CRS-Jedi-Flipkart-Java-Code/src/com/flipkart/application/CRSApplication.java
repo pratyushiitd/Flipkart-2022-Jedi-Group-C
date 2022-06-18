@@ -18,8 +18,11 @@ import com.flipkart.bean.Student;
 
 // list
 // import scanner
+import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.flipkart.constants.SQLQueryConstants.*;
 
 public class CRSApplication {
 
@@ -105,22 +108,17 @@ public class CRSApplication {
 
                     // approve course for student
                     // take student id and course id as input
-                    System.out.println("Enter student id");
-                    String studentId1 = new Scanner(System.in).next();
-                    System.out.println("Enter course id");
-                    String courseId1 = new Scanner(System.in).nextLine();
-                    System.out.println("Enter semester");
-                    int semester1 = new Scanner(System.in).nextInt();
-                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
-                    // student found
-                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
-                        adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
-                        // println
-                        System.out.println("Course approved");
-                    }
-                    else{
-                        System.out.println("Course not Registered!");
-                    }
+                    adminRefDAO.approveCourses();
+//                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+//                    // student found
+//                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
+//                        adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
+//                        // println
+//                        System.out.println("Course approved");
+//                    }
+//                    else{
+//                        System.out.println("Course not Registered!");
+//                    }
                     break;
             }
         }
@@ -159,17 +157,58 @@ public class CRSApplication {
                     // take student id, course id and grade as input after approval
                    // System.out.println("Enter student id");
                     //String studentId1 = new Scanner(System.in).nextLine();
+                    System.out.println("Enter your department:");
+                    String dept=new Scanner(System.in).next();
+                    courseDAO.showCourses(dept);
                     System.out.println("Enter course id");
                     String courseId1 = new Scanner(System.in).nextLine();
 
-                    System.out.println("Enter grade");
+                    System.out.println("Enter grades for student:");
                     //take semester as input
-                    int semester1 = new Scanner(System.in).nextInt();
-
-
-                    int grade = new Scanner(System.in).nextInt();
                     //adminRef.submitGrades(studentId1,courseId1,grade, semester1);
-                   // profRefDAO.submitGrades(studentId1,grade,courseId1);
+
+                    Connection conn = null;
+                    PreparedStatement stmt = null;
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        conn = DriverManager.getConnection(DB_URL,USER, PASS);
+
+                        String sql = "select studentId from grade where courseId='"+courseId1+"'";
+                        stmt = conn.prepareStatement(sql);
+                        ResultSet rs = stmt.executeQuery(sql);
+
+                        String studentId="";
+                        while(rs.next()){
+                            studentId= rs.getString("studentId");
+                            System.out.print(studentId+"\t:");
+                            float grade = new Scanner(System.in).nextFloat();
+                            System.out.println();
+                            profRefDAO.submitGrades(studentId,grade,courseId1);
+                            gradeDAO.submitGrade(studentId,courseId1,grade);
+                        }
+
+
+                        rs.close();
+                        stmt.close();
+                        conn.close();
+
+                    }catch(SQLException se){
+                        se.printStackTrace();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }finally{
+                        try{
+                            if(stmt!=null)
+                                stmt.close();
+                        }catch(SQLException se2){
+                        }
+                        try{
+                            if(conn!=null)
+                                conn.close();
+                        }catch(SQLException se){
+                            se.printStackTrace();
+                        }
+                    }
                     break;
             }
         }

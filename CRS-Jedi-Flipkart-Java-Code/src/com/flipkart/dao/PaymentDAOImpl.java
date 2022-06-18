@@ -65,10 +65,8 @@ public class PaymentDAOImpl implements PaymentDAO{
             while(rs.next()){
                 String name = rs.getString("name");
                 String id = rs.getString("paymentId");
-
-                System.out.println("student name: " + name);
-                System.out.println("Payment id: " + id);
-                // System.out.println(", Last: " + location1);
+                Notification ob = new Notification();
+                ob.sendNotification(name, id);
             }
             //STEP 6: Clean-up environment
             rs.close();

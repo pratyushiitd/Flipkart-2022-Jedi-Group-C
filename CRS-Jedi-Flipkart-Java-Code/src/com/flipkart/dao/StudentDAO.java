@@ -1,14 +1,11 @@
 package com.flipkart.dao;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.bean.Payment;
 import com.flipkart.exception.*;
 
 public interface StudentDAO {
 
 
-
+public boolean viewStudentsCourses(String studentID);
     /*GradeCard viewGradeCard(String studentId) throws GradeCardNotGeneratedException;*/
     public  void viewStudentDetails(String studentID) throws UserNotFoundException;
     public  void viewStudentsList(String courseId,int sem) throws CourseNotFoundException;

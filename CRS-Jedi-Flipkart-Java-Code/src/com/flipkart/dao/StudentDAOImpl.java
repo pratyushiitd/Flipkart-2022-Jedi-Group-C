@@ -1,13 +1,7 @@
 package com.flipkart.dao;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.bean.Payment;
-import com.flipkart.constants.SQLQueryConstants;
 import com.flipkart.exception.CourseAlreadyRegisteredException;
-import com.flipkart.exception.GradeCardNotGeneratedException;
 
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
 
 import static com.flipkart.constants.SQLQueryConstants.*;
 
@@ -141,6 +135,63 @@ public class StudentDAOImpl implements StudentDAO{
             }//end finally try
         }//end try
         return 100;
+    }
+
+    @Override
+    public boolean viewStudentsCourses(String studentID) {
+        PreparedStatement stmt=null;
+        Connection conn=null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            String sql = "SELECT * FROM approved"+" WHERE studentId= '"+studentID+"'";
+            //System.out.println(sql);
+            stmt = conn.prepareStatement(sql);
+            //stmt.setString(1,studentID);
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()==false)
+            {
+                System.out.println("You are not approved by the admin!!Kindly wait for your approval to add a course");
+                rs.close();
+                stmt.close();
+                conn.close();
+                return false;
+            }
+            //System.out.println(sql);
+            System.out.println("Selected courses:");
+            while(rs.next()){
+                String courseID = rs.getString("courseId");
+                System.out.print("\t"+ courseID);
+                //System.out.println("student email: " + email);
+                //System.out.println("student department: " + department);
+                // System.out.println(", Last: " + location1);
+            }
+            //STEP 6: Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+            return true;
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        return false;
     }
 
     public  void viewStudentDetails(String studentID)
@@ -305,11 +356,26 @@ public class StudentDAOImpl implements StudentDAO{
             while(rs.next())
             profId=rs.getString("professorID");
 
+            sql="Select * from approved where studentId='"+studentId+"' and courseId='"+courseId+"'";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery(sql);
+            if(rs.next()==true)
+            {
+                System.out.println("Already taken this course");
+                stmt.close();
+                rs.close();
+                return;
+            }
 
             sql="Insert into approved values('"+studentId+"','"+courseId+"','"+studentName+"','0.0','"+profId+"')";
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate(sql);
+            String approve="insert into grade values ('"+courseId+"','"+studentId+"','0.0')";
+            stmt = conn.prepareStatement(approve);
+            stmt.executeUpdate(approve);
             System.out.println("Added Course successful");
+            stmt.close();
+            rs.close();
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();

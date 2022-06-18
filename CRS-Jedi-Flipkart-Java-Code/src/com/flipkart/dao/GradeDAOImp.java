@@ -58,6 +58,7 @@ public class GradeDAOImp implements GradeDAO{
                 se.printStackTrace();
             }//end finally try
         }//end try
+        calc_gpa(studentId);
     }
     public void submitGrade(String studentId, String courseId, float gpa)
     {

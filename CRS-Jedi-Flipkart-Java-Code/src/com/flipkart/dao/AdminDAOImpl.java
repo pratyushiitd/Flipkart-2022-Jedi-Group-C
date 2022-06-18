@@ -303,6 +303,14 @@ public class AdminDAOImpl implements AdminDAO{
                     {
                         vacancy--;
                         count++;
+                        String sql1="Select * from approved where studentId='"+studentId+"' and courseId='"+courseId+"'";
+                        stmt = conn.prepareStatement(sql1);
+                        stmt.executeQuery(sql1);
+                        ResultSet rs4= stmt.getResultSet();
+                        if(rs4.next()==true)
+                        {
+                            continue;
+                        }
                         String approve="insert into approved values ('"+studentId+"','"+courseId+"','"+studentName+"','0.0','"+professorId+"')";
                         stmt = conn.prepareStatement(approve);
                         stmt.executeUpdate(approve);
@@ -312,14 +320,13 @@ public class AdminDAOImpl implements AdminDAO{
                         approve="update course set vacancy= '"+vacancy+"' WHERE courseId= '"+courseId+ "'";
                         stmt = conn.prepareStatement(approve);
                         stmt.executeUpdate(approve);
-                        System.out.println("Student: "+studentName+" approved!");
                     }
 
                     rs2.close();
                 }
-                System.out.println(" All Students approved!");
                 rs1.close();
             }
+            System.out.println(" All Students approved!");
             //STEP 6: Clean-up environment
             rs.close();
             stmt.close();

@@ -6,7 +6,7 @@ import static com.flipkart.constants.SQLQueryConstants.*;
 
 public class UserDAOImpl implements UserDAO{
 
-    public void login(String userId, String password)
+    public boolean login(String userId, String password)
     {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -21,15 +21,20 @@ public class UserDAOImpl implements UserDAO{
             while(rs.next())
                 pwd = rs.getString("password");
 
-            if(password.equals(pwd))
-            {
-                System.out.println("Login Successful");
-            }
-            else
-                System.out.println("Invalid Credentials");
+
             rs.close();
             stmt.close();
             conn.close();
+            if(password.equals(pwd))
+            {
+                System.out.println("Login Successful");
+                return true;
+            }
+            else
+            {
+                System.out.println("Invalid Credentials");
+                return false;
+            }
         }catch(SQLException se){
             se.printStackTrace();
         }catch(Exception e){
@@ -47,6 +52,7 @@ public class UserDAOImpl implements UserDAO{
                 se.printStackTrace();
             }
         }
+        return false;
     }
     public boolean reset_password(String userId,String old_password,String new_password)
     {

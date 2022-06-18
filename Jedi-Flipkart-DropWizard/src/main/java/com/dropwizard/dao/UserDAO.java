@@ -1,7 +1,7 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
-import com.flipkart.exception.EmailAlreadyInUseException;
-import com.flipkart.exception.UserNotAddedException;
+import com.dropwizard.exception.EmailAlreadyInUseException;
+import com.dropwizard.exception.UserNotAddedException;
 
 public interface UserDAO {
     public void login(String userId, String password);

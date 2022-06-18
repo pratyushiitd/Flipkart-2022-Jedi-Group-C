@@ -1,4 +1,4 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
 public interface GradeDAO {
     public void submitGrade(String studentId,String courseId,String gpa);

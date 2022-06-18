@@ -1,4 +1,4 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
 public interface PaymentDAO {
     public void getDetails(String studentId);

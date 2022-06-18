@@ -1,10 +1,14 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
-import com.flipkart.exception.CourseNotFoundException;
+import com.dropwizard.bean.Professor;
+import com.dropwizard.bean.Student;
+import com.dropwizard.exception.CourseNotFoundException;
+
+import java.util.List;
 
 public interface ProfessorDAO {
-    public  void viewProfessorDetails(String professorID) ;
-    public  void viewStudentsList(String courseId,int sem) throws CourseNotFoundException;
-    public  void submitGrades(String studentId,int gpa,String courseId);
+    public List<Professor> viewProfessorDetails(String professorID) ;
+    public  List<Student> viewStudentsList(String courseId, int sem) throws CourseNotFoundException;
+    public  boolean submitGrades(String studentId,int gpa,String courseId);
 
 }

@@ -1,8 +1,8 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
 import java.sql.*;
 
-import static com.flipkart.constants.SQLQueryConstants.*;
+import static com.dropwizard.constants.SQLQueryConstants.*;
 
 public class GradeDAOImp implements GradeDAO{
     public void generateGrade(String studentId)

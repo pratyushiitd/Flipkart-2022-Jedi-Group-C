@@ -1,4 +1,4 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
 public interface CourseDAO {
     public void showCourses(String dept);

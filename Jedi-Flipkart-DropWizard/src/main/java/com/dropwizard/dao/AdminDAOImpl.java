@@ -1,10 +1,10 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
-import com.flipkart.constants.SQLQueryConstants;
+import com.dropwizard.constants.SQLQueryConstants;
 
 import java.sql.*;
 
-import static com.flipkart.constants.SQLQueryConstants.*;
+import static com.dropwizard.constants.SQLQueryConstants.*;
 import java.util.List;
 
 public class AdminDAOImpl implements AdminDAO{

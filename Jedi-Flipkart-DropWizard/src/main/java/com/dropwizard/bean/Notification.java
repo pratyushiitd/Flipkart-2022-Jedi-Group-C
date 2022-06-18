@@ -1,4 +1,5 @@
-package com.flipkart.bean;
+package com.dropwizard.bean;
+
 
 public class Notification {
     public void isPaymentDone() {

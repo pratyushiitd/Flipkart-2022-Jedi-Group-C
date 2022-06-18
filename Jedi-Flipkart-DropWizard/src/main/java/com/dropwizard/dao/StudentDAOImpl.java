@@ -1,14 +1,15 @@
-package com.flipkart.dao;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.bean.Payment;
-import com.flipkart.constants.SQLQueryConstants;
-import com.flipkart.exception.GradeCardNotGeneratedException;
+package com.dropwizard.dao;
+import com.dropwizard.bean.GradeCard;
+import com.dropwizard.bean.Payment;
+import com.dropwizard.bean.Student;
+import com.dropwizard.constants.SQLQueryConstants;
+import com.dropwizard.exception.GradeCardNotGeneratedException;
 
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import static com.flipkart.constants.SQLQueryConstants.*;
+import static com.dropwizard.constants.SQLQueryConstants.*;
 
 public class StudentDAOImpl implements StudentDAO{
     //student table
@@ -142,11 +143,13 @@ public class StudentDAOImpl implements StudentDAO{
         return 100;
     }
 
-    public  void viewStudentDetails(String studentID)
+    public Student viewStudentDetails(String studentID)
     {
         PreparedStatement stmt=null;
         Connection conn=null;
         try{
+            System.out.println("student request!!!");
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             String sql = "SELECT * FROM student"+" WHERE studentID= '"+studentID+"'";
@@ -155,6 +158,7 @@ public class StudentDAOImpl implements StudentDAO{
             //stmt.setString(1,studentID);
             ResultSet rs = stmt.executeQuery(sql);
             //System.out.println(sql);
+            Student student = null;
             while(rs.next()){
                 String name = rs.getString("name");
                 String email = rs.getString("email");
@@ -163,17 +167,32 @@ public class StudentDAOImpl implements StudentDAO{
                 System.out.println("student email: " + email);
                 System.out.println("student department: " + department);
                 // System.out.println(", Last: " + location1);
+                student = new Student(
+                        name,
+                        studentID,
+                        studentRole,
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getInt("semester"),
+                        rs.getString("section"),
+                        rs.getString("department"),
+                        rs.getFloat("cg"),
+                        rs.getString("gender")
+                );
             }
             //STEP 6: Clean-up environment
             rs.close();
             stmt.close();
             conn.close();
+            return student;
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
+            return null;
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
+            return null;
         }finally{
             //finally block used to close resources
             try{

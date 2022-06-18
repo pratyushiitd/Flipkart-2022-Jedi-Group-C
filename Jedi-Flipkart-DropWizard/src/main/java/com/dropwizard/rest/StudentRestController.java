@@ -1,13 +1,26 @@
 package com.dropwizard.rest;
 
+import com.dropwizard.dao.StudentDAOImpl;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-@Path("/admin")
+import javax.validation.Validator;
+import com.dropwizard.bean.Student;
+import static com.dropwizard.constants.SQLQueryConstants.*;
+import java.sql.*;
+@Path("/student")
 @Produces(MediaType.APPLICATION_JSON)
 public class StudentRestController {
 
+    private final Validator validator;
+    public StudentDAOImpl studentRef;
+
+    public StudentRestController (Validator validator){
+
+        this.validator = validator;
+        this.studentRef = new StudentDAOImpl();
+    }
     @POST
     @Path("/addstudent/{name}/{role}/{userid}/{password}/{email}/{semester}/{section}/{department}/{cg}/{gender}/{paymentid}")
     public Response addStudent(@PathParam("name") String name,
@@ -37,8 +50,11 @@ public class StudentRestController {
     @GET
     @Path("/viewstudentdetails/{id}")
     public Response viewStudentDetails(@PathParam("id")String studentID){
-        return Response.ok(200).build();
+        System.out.println(studentID);
+        Student std = studentRef.viewStudentDetails(studentID);
 
+        if (std==null) return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(std).build();
     }
 
     @GET

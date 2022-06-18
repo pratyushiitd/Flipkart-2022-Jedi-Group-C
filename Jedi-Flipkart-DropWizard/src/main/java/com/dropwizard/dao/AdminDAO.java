@@ -1,12 +1,12 @@
-package com.flipkart.dao;
+package com.dropwizard.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.exception.*;
-import com.flipkart.bean.Course;
+import com.dropwizard.bean.Professor;
+import com.dropwizard.bean.Student;
+import com.dropwizard.exception.*;
+import com.dropwizard.bean.Course;
 
 
 public interface AdminDAO {

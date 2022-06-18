@@ -1,9 +1,14 @@
 package com.dropwizard.rest;
 
+import com.dropwizard.dao.AdminDAOImpl;
+
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.validation.Validator;
+import static com.dropwizard.constants.SQLQueryConstants.*;
+import java.sql.*;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
@@ -11,6 +16,16 @@ import javax.ws.rs.core.Response;
 public class AdminRestController {
 
 
+    private final Validator validator;
+
+    public AdminDAOImpl adminRef;
+
+
+    public AdminRestController (Validator validator){
+
+        this.validator = validator;
+        this.adminRef= new AdminDAOImpl();
+    }
     @GET
     @Path("/getdepartmentcouse/{id}")
 //    @Produces(MediaType.APPLICATION_JSON)

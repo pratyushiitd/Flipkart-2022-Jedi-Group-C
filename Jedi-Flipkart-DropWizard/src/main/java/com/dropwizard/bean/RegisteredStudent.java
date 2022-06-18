@@ -1,4 +1,5 @@
-package com.flipkart.bean;
+package com.dropwizard.bean;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;

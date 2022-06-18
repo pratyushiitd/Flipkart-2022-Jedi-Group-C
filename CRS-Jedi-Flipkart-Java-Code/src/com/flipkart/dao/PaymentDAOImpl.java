@@ -20,14 +20,35 @@ public class PaymentDAOImpl implements PaymentDAO{
             String name=null;
             while(rs.next())
                 name=rs.getString("name");
-            String sql2 = "Insert into payment values('"+studentId+"','"+paymentId+"','"+name+"')" ;
+            String sql2="Select * from payment where studentID='"+studentId+"'";
+            stmt = conn.prepareStatement(sql2);
+            //stmt.setString(1,studentID);
+
+            ResultSet rs1=stmt.executeQuery(sql2);
+            if(rs1.next()==true)
+            {
+                System.out.println("Payment already done!!");
+                rs.close();
+                stmt.close();
+                conn.close();
+                return;
+            }
+
+            sql2 = "Insert into payment values('"+studentId+"','"+paymentId+"','"+name+"')" ;
             //System.out.println(sql);
             stmt = conn.prepareStatement(sql2);
             //stmt.setString(1,studentID);
              stmt.executeUpdate(sql2);
+           //  sql2="Insert into student (paymentID) values (' student set paymentID='"+paymentId+"' where studentID='"+studentId+"'";
+            //stmt = conn.prepareStatement(sql2);
+            //stmt.setString(1,studentID);
+            //stmt.executeUpdate(sql2);
             rs.close();
             stmt.close();
             conn.close();
+            System.out.println("Pay Rs 100000");
+            //int amount = new Scanner(System.in).nextInt();
+            System.out.println("Fees paid successfully!");
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();

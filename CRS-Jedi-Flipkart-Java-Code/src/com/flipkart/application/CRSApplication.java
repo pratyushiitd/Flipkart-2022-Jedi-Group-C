@@ -108,7 +108,7 @@ public class CRSApplication {
 
                     // approve course for student
                     // take student id and course id as input
-                    adminRefDAO.approveCourses();
+                     adminRefDAO.approveCourses();
 //                    adminRef.approveCourseforStudent(studentId1,courseId1,semester1);
 //                    // student found
 //                    if (studentRef.isCourseforStudent(studentId1,courseId1)){
@@ -224,9 +224,7 @@ public class CRSApplication {
                     // take semester as input
                     System.out.println("Enter semester");
                     int semester1 = new Scanner(System.in).nextInt();
-                    System.out.println("Pay Rs 100000");
-                    //int amount = new Scanner(System.in).nextInt();
-                    System.out.println("Fees paid successfully!");
+
                     int size= paymentDAO.getSize()+1;
                     String paymentId="py00"+size;
                     paymentDAO.makePayment(userId,paymentId);
@@ -238,18 +236,32 @@ public class CRSApplication {
                     System.out.println("Enter semester");
                     int semester2 = new Scanner(System.in).nextInt();
                     gradeDAO.generateGrade(userId);
-                    //gpa karo generate
                     //update in student
                     break;
                 case 3:
                     //addcourse
-                    System.out.println("Enter course id:");
+                    //print all his present courses:
+                    System.out.println("Enter your department");
+                    String dept=new Scanner((System.in)).next();
+                    boolean a=studentRefDAO.viewStudentsCourses(userId);
+                    //print dept courses
+                    if(a==false)
+                        break;
+                    courseDAO.showCourses(dept);
+                    System.out.println("Enter course id to add course:");
                     String courseId=new Scanner(System.in).next();
                     studentRefDAO.addCourse(userId,courseId);
                     break;
                 case 4:
                     //remove course
-                    System.out.println("Enter course id:");
+                   // System.out.println("Enter your department");
+                    //String dept1=new Scanner((System.in)).next();
+                    boolean a1=studentRefDAO.viewStudentsCourses(userId);
+                    System.out.println();
+                    //print dept courses
+                    if(a1==false)
+                        break;
+                    System.out.println("Enter course id to drop course:");
                     String courseId1=new Scanner(System.in).next();
                     studentRefDAO.dropCourse(userId,courseId1);
                     break;
@@ -315,7 +327,8 @@ public class CRSApplication {
                 //println
                 System.out.println("Enter the password:");
                 String password = scanner.next();
-                userRefDAO.login(userId, password);
+                if(!userRefDAO.login(userId, password))
+                    continue;
                 //    System.out.println("Login successful!");
                     //println
                     int role = userRefDAO.getRole(userId);

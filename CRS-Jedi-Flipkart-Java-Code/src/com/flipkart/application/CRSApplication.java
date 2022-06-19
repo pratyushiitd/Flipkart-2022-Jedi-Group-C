@@ -120,6 +120,9 @@ public class CRSApplication {
 //                        System.out.println("Course not Registered!");
 //                    }
                     break;
+                case 8:
+                    System.out.println("Logged out successfully");
+                    return;
             }
         }
     }
@@ -210,6 +213,9 @@ public class CRSApplication {
                         }
                     }
                     break;
+                case 4:
+                    System.out.println("Logged out successfully");
+                    return;
             }
         }
     }
@@ -276,7 +282,7 @@ public class CRSApplication {
                 case 6:
                     //exit
                     System.out.println("Logged out successfully");
-                    break;
+                    return;
             }
         }
     }

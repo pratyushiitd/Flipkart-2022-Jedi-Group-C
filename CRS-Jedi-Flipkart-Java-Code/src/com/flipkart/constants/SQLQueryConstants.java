@@ -12,7 +12,7 @@ public class SQLQueryConstants {
 
     //  Database credentials
     public static final String USER = "root";
-    public static final String PASS = "Blue_175961";
+    public static final String PASS = "Blue_175981";
     public static final int adminRole=1;
     public static final int studentRole=3;
     public static final int professorRole=2;

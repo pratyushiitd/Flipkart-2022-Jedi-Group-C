@@ -107,7 +107,6 @@ public class AdminDAOImpl implements AdminDAO{
             stmt.setString(5,department);
             stmt.setInt(6, professorRole);
             stmt.executeUpdate();
-            System.out.println("Professor added successfully!");
             stmt.close();
             conn.close();
         }catch(SQLException se){
